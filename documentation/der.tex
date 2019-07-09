@@ -1,0 +1,53 @@
+\documentclass[a4paper,12pt,landscape]{article}
+
+\usepackage[landscape]{geometry}
+\usepackage{graphicx}
+
+\usepackage{tikz-er2}
+\begin{document}
+
+\thispagestyle{empty}
+
+\usetikzlibrary{positioning}
+\usetikzlibrary{shadows}
+
+\tikzstyle{every entity} = [top color=white, bottom color=blue!30,
+                            draw=blue!50!black!100, drop shadow]
+\tikzstyle{every weak entity} = [drop shadow={shadow xshift=.7ex,
+                                 shadow yshift=-.7ex}]
+\tikzstyle{every attribute} = [top color=white, bottom color=yellow!20,
+                               draw=yellow, node distance=1cm, drop shadow]
+\tikzstyle{every relationship} = [top color=white, bottom color=red!20,
+                                  draw=red!50!black!100, drop shadow]
+
+\centering
+\scalebox{.87}{
+\begin{tikzpicture}[node distance=1.5cm, every edge/.style={link}]
+
+  %
+  \node[entity]  (pro) {Proveedores}; % Talleres mecanicos - Services
+  \node[entity]  (nts-cre) [right=of pro] {Notas de Credito};
+
+% Contabilidad
+  \node[entity]  (fac) [below=of pro] {Facturas};
+  \node[entity]  (cli) [right=of fac] {Clientes};
+  \node[entity]  (rec) [right=of cli] {Recibos};
+
+  \node[entity]  (via) [below=of cli] {Viajes};
+  \node[entity]  (des) [right=of via] {Viajes - Destinos};
+
+  % Transporte
+  \node[entity]  (tip-veh) [below= of via] {Tipos de Vehiculos};
+  \node[entity]  (veh)     [right=of tip-veh]   {Vehiculos};
+  %
+  \node[entity]  (cho)         [left=of via]     {Choferes};
+  \node[entity]  (cho-tip-veh) [left=of tip-veh] {Choferes - Tipos de Vehiculos};
+  %
+  \node[entity]  (tip-car) [below= of tip-veh] {Tipos de Carga};
+  \node[entity]  (car)     [right=of tip-car]       {Cargas};
+
+
+  \end{tikzpicture}
+}
+
+\end{document}
