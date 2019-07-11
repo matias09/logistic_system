@@ -12,7 +12,7 @@
 \usetikzlibrary{shadows}
 
 \tikzstyle{every entity} = [top color=white, bottom color=blue!30,
-                            draw=blue!50!black!100, drop shadow]
+                            draw=orange!50!black!100, drop shadow]
 \tikzstyle{every weak entity} = [drop shadow={shadow xshift=.7ex,
                                  shadow yshift=-.7ex}]
 \tikzstyle{every attribute} = [top color=white, bottom color=yellow!20,
@@ -26,26 +26,36 @@
 
   %
   \node[entity]  (pro) {Proveedores}; % Talleres mecanicos - Services
-  \node[entity]  (nts-cre) [right=of pro] {Notas de Credito};
 
 % Contabilidad
-  \node[entity]  (fac) [below=of pro] {Facturas};
-  \node[entity]  (cli) [right=of fac] {Clientes};
-  \node[entity]  (rec) [right=of cli] {Recibos};
+  \node[entity]  (nts-cre) [right=1.5cm of pro] {Notas de Credito};
+  \node[entity]  (fac)     [below=of pro] {Facturas};
+  \node[entity]  (cli)     [right=of fac] {Clientes};
+  \node[entity]  (rec)     [right=of cli] {Recibos};
 
-  \node[entity]  (via) [below=of cli] {Viajes};
-  \node[entity]  (des) [right=of via] {Viajes - Destinos};
+  \node[entity]  (via)     [below=of cli]   {Viajes};
+  \node[entity]  (via-des) [below=of via]       {Viajes - Destinos};
+  \node[entity]  (des)     [below=of via-des]    {Destinos};
 
   % Transporte
-  \node[entity]  (tip-veh) [below= of via] {Tipos de Vehiculos};
-  \node[entity]  (veh)     [right=of tip-veh]   {Vehiculos};
+  \node[entity]  (veh)     [below=of des]   {Vehiculos};
+  \node[entity]  (tip-veh) [left=of veh]   {Tipos de Vehiculos};
   %
-  \node[entity]  (cho)         [left=of via]     {Choferes};
-  \node[entity]  (cho-tip-veh) [left=of tip-veh] {Choferes - Tipos de Vehiculos};
+  \node[entity]  (cho-tip-veh) [right=of veh]             {Choferes - Tipos de Vehiculos};
+  \node[entity]  (cho)         [right=of des]     {Choferes};
   %
-  \node[entity]  (tip-car) [below= of tip-veh] {Tipos de Carga};
-  \node[entity]  (car)     [right=of tip-car]       {Cargas};
+  \node[entity]  (car)     [left=of des]       {Cargas};
+  \node[entity]  (tip-car) [left=of car]      {Tipos de Carga};
 
+
+  % Relations
+  \draw[link] (nts-cre) edge [<<->] (cli);
+  \draw[link] (fac)     edge [<<->] (cli);
+  \draw[link] (rec)     edge [<<->] (cli);
+  \draw[link] (via)     edge [<<->] (cli);
+
+  \draw[link] (via)     edge [<->>] (via-des);
+  \draw[link] (via-des) edge [<<->] (des);
 
   \end{tikzpicture}
 }
