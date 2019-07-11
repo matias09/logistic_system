@@ -1,0 +1,9 @@
+/*
+!src/*.cpp
+!src/*.h
+!include/
+!lib/
+!documentation/*.tex
+!.gitignore
+!CMakeLists.txt
+!README.md
