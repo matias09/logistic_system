@@ -28,23 +28,23 @@
   \node[entity]  (pro) {Proveedores}; % Talleres mecanicos - Services
 
 % Contabilidad
-  \node[entity]  (nts-cre) [right=1.5cm of pro] {Notas de Credito};
+  \node[entity]  (nts-cre) [right=1cm of pro] {Notas de Credito};
   \node[entity]  (fac)     [below=of pro] {Facturas};
   \node[entity]  (cli)     [right=of fac] {Clientes};
   \node[entity]  (rec)     [right=of cli] {Recibos};
 
-  \node[entity]  (via)     [below=of cli]   {Viajes};
-  \node[entity]  (via-des) [below=of via]       {Viajes - Destinos};
-  \node[entity]  (des)     [below=of via-des]    {Destinos};
+  \node[entity]  (via)     [below=of cli]      {Viajes};
+  \node[entity]  (via-des) [below=of via]      {Viajes - Destinos};
+  \node[entity]  (des)     [below=of via-des]  {Destinos};
 
   % Transporte
-  \node[entity]  (veh)     [below=of des]   {Vehiculos};
+  \node[entity]  (veh)     [below=of des]  {Vehiculos};
   \node[entity]  (tip-veh) [left=of veh]   {Tipos de Vehiculos};
   %
-  \node[entity]  (cho-tip-veh) [right=of veh]             {Choferes - Tipos de Vehiculos};
-  \node[entity]  (cho)         [right=of des]     {Choferes};
+  \node[entity]  (cho-veh) [right=of veh]     {Choferes - Vehiculos};
+  \node[entity]  (cho)     [right=2.2cm of des]     {Choferes};
   %
-  \node[entity]  (car)     [left=of des]       {Cargas};
+  \node[entity]  (car)     [left=of des]      {Cargas};
   \node[entity]  (tip-car) [left=of car]      {Tipos de Carga};
 
 
@@ -56,6 +56,15 @@
 
   \draw[link] (via)     edge [<->>] (via-des);
   \draw[link] (via-des) edge [<<->] (des);
+
+  \draw[link] (tip-car) edge [<->>] (car);
+  \draw[link] (car)     edge [<<->] (des);
+  \draw[link] (des)     edge [<<->] (cho);
+  \draw[link] (des)     edge [<->]  (veh);
+
+  \draw[link] (tip-veh) edge [<->>] (veh);
+  \draw[link] (veh)     edge [<->>] (cho-veh);
+  \draw[link] (cho-veh) edge [<<->] (cho);
 
   \end{tikzpicture}
 }
