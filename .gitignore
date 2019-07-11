@@ -1,9 +1,9 @@
 /*
-!src/*.cpp
-!src/*.h
+!src
 !include/
 !lib/
-!documentation/*.tex
+!documentation
+!example_files
 !.gitignore
 !CMakeLists.txt
 !README.md
