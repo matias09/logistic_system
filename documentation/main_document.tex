@@ -1,0 +1,49 @@
+\documentclass{article}
+
+% main document dependencies
+\usepackage[utf8]{inputenc}
+
+% Der File Dependencies
+\usepackage[landscape]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz-er2}
+
+\title{Sistema de Logistica}
+\author{Matias M. Marceca}
+\date{12/12/2019}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Introduction}
+
+This is the first section.
+
+Lorem  ipsum  dolor  sit  amet,  consectetuer  adipiscing
+elit.   Etiam  lobortisfacilisis sem.  Nullam nec mi et
+neque pharetra sollicitudin.  Praesent imperdietmi nec ante.
+Donec ullamcorper, felis non sodales...
+
+% \addcontentsline{toc}{section}{DER}
+% \section*{DER}
+\section{DER}
+
+  % this include the content of der-content.tex
+  \include{der-content}
+
+  \begin{abstract}
+  This is a simple paragraph at the beginning of the
+  document. A brief introduction about the main subject.
+  % \include{dic-datos-content}
+  \end{abstract}
+
+\section{another section}
+
+This is a simple paragraph at the beginning of the
+document. A brief introduction about the main subject.
+
+
+\end{document}
