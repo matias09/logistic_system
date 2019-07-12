@@ -11,15 +11,15 @@
 \begin{tikzpicture}[node distance=1.5cm, every edge/.style={link}]
 
   %
-  \node[entity]  (pro) {Proveedores}; % Talleres mecanicos - Services
+  % \node[entity]  (pro) {Proveedores}; % Talleres mecanicos - Services
 
 % Contabilidad
-  \node[entity]  (nts-cre) [right=1cm of pro] {Notas de Credito};
-  \node[entity]  (fac)     [below=of pro] {Facturas};
+  % \node[entity]  (nts-cre) [right=1cm of pro] {Notas de Credito};
+  \node[entity]  (fac)     {Facturas};
   \node[entity]  (cli)     [right=of fac] {Clientes};
   \node[entity]  (rec)     [right=of cli] {Recibos};
 
-  \node[entity]  (via)     [below=of cli]      {Viajes};
+  \node[entity]  (via)     [below=4cm of fac]  {Viajes};
   \node[entity]  (via-des) [below=of via]      {Viajes - Destinos};
   \node[entity]  (des)     [below=of via-des]  {Destinos};
 
@@ -27,18 +27,18 @@
   \node[entity]  (veh)     [below=of des]  {Vehiculos};
   \node[entity]  (tip-veh) [left=of veh]   {Tipos de Vehiculos};
   %
-  \node[entity]  (cho-veh) [right=of veh]     {Choferes - Vehiculos};
-  \node[entity]  (cho)     [right=2.2cm of des]     {Choferes};
+  \node[entity]  (cho-veh) [right=of veh]         {Choferes - Vehiculos};
+  \node[entity]  (cho)     [right=2.2cm of des]   {Choferes};
   %
   \node[entity]  (car)     [left=of des]      {Cargas};
   \node[entity]  (tip-car) [left=of car]      {Tipos de Carga};
 
 
   % Relations
-  \draw[link] (nts-cre) edge [<<->] (cli);
+  % \draw[link] (nts-cre) edge [<<->] (cli);
   \draw[link] (fac)     edge [<<->] (cli);
   \draw[link] (rec)     edge [<<->] (cli);
-  \draw[link] (via)     edge [<<->] (cli);
+  \draw[link] (via)     edge [<<->] (fac);
 
   \draw[link] (via)     edge [<->>] (via-des);
   \draw[link] (via-des) edge [<<->] (des);
