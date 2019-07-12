@@ -15,17 +15,23 @@
 
 % Contabilidad
   % \node[entity]  (nts-cre) [right=1cm of pro] {Notas de Credito};
-  \node[entity]  (fac)     {Facturas};
-  \node[entity]  (cli)     [right=of fac] {Clientes};
-  \node[entity]  (rec)     [right=of cli] {Recibos};
+  \node[entity]  (cli)                              {Clientes};
+  \node[entity]  (loc)     [left=of cli]            {Localidades};
+  \node[entity]  (pro)     [left=of loc]            {Provincias};
+  \node[entity]  (rec)     [right=of cli]           {Recibos};
 
-  \node[entity]  (via)     [below=4cm of fac]  {Viajes};
+  \node[entity]  (via)     [below=of cli]  {Viajes};
   \node[entity]  (via-des) [below=of via]      {Viajes - Destinos};
   \node[entity]  (des)     [below=of via-des]  {Destinos};
 
+  \node[entity]  (fac)     [right=2cm of via]       {Facturas};
+  \node[entity]  (pag-com) [below=of fac]           {Pago de Comisiones};
+
   % Transporte
-  \node[entity]  (veh)     [below=of des]  {Vehiculos};
-  \node[entity]  (tip-veh) [left=of veh]   {Tipos de Vehiculos};
+  \node[entity]  (veh)     [below=of des]           {Vehiculos};
+  \node[entity]  (tip-veh) [left=of veh]            {Tipos de Vehiculos};
+  \node[entity]  (mar)     [below left=2cm of veh]  {Marcas};
+  \node[entity]  (mod)     [right=2cm of mar]       {Modelos};
   %
   \node[entity]  (cho-veh) [right=of veh]         {Choferes - Vehiculos};
   \node[entity]  (cho)     [right=2.2cm of des]   {Choferes};
@@ -35,9 +41,11 @@
 
 
   % Relations
-  % \draw[link] (nts-cre) edge [<<->] (cli);
+  \draw[link] (loc)     edge [<->]  (pro);
+  \draw[link] (loc)     edge [<->>] (cli);
   \draw[link] (fac)     edge [<<->] (cli);
   \draw[link] (rec)     edge [<<->] (cli);
+  \draw[link] (rec)     edge [<->]  (fac);
   \draw[link] (via)     edge [<<->] (fac);
 
   \draw[link] (via)     edge [<->>] (via-des);
@@ -48,9 +56,14 @@
   \draw[link] (des)     edge [<<->] (cho);
   \draw[link] (des)     edge [<->]  (veh);
 
+  \draw[link] (mar)     edge [<->>] (veh);
+  \draw[link] (mod)     edge [<->>] (veh);
   \draw[link] (tip-veh) edge [<->>] (veh);
   \draw[link] (veh)     edge [<->>] (cho-veh);
   \draw[link] (cho-veh) edge [<<->] (cho);
+
+  \draw[link] (pag-com) edge [<->]  (fac);
+  \draw[link] (cho)     edge [<->>] (pag-com);
 
   \end{tikzpicture}
 }

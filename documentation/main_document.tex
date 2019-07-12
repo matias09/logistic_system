@@ -10,7 +10,7 @@
 
 \title{Sistema de Logistica}
 \author{Matias M. Marceca}
-\date{12/12/2019}
+% \date{12/12/2019}
 
 \begin{document}
 
@@ -18,43 +18,44 @@
 
 \tableofcontents
 
-\section{Introduction}
+\section{Introduccion}
+\begin{flushleft}
+El Sistema de logistica presenta los modulos necesarios para la administracion de transporte de cargas de un destino a otro. \newline
+El mismo, posee la funcionalidad de Trackeo de vehiculos y la generacion de la mejor ruta para el traslado.
+\end{flushleft}
 
-This is the first section.
-
+\section{DER}
 % \addcontentsline{toc}{section}{DER}
 % \section*{DER}
-\section{DER}
 
   % this include the content of der-content.tex
   \include{der-content}
 
-  \begin{Diccionario de Datos}
-   \textbf{Provincias}          = @id + nombre
-   \textbf{Localidades}         = @id + nombre
-   \textbf{Clientes}            = @id + \underline{idProvincia} + \underline{idLocalidad} + nombre + telefono + celular + mail + direccion + piso + nroDepartamento
-   \textbf{Facturas}            = @id + \underline{idCliente} + tipo + codigo + fecha + saldo + subtotal + iva + total % subtotal = neto gravado
-   \textbf{Recibos}             = @id + \underline{idCliente} + \underline{idFactura} + fecha + total
+\section{Diccionario de Datos}
 
-   \textbf{Viajes}              = @id + \underline{idCliente} + fecha + precio
-   \textbf{Viajes-Destinos}     = @id + \underline{idViaje} + \underline{idDestino}
-   \textbf{Destinos}            = @id + \underline{idChofer} + latitud + longitud + pais + provincia + localidad + direccion + piso + departamento
-   \textbf{Cargas}              = @id + \underline{idTipoCarga} + \underline{idDestino} + cantidad + pesoPorUnidad + ancho + largo
-   \textbf{TiposDeCarga}        = @id + nombre
-   \textbf{Choferes}            = @id + nombre + vctRegistro + telefono + celular + mail + direccion + piso + nroDepartamento
-   \textbf{PagoComisiones}      = @id + \underline{idChofer} + \underline{idFactura} + fecha + total
+\setlength{\parindent}{4em}
+\setlength{\parskip}{1em}
+\renewcommand{\baselinestretch}{1.5}
 
-   \textbf{Marcas}              = @id + nombre
-   \textbf{Modelos}             = @id + nombre
-   \textbf{Vehiculos}           = @id + \underline{idTipoVehiculo} + \underline{idMarca} + \underline{idModelo} + patente + año
-   \textbf{ChoferesVehiculos}   = @id + \underline{idChofer} + \underline{idVehiculo}
-
-  \end{Diccionario de Datos}
-
-\section{another section}
-
-This is a simple paragraph at the beginning of the
-document. A brief introduction about the main subject.
-
+\begin{flushleft}
+  \textbf{Provincias}                    = @id + nombre
+  \newline  \textbf{Localidades}         = @id + \underline{idProvincia} + nombre
+  \newline  \textbf{Clientes}            = @id + \underline{idLocalidad} + nombre + telefono + celular + mail + direccion + piso + nroDepartamento
+  \newline  \textbf{Facturas}            = @id + \underline{idCliente} + tipo + codigo + fecha + saldo + subtotal + iva + total % subtotal = neto gravado
+  \newline  \textbf{Recibos}             = @id + \underline{idCliente} + \underline{idFactura} + fecha + total
+  \newline
+  \newline  \textbf{Viajes}              = @id + \underline{idFactura} + fecha + precio
+  \newline  \textbf{Viajes-Destinos}     = @id + \underline{idViaje} + \underline{idDestino}
+  \newline  \textbf{Destinos}            = @id + \underline{idChofer} + latitud + longitud + pais + provincia + localidad + direccion + piso + departamento
+  \newline  \textbf{Cargas}              = @id + \underline{idTipoCarga} + \underline{idDestino} + cantidad + pesoPorUnidad + ancho + largo
+  \newline  \textbf{TiposDeCarga}        = @id + nombre
+  \newline  \textbf{Choferes}            = @id + nombre + nroRegistro + vtoRegistro + telefono + celular + mail
+  \newline  \textbf{PagoComisiones}      = @id + \underline{idChofer} + \underline{idFactura} + fecha + total
+  \newline
+  \newline  \textbf{Marcas}              = @id + nombre
+  \newline  \textbf{Modelos}             = @id + nombre
+  \newline  \textbf{Vehiculos}           = @id + \underline{idTipoVehiculo} + \underline{idMarca} + \underline{idModelo} + patente + año
+  \newline  \textbf{ChoferesVehiculos}   = @id + \underline{idChofer} + \underline{idVehiculo}
+\end{flushleft}
 
 \end{document}
