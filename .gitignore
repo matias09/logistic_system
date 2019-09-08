@@ -1,9 +1,9 @@
 /*
-!src
+!documentation/
+!database/
 !include/
 !lib/
-!documentation
-!example_files
+!src/
 !.gitignore
 !CMakeLists.txt
 !README.md

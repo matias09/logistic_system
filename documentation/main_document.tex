@@ -38,23 +38,24 @@ El mismo, posee la funcionalidad de Trackeo de vehiculos y la generacion de la m
 \renewcommand{\baselinestretch}{1.5}
 
 \begin{flushleft}
-  \textbf{Provincias}                    = @id + nombre
+  \textbf{Paises}                        = @id + nombre
+  \newline  \textbf{Provincias}          = @id + \underline{idPais}      + nombre
   \newline  \textbf{Localidades}         = @id + \underline{idProvincia} + nombre
   \newline  \textbf{Clientes}            = @id + \underline{idLocalidad} + nombre + telefono + celular + mail + direccion + piso + nroDepartamento
-  \newline  \textbf{Facturas}            = @id + \underline{idCliente} + tipo + codigo + fecha + saldo + subtotal + iva + total % subtotal = neto gravado
+  \newline  \textbf{Facturas}            = @id + \underline{idCliente} + tipo + fecha + saldo + subtotal + iva + total % subtotal = neto gravado
   \newline  \textbf{Recibos}             = @id + \underline{idCliente} + \underline{idFactura} + fecha + total
   \newline
   \newline  \textbf{Viajes}              = @id + \underline{idFactura} + fecha + precio
-  \newline  \textbf{Viajes-Destinos}     = @id + \underline{idViaje} + \underline{idDestino}
-  \newline  \textbf{Destinos}            = @id + \underline{idChofer} + latitud + longitud + pais + provincia + localidad + direccion + piso + departamento
-  \newline  \textbf{Cargas}              = @id + \underline{idTipoCarga} + \underline{idDestino} + cantidad + pesoPorUnidad + ancho + largo
+  \newline  \textbf{Viajes\_Destinos}    = @id + \underline{idViaje} + \underline{idDestino}
+  \newline  \textbf{Destinos}            = @id + \underline{idChofer} + \underline{idPais} + \underline{idProvincia} + \underline{idLocalidad} + direccion + piso + departamento + latitud + longitud
+  \newline  \textbf{Cargas}              = @id + \underline{idTipoCarga} + \underline{idDestino} + cantidad + pesoPorUnidad + ancho + largo + alto
   \newline  \textbf{TiposDeCarga}        = @id + nombre
-  \newline  \textbf{Choferes}            = @id + nombre + nroRegistro + vtoRegistro + telefono + celular + mail
+  \newline  \textbf{Choferes}            = @id + \underline{idPais} + \underline{idLocalidad} + nombre + nroRegistro + vtoRegistro + telefono + celular + mail + direccion + piso + nroDepartamento
   \newline  \textbf{PagoComisiones}      = @id + \underline{idChofer} + \underline{idFactura} + fecha + total
   \newline
   \newline  \textbf{Marcas}              = @id + nombre
-  \newline  \textbf{Modelos}             = @id + nombre
-  \newline  \textbf{Vehiculos}           = @id + \underline{idTipoVehiculo} + \underline{idMarca} + \underline{idModelo} + patente + año
+  \newline  \textbf{Modelos}             = @id + \underline{idMarca} + nombre
+  \newline  \textbf{Vehiculos}           = @id + \underline{idTipoVehiculo} + \underline{idModelo} + patente + vto\_patente + año
   \newline  \textbf{ChoferesVehiculos}   = @id + \underline{idChofer} + \underline{idVehiculo}
 \end{flushleft}
 

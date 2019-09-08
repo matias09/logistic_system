@@ -15,17 +15,18 @@
 
 % Contabilidad
   % \node[entity]  (nts-cre) [right=1cm of pro] {Notas de Credito};
-  \node[entity]  (cli)                              {Clientes};
-  \node[entity]  (loc)     [left=of cli]            {Localidades};
-  \node[entity]  (pro)     [left=of loc]            {Provincias};
-  \node[entity]  (rec)     [right=of cli]           {Recibos};
+  \node[entity]  (cli)                     {Clientes};
+  \node[entity]  (loc)     [left=of cli]   {Localidades};
+  \node[entity]  (pro)     [left=of loc]   {Provincias};
+  \node[entity]  (pai)     [below=of pro]   {Paises};
+  \node[entity]  (rec)     [right=of cli]  {Recibos};
 
-  \node[entity]  (via)     [below=of cli]  {Viajes};
-  \node[entity]  (via-des) [below=of via]      {Viajes - Destinos};
-  \node[entity]  (des)     [below=of via-des]  {Destinos};
+  \node[entity]  (via)     [below=of cli]     {Viajes};
+  \node[entity]  (via-des) [below=of via]     {Viajes - Destinos};
+  \node[entity]  (des)     [below=of via-des] {Destinos};
 
-  \node[entity]  (fac)     [right=2cm of via]       {Facturas};
-  \node[entity]  (pag-com) [below=of fac]           {Pago de Comisiones};
+  \node[entity]  (fac)     [right=2cm of via]  {Facturas};
+  \node[entity]  (pag-com) [below=of fac]      {Pago de Comisiones};
 
   % Transporte
   \node[entity]  (veh)     [below=of des]           {Vehiculos};
@@ -36,11 +37,12 @@
   \node[entity]  (cho-veh) [right=of veh]         {Choferes - Vehiculos};
   \node[entity]  (cho)     [right=2.2cm of des]   {Choferes};
   %
-  \node[entity]  (car)     [left=of des]      {Cargas};
-  \node[entity]  (tip-car) [left=of car]      {Tipos de Carga};
+  \node[entity]  (car)     [left=of des] {Cargas};
+  \node[entity]  (tip-car) [left=of car] {Tipos de Carga};
 
 
   % Relations
+  \draw[link] (pai)     edge [<->>] (pro);
   \draw[link] (loc)     edge [<->]  (pro);
   \draw[link] (loc)     edge [<->>] (cli);
   \draw[link] (fac)     edge [<<->] (cli);
@@ -56,7 +58,7 @@
   \draw[link] (des)     edge [<<->] (cho);
   \draw[link] (des)     edge [<->]  (veh);
 
-  \draw[link] (mar)     edge [<->>] (veh);
+  \draw[link] (mar)     edge [<->>] (mod);
   \draw[link] (mod)     edge [<->>] (veh);
   \draw[link] (tip-veh) edge [<->>] (veh);
   \draw[link] (veh)     edge [<->>] (cho-veh);
