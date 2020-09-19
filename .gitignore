@@ -1,4 +1,7 @@
 /*
+/lg-lib/build/
+/documentation/cooked_files/*
+/documentation/*.pdf
 !documentation/
 !database/
 !lg-ui/
