@@ -1,9 +1,12 @@
 /*
 !documentation/
 !database/
-!include/
-!lib/
-!src/
+!lg-ui/
+!lg-lib/
+!lg.pro
+!qmake-target-platform.pri
+!lg.pro.user
+!qmake-destination-path.pri
 !.gitignore
 !CMakeLists.txt
 !README.md
