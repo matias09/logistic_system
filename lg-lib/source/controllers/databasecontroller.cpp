@@ -3,7 +3,16 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QJsonDocument>
+#include <QDir>
+#include <QFile>
 #include <QDebug>
+#include <QSqlError>
+
+// C++
+#include <iostream>
+
+const QString DATABASE_SCHEMA_FILE = "db_schema.sql";
+const QString DATABASE_NAME = "lg.sqlite";
 
 namespace lg {
 namespace controllers {
@@ -14,18 +23,13 @@ public:
   Implementation(DatabaseController *_databaseController)
     : databaseController(_databaseController)
   {
-    if ( initialise() ) {
-      qDebug() << "Database Created using Sqlite version: "
-               << sqliteVersion();
+    database = QSqlDatabase::addDatabase("QSQLITE", "lg");
 
-      if ( createTables() )  {
-        qDebug() << "Database Tables Created";
-      } else {
-        qDebug() << "ERROR: Unable to Create Database Tables";
-      }
-    } else {
-      qDebug() << "ERROR: Unable to Open Database";
+    if (not initialise())  {
+      return;
     }
+
+    std::cout << "Database Sqlite Open " << std::endl;
   }
 
   DatabaseController *databaseController{nullptr};
@@ -34,32 +38,60 @@ public:
 private:
   bool initialise()
   {
-    database = QSqlDatabase::addDatabase("QSQLITE", "lg");
-    database.setDatabaseName( "lg.sqlite" );
-    return database.open();
+    QString mark = QDir::currentPath();
+    mark.append( QDir::separator() );
+    mark += DATABASE_NAME;
+
+    std::cout << mark.toStdString() << std::endl;
+
+    if ( not QFile::exists(DATABASE_NAME) ) {
+      database.setDatabaseName( DATABASE_NAME );
+      database.open();
+
+      if ( not createTables() ) {
+        std::cout << "ERROR: Unable to Create Database Tables" << std::endl;
+        return false;
+      }
+
+    } else {
+       database.open();
+    }
+
+    return true;
   }
 
-  bool createTables() { return createJsonTable( "client" ); }
-
-  bool createJsonTable(const QString &tableName) const
+  bool createTables()
   {
+    bool r = true;
+
+    std::cout << "Creating Database and Tables" << std::endl;
+
+    database.setDatabaseName( DATABASE_NAME );
+
+    QFile f (QDir::currentPath() + "/" + DATABASE_SCHEMA_FILE);
+    f.open(QIODevice::ReadOnly | QIODevice::Text);
+
+    QString q = f.readAll().trimmed();
+
+    QStringList ql = q.split(";", QString::SkipEmptyParts);
+
     QSqlQuery query(database);
-    QString sqlStatement = "CREATE TABLE IF NOT EXISTS "
-        + tableName + " (id text primary key, json text not null) ";
 
-    if ( ! query.prepare(sqlStatement) ) return false;
+    foreach( const QString &s, ql)
+    {
+      query.exec(s);
+      if ( query.lastError().type() != QSqlError::NoError ) {
+        std::cout << "Can't execute sql file: "
+                  << query.lastError().text().toStdString() << std::endl;
+        r = false;
+        break;
+      }
+    }
+    f.close();
 
-    return query.exec();
-  }
+    std::cout << "Query for tables executed" << std::endl;
 
-  QString sqliteVersion() const
-  {
-    QSqlQuery query(database);
-    query.exec("SELECT sqlite_version()");
-
-    if ( query.next() ) return  query.value(0).toString();
-
-    return QString::number(-1);
+    return r;
   }
 };
 
@@ -68,7 +100,7 @@ DatabaseController::DatabaseController(QObject *parent) : IDatabaseController(pa
   implementation.reset( new Implementation(this) );
 }
 
-DatabaseController:: ~DatabaseController() {}
+DatabaseController::~DatabaseController() {}
 
 bool DatabaseController::createRow(const QString &tableName
                                   ,const QString &id
