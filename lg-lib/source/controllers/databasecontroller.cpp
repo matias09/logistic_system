@@ -24,6 +24,7 @@ public:
     : databaseController(_databaseController)
   {
     database = QSqlDatabase::addDatabase("QSQLITE", "lg");
+    database.setDatabaseName( DATABASE_NAME );
 
     if (not initialise())  {
       return;
@@ -38,21 +39,17 @@ public:
 private:
   bool initialise()
   {
-    QString mark = QDir::currentPath();
-    mark.append( QDir::separator() );
-    mark += DATABASE_NAME;
+    QString db_file_path = QDir::currentPath();
+    db_file_path.append( QDir::separator() );
+    db_file_path += DATABASE_NAME;
 
-    std::cout << mark.toStdString() << std::endl;
-
-    if ( not QFile::exists(DATABASE_NAME) ) {
-      database.setDatabaseName( DATABASE_NAME );
+    if ( not QFile::exists(db_file_path) ) {
       database.open();
 
       if ( not createTables() ) {
         std::cout << "ERROR: Unable to Create Database Tables" << std::endl;
         return false;
       }
-
     } else {
        database.open();
     }
@@ -65,8 +62,6 @@ private:
     bool r = true;
 
     std::cout << "Creating Database and Tables" << std::endl;
-
-    database.setDatabaseName( DATABASE_NAME );
 
     QFile f (QDir::currentPath() + "/" + DATABASE_SCHEMA_FILE);
     f.open(QIODevice::ReadOnly | QIODevice::Text);
@@ -111,18 +106,33 @@ bool DatabaseController::createRow(const QString &tableName
   if ( jsonObject.isEmpty() ) return false;
 
   QSqlQuery query(implementation->database);
-  QString sqlStatement = "INSERT OR REPLACE INTO "
-      + tableName +  " (id, json) VALUES (:id, :json)";
+  QString sqlStatement = "INSERT OR REPLACE INTO " + tableName
+    +  " (id, name, phone, cellphone, mail , street, city, post_code) "
+    +  "  VALUES "
+    +  " (:id, :name, :phone, :cellphone, :mail, :street, :city, :post_code)";
 
-  if ( ! query.prepare(sqlStatement) ) return false;
+  query.prepare(sqlStatement);
+  if ( query.lastError().type() != QSqlError::NoError ) {
+    std::cout << "Can't Prepare sql file: "
+              << query.lastError().text().toStdString() << std::endl;
+    return false;
+  }
 
-  query.bindValue(":id", QVariant(id) );
-  query.bindValue(
-    ":json",
-    QVariant( QJsonDocument(jsonObject).toJson(QJsonDocument::Compact) )
-   );
+  query.bindValue(":id",          QVariant(id) );
+  query.bindValue(":name",        QVariant(jsonObject["name"]) );
+  query.bindValue(":phone",       QVariant(jsonObject["phone"]) );
+  query.bindValue(":cellphone",   QVariant(jsonObject["cellphone"]) );
+  query.bindValue(":mail",        QVariant(jsonObject["mail"]) );
+  query.bindValue(":street",      QVariant(jsonObject["address"]["street"]) );
+  query.bindValue(":city",        QVariant(jsonObject["address"]["city"]) );
+  query.bindValue(":post_code",   QVariant(jsonObject["address"]["postcode"]) );
 
-  if ( ! query.exec() ) return  false;
+  query.exec();
+  if ( query.lastError().type() != QSqlError::NoError ) {
+    std::cout << "Can't Execute sql file: "
+              << query.lastError().text().toStdString() << std::endl;
+    return false;
+  }
 
   return query.numRowsAffected() > 0;
 }

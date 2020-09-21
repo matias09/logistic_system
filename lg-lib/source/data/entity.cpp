@@ -33,7 +33,6 @@ public:
   : QObject (parent)
  {
     implementation.reset( new Implementation(this, nullptr, key) );
-    //implementation.reset( new Implementation(this, key) );
  }
 
  Entity::Entity(
@@ -58,7 +57,7 @@ public:
   return implementation->id;
 }
 
- const QString& Entity::key() const { return implementation->key; }
+const QString& Entity::key() const { return implementation->key; }
 
 void Entity::setPrimaryKey(StringDecorator *primaryKey)
 {

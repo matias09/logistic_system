@@ -19,7 +19,7 @@ Item {
 
         margins: Style.sizeScreenMargin
       }
-      headerText: "Find Clients"
+      headerText: "Buscar Clientes"
 
       contentComponent:
         StringEditorSingleLine {

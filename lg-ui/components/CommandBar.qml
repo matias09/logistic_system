@@ -20,6 +20,7 @@ Item {
         top: parent.top
         bottom: parent.bottom
         right: parent.right
+        rightMargin: 10
       }
 
       Repeater {

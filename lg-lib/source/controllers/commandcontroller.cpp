@@ -25,7 +25,7 @@ public:
     , clientSearch(_clientSearch)
   {
      Command *createClientSaveCommand = new Command(
-       commandController, QChar(  0xf0c7 ), "Save"
+       commandController, QChar(  0xf0c7 ), "Guardar"
      );
      QObject::connect(
        createClientSaveCommand, &Command::executed,
@@ -35,7 +35,7 @@ public:
 
 
      Command *findClientSearchCommand = new Command(
-      commandController, QChar(  0xf002 ), "Search"
+      commandController, QChar(  0xf002 ), "Buscar"
      );
      QObject::connect(
        findClientSearchCommand, &Command::executed,
@@ -45,7 +45,7 @@ public:
 
 
      Command *editClientSaveCommand = new Command(
-      commandController, QChar(  0xf0c7 ), "Save"
+      commandController, QChar(  0xf0c7 ), "Editar"
      );
      QObject::connect(
        editClientSaveCommand, &Command::executed,
@@ -55,7 +55,7 @@ public:
 
 
      Command *editClientDeleteCommand = new Command(
-      commandController, QChar(  0xf235 ), "Delete"
+      commandController, QChar(  0xf235 ), "Borrar"
      );
      QObject::connect(
        editClientDeleteCommand, &Command::executed,
@@ -112,19 +112,22 @@ void CommandController::onCreateClientSaveExecuted()
 {
   std::cout << "You executed the Save Command!" << std::endl;
 
-  implementation->databaseController->createRow(
+  bool r = implementation->databaseController->createRow(
     implementation->newClient->key()
    ,implementation->newClient->id()
    ,implementation->newClient->toJson()
   );
 
-  std::cout << "New Client Saved!" << std::endl;
+  if (r) {
+    std::cout << "New Client Saved!" << std::endl;
 
-
-  implementation->clientSearch->searchText()
-                ->setValue( implementation->newClient->id() );
-  implementation->clientSearch->search();
-  implementation->navigationController->goFindClientView();
+    implementation->clientSearch->searchText()
+                  ->setValue( implementation->newClient->id() );
+    implementation->clientSearch->search();
+    implementation->navigationController->goFindClientView();
+  } else {
+    implementation->navigationController->goDashboardView();
+  }
 }
 
 QQmlListProperty<Command>

@@ -41,7 +41,7 @@ Item {
     readonly property int  pixelSizeCommandBarIcon: 32
     readonly property int  pixelSizeCommandBarText: 12
 
-    readonly property real widthCommandButton: 80
+    readonly property real widthCommandButton: 90
     readonly property real heightCommandButton: widthCommandButton
 // --------------------------------------------------------------------------
 

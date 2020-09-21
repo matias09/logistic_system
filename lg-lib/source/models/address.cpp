@@ -8,20 +8,16 @@ namespace models {
 Address::Address(QObject *parent)
   : Entity (parent, "address")
 {
-  building = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "building", "Building")
-  ) );
-
   street  = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "street", "Street")
+      new StringDecorator(this, "street", "Calle")
   ) );
 
   city = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "city", "City")
+      new StringDecorator(this, "city", "Ciudad")
   ) );
 
   postcode = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "postcode", "Post Code")
+      new StringDecorator(this, "postcode", "Codigo Postal")
   ) );
 }
 Address::Address(QObject *parent, const QJsonObject &json)
@@ -32,8 +28,7 @@ Address::Address(QObject *parent, const QJsonObject &json)
 
 QString Address::fullAddress() const
 {
-  return building->value() + " "
-          + street->value() + "\n"
+  return  street->value() + "\n"
           + city->value() + "\n"
           + postcode->value();
 }

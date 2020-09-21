@@ -17,7 +17,7 @@ Item {
       }
 
       Panel {
-        headerText: "Client Details"
+        headerText: "Detalles del Cliente"
         contentComponent:
           Column {
             spacing: Style.sizeControlSpacing
@@ -37,17 +37,36 @@ Item {
                 right: parent.right
               }
             }
+
+            StringEditorSingleLine {
+              stringDecorator: newClient.ui_phone
+              anchors {
+                left: parent.left
+                right: parent.right
+              }
+            }
+
+            StringEditorSingleLine {
+              stringDecorator: newClient.ui_cellphone
+              anchors {
+                left: parent.left
+                right: parent.right
+              }
+            }
+
+            StringEditorSingleLine {
+              stringDecorator: newClient.ui_mail
+              anchors {
+                left: parent.left
+                right: parent.right
+              }
+            }
           }
         }
 
         AddressEditor {
-          address: newClient.ui_supplyAddress
-          headerText: "Supply Address"
-        }
-
-        AddressEditor {
-          address: newClient.ui_billingAddress
-          headerText: "Billing Address"
+          address: newClient.ui_clientAddress
+          headerText: "Datos de Direccion"
         }
     }
 

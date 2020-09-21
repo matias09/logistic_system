@@ -23,8 +23,8 @@ Item {
           family: Style.fontAwesome
           pixelSize: Style.pixelSizeCommandBarIcon
         }
-         color: command.ui_canExecute ? Style.colourCommandBarFont :
-                                                                          colourCommandBarFontDisabled
+        color: command.ui_canExecute ? Style.colourCommandBarFont
+                                     : colourCommandBarFontDisabled
 
           text: command.ui_iconCharacter
           horizontalAlignment: Text.AlignHCenter
@@ -39,8 +39,8 @@ Item {
           right: parent.right
         }
         font.pixelSize: Style.pixelSizeNavigationBarText
-        color: command.ui_canExecute ? Style.colourCommandBarFont :
-                                                                         colourCommandBarFontDisabled
+        color: command.ui_canExecute ? Style.colourCommandBarFont
+                                     : colourCommandBarFontDisabled
         text: command.ui_description
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter

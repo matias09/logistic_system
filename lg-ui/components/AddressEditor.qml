@@ -11,14 +11,6 @@ Panel {
       spacing: Style.sizeControlSpacing
 
       StringEditorSingleLine {
-        stringDecorator: address.ui_building
-        anchors {
-          left:  parent.left
-          right: parent.right
-        }
-      }
-
-      StringEditorSingleLine {
         stringDecorator: address.ui_street
         anchors {
           left:  parent.left

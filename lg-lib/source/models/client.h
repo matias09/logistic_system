@@ -21,13 +21,12 @@ class LGLIBSHARED_EXPORT Client : public data::Entity
 {
   Q_OBJECT
   Q_PROPERTY(lg::data::StringDecorator* ui_reference MEMBER reference CONSTANT)
-  Q_PROPERTY(lg::data::StringDecorator* ui_name MEMBER name CONSTANT)
+  Q_PROPERTY(lg::data::StringDecorator* ui_name      MEMBER name      CONSTANT)
+  Q_PROPERTY(lg::data::StringDecorator* ui_phone     MEMBER phone     CONSTANT)
+  Q_PROPERTY(lg::data::StringDecorator* ui_cellphone MEMBER cellphone CONSTANT)
+  Q_PROPERTY(lg::data::StringDecorator* ui_mail      MEMBER mail      CONSTANT)
 
-  Q_PROPERTY(lg::models::Address* ui_supplyAddress MEMBER supplyAddress CONSTANT)
-  Q_PROPERTY(lg::models::Address* ui_billingAddress MEMBER billingAddress CONSTANT)
-
-  Q_PROPERTY(QQmlListProperty<Appointment> ui_appointments READ ui_appointments NOTIFY appointmentsChanged)
-  Q_PROPERTY(QQmlListProperty<Contact> ui_contacts READ ui_contacts NOTIFY contactsChanged)
+  Q_PROPERTY(lg::models::Address* ui_clientAddress MEMBER clientAddress CONSTANT)
 
 public:
   explicit Client(QObject *parent = nullptr);
@@ -35,15 +34,11 @@ public:
 
   data::StringDecorator *reference{nullptr};
   data::StringDecorator *name{nullptr};
+  data::StringDecorator *phone{nullptr};
+  data::StringDecorator *cellphone{nullptr};
+  data::StringDecorator *mail{nullptr};
 
-  Address *supplyAddress{nullptr};
-  Address *billingAddress{nullptr};
-
-  data::EntityCollection<Appointment> *appointments{nullptr};
-  data::EntityCollection<Contact> *contacts{nullptr};
-
-  QQmlListProperty<lg::models::Appointment> ui_appointments();
-  QQmlListProperty<lg::models::Contact > ui_contacts();
+  Address *clientAddress{nullptr};
 
 signals:
   void appointmentsChanged();
