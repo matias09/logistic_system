@@ -7,7 +7,7 @@ Item {
       color: Style.colourBackground
       Text {
         id: recText
-        text: qsTr("Dashboard View")
+        text: qsTr("Inicio")
       }
     }
 }

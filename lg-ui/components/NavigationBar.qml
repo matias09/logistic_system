@@ -29,14 +29,14 @@ Item {
 
       NavigationButton {
         iconCharacter: "\uf015"
-        description: "Dasboard"
+        description: "Inicio"
         hoverColour: "#dc8a00"
         onNavigationButtonClicked: masterController.ui_navigationController.goDashboardView();
       }
 
       NavigationButton {
         iconCharacter: "\uf234"
-        description: "New Client"
+        description: "Nuevo Cliente"
         hoverColour: "#dccd00"
         onNavigationButtonClicked:
             masterController.ui_navigationController.goCreateClientView();
@@ -44,7 +44,7 @@ Item {
 
       NavigationButton {
         iconCharacter: "\uf002"
-        description: "Find Client"
+        description: "Buscar Cliente"
         hoverColour: "#8aef63"
         onNavigationButtonClicked:
             masterController.ui_navigationController.goFindClientView();
