@@ -162,8 +162,10 @@ QJsonArray DatabaseController::find(const QString &tableName
   if ( searchText.isEmpty() ) return {};
 
   QSqlQuery query(implementation->database);
-  QString sqlStatement = "SELECT json FROM " + tableName
-                       + " WHERE LOWER(json) LIKE :searchText" ;
+  QString sqlStatement = "SELECT id, name, phone, cellphone, mail, street, "
+                             " city, post_code "
+                         "  FROM " + tableName
+                       + " WHERE LOWER(name) LIKE :searchText" ;
 
   if ( ! query.prepare(sqlStatement) ) return {};
 
@@ -174,11 +176,26 @@ QJsonArray DatabaseController::find(const QString &tableName
   QJsonArray returnValue;
 
   while ( query.next() ) {
-    auto json = query.value(0).toByteArray();
-    auto jsonDocument = QJsonDocument::fromJson(json);
-    if ( jsonDocument.isObject() ) {
-      returnValue.append( jsonDocument.object() );
-    }
+    QJsonObject jsonObj;
+
+    jsonObj.insert("reference", query.value(0).toString() );
+    jsonObj.insert("name",      query.value(1).toString() );
+    jsonObj.insert("phone",     query.value(2).toString() );
+    jsonObj.insert("cellphone", query.value(3).toString() );
+    jsonObj.insert("mail",      query.value(4).toString() );
+
+    QJsonObject jsonObjAddress;
+    jsonObjAddress.insert("street",    query.value(5).toString() );
+    jsonObjAddress.insert("city",      query.value(6).toString() );
+    jsonObjAddress.insert("postcode", query.value(7).toString() );
+
+    jsonObj.insert("address",      jsonObjAddress );
+
+    // QJsonDocument doc(jsonObj);
+    // std::cout << "Json created : \n" << doc.toJson().toStdString() << std::endl;
+
+    // TODO: Check for jsonObj sanity
+    returnValue.append( jsonObj );
   }
 
   return returnValue;
@@ -218,17 +235,33 @@ bool DatabaseController::updateRow(const QString &tableName
 
   QSqlQuery query(implementation->database);
   QString sqlStatement = "UPDATE " + tableName
-                       + " SET json = :json  WHERE id = :id";
+    +"  SET "
+    +"   name = :name, phone = :phone, cellphone = :cellphone "
+    +" , mail = :mail, street = :street, city = :city, post_code = :post_code "
+    +"  WHERE id = :id";
 
-  if ( ! query.prepare(sqlStatement) ) return false;
+  query.prepare(sqlStatement);
+  if ( query.lastError().type() != QSqlError::NoError ) {
+    std::cout << "Can't Prepare sql file: "
+              << query.lastError().text().toStdString() << std::endl;
+    return false;
+  }
 
-  query.bindValue(":id", id);
-  query.bindValue(
-    ":json",
-    QVariant( QJsonDocument(jsonObject).toJson(QJsonDocument::Compact) )
-  );
+  query.bindValue(":id",          QVariant(id) );
+  query.bindValue(":name",        QVariant(jsonObject["name"]) );
+  query.bindValue(":phone",       QVariant(jsonObject["phone"]) );
+  query.bindValue(":cellphone",   QVariant(jsonObject["cellphone"]) );
+  query.bindValue(":mail",        QVariant(jsonObject["mail"]) );
+  query.bindValue(":street",      QVariant(jsonObject["address"]["street"]) );
+  query.bindValue(":city",        QVariant(jsonObject["address"]["city"]) );
+  query.bindValue(":post_code",   QVariant(jsonObject["address"]["postcode"]) );
 
-  if ( ! query.exec() ) return false;
+  query.exec();
+  if ( query.lastError().type() != QSqlError::NoError ) {
+    std::cout << "Can't Execute sql file: "
+              << query.lastError().text().toStdString() << std::endl;
+    return false;
+  }
 
   return query.numRowsAffected() > 0;
  }

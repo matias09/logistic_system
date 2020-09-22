@@ -9,7 +9,7 @@ Client::Client(QObject *parent)
   : Entity(parent, "client")
 {
   reference = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "reference", "Referencia de Cliente")
+      new StringDecorator(this, "reference", "Referencia del Cliente")
   ) );
 
   name = static_cast<StringDecorator*>(addDataItem(

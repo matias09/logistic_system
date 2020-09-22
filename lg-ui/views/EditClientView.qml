@@ -31,7 +31,7 @@ Item {
         width: scrollView.width
 
         Panel {
-          headerText: "Client Details"
+        headerText: "Detalles del Cliente"
           contentComponent:
             Column {
               spacing: Style.sizeControlSpacing
@@ -51,17 +51,36 @@ Item {
                   right: parent.right
                 }
               }
+
+              StringEditorSingleLine {
+                stringDecorator: selectedClient.ui_phone
+                anchors {
+                  left: parent.left
+                  right: parent.right
+                }
+              }
+
+              StringEditorSingleLine {
+                stringDecorator: selectedClient.ui_cellphone
+                anchors {
+                  left: parent.left
+                  right: parent.right
+                }
+              }
+
+              StringEditorSingleLine {
+                stringDecorator: selectedClient.ui_mail
+                anchors {
+                  left: parent.left
+                  right: parent.right
+                }
+              }
             }
           }
 
           AddressEditor {
-            address: selectedClient.ui_supplyAddress
-            headerText: "Supply Address"
-          }
-
-          AddressEditor {
-            address: selectedClient.ui_billingAddress
-            headerText: "Billing Address"
+            address: selectedClient.ui_clientAddress
+            headerText: "Datos de Direccion"
           }
       }
   }

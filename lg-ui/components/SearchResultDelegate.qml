@@ -60,7 +60,7 @@ Item {
 
           rightMargin: Style.heightDataControls / 4
         }
-        text: client.ui_supplyAddress.ui_fullAddress
+        text: client.ui_clientAddress.ui_fullAddress
         font.pixelSize: Style.pixelSizeDataControls
         color: Style.colourPanelFont
         horizontalAlignment: Text.AlignRight
