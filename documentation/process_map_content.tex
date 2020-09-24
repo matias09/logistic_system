@@ -1,0 +1,51 @@
+\thispagestyle{empty}
+
+\usetikzlibrary{positioning}
+\usetikzlibrary{shadows}
+
+\tikzstyle{strategic} = [top color=white, bottom color=blue!80,
+                            draw=yellow!50!black!100, drop shadow]
+
+\tikzstyle{operative} = [top color=white, bottom color=red!80,
+                            draw=yellow!50!black!100, drop shadow]
+
+\tikzstyle{support} = [top color=white, bottom color=orange!80,
+                            draw=yellow!50!black!100, drop shadow]
+
+\centering
+\scalebox{.87}{
+\begin{tikzpicture}[node distance=1.5cm, every edge/.style={link}]
+
+% Strategic
+  \node{strategic}[entity]  (node1)                  {Planificacion Estrategica};
+  \node{strategic}[entity]  (node2) [right=of node1] {Gestion de las Alianzas};
+  \node{strategic}[entity]  (node3) [right=of node2] {Politicas empresariales};
+  \node{strategic}[entity]  (node4) [right=of node3] {Politicas Financieras};
+
+% Operative
+  \node{operative}[entity]  (node5)                  {};
+  \node{operative}[entity]  (node6) [right=of node5] {};
+  \node{operative}[entity]  (node7) [right=of node6] {};
+  \node{operative}[entity]  (node8) [right=of node7] {};
+
+% Support
+  \node{support}[entity]    (node9)                    {};
+  \node{support}[entity]    (node10) [right=of node9]  {};
+  \node{support}[entity]    (node11) [right=of node10] {};
+  \node{support}[entity]    (node12) [right=of node11] {};
+
+  % Relations
+  \draw[red, thick, dashed] (node1)  -- (node2)  ;
+  \draw[red, thick, dashed] (node2)  -- (node3)  ;
+  \draw[red, thick, dashed] (node3)  -- (node4)  ;
+
+  \draw[red, thick, dashed] (node5)  -- (node6)  ;
+  \draw[red, thick, dashed] (node6)  -- (node7)  ;
+  \draw[red, thick, dashed] (node7)  -- (node8)  ;
+
+  \draw[red, thick, dashed] (node9)  -- (node10) ;
+  \draw[red, thick, dashed] (node10) -- (node11) ;
+  \draw[red, thick, dashed] (node12) -- (node13) ;
+
+  \end{tikzpicture}
+}

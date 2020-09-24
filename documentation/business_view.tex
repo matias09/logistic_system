@@ -7,6 +7,9 @@ headinclude,footinclude, % Extra spacing for the header and footer
 BCOR5mm, % Binding correction
 ]{scrartcl}
 
+\usepackage{graphicx}
+\usepackage{tikz-er2}
+
 \title{Tp Sistema de Logistica}
 \author{Matias M. Marceca}
 \date{}
@@ -225,5 +228,10 @@ BCOR5mm, % Binding correction
   \end{itemize}
 \end{itemize}
 
+
+\section{Mapa de Procesos}
+
+  % this include the content of der-content.tex
+  \include{process_map_content}
 
 \end{document}
