@@ -35,16 +35,8 @@ Item {
       }
 
       NavigationButton {
-        iconCharacter: "\uf234"
-        description: "Nuevo Cliente"
-        hoverColour: "#dccd00"
-        onNavigationButtonClicked:
-            masterController.ui_navigationController.goCreateClientView();
-      }
-
-      NavigationButton {
-        iconCharacter: "\uf002"
-        description: "Buscar Cliente"
+        iconCharacter: "\uf007"
+        description: "Clientes"
         hoverColour: "#8aef63"
         onNavigationButtonClicked:
             masterController.ui_navigationController.goFindClientView();

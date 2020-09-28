@@ -24,6 +24,14 @@ public:
     , newClient(_newClient)
     , clientSearch(_clientSearch)
   {
+     Command *createClientFillCommand = new Command(
+       commandController, QChar( 0xf234 ), "Nuevo"
+     );
+     QObject::connect(
+       createClientFillCommand, &Command::executed,
+       commandController, &CommandController::onCreateClientFillExecuted
+     );
+
      Command *createClientSaveCommand = new Command(
        commandController, QChar(  0xf0c7 ), "Guardar"
      );
@@ -33,7 +41,6 @@ public:
      );
      createClientVIewContextCommands.append( createClientSaveCommand );
 
-
      Command *findClientSearchCommand = new Command(
       commandController, QChar(  0xf002 ), "Buscar"
      );
@@ -42,6 +49,7 @@ public:
        commandController, &CommandController::onFindClientViewContextCommands
      );
      findClientViewContextCommands.append( findClientSearchCommand );
+     findClientViewContextCommands.append( createClientFillCommand );
 
 
      Command *editClientSaveCommand = new Command(
@@ -106,6 +114,13 @@ CommandController::ui_createClientViewContextCommands()
    return QQmlListProperty<Command>(
             this,
             implementation->createClientVIewContextCommands );
+}
+
+void CommandController::onCreateClientFillExecuted()
+{
+  std::cout << "You executed the Create New Client Command!" << std::endl;
+
+  implementation->navigationController->goCreateClientView();
 }
 
 void CommandController::onCreateClientSaveExecuted()
