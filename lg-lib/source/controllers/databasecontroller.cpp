@@ -106,10 +106,10 @@ bool DatabaseController::createRow(const QString &tableName
   if ( jsonObject.isEmpty() ) return false;
 
   QSqlQuery query(implementation->database);
-  QString sqlStatement = "INSERT OR REPLACE INTO " + tableName
-    +  " (id, name, phone, cellphone, mail , street, city, post_code) "
+  QString sqlStatement = "INSERT INTO " + tableName
+    +  " (name, phone, cellphone, mail , street, city, post_code) "
     +  "  VALUES "
-    +  " (:id, :name, :phone, :cellphone, :mail, :street, :city, :post_code)";
+    +  " (:name, :phone, :cellphone, :mail, :street, :city, :post_code)";
 
   query.prepare(sqlStatement);
   if ( query.lastError().type() != QSqlError::NoError ) {
@@ -118,7 +118,6 @@ bool DatabaseController::createRow(const QString &tableName
     return false;
   }
 
-  query.bindValue(":id",          QVariant(id) );
   query.bindValue(":name",        QVariant(jsonObject["name"]) );
   query.bindValue(":phone",       QVariant(jsonObject["phone"]) );
   query.bindValue(":cellphone",   QVariant(jsonObject["cellphone"]) );
@@ -148,7 +147,7 @@ bool DatabaseController::deleteRow(const QString &tableName
 
   if ( ! query.prepare(sqlStatement) ) return false;
 
-  query.bindValue(":id", id);
+  query.bindValue(":id", id.toInt());
 
   if ( ! query.exec() ) return false;
 
@@ -178,7 +177,7 @@ QJsonArray DatabaseController::find(const QString &tableName
   while ( query.next() ) {
     QJsonObject jsonObj;
 
-    jsonObj.insert("reference", query.value(0).toString() );
+    jsonObj.insert("reference",        query.value(0).toString() );
     jsonObj.insert("name",      query.value(1).toString() );
     jsonObj.insert("phone",     query.value(2).toString() );
     jsonObj.insert("cellphone", query.value(3).toString() );
@@ -191,7 +190,7 @@ QJsonArray DatabaseController::find(const QString &tableName
 
     jsonObj.insert("address",      jsonObjAddress );
 
-    // QJsonDocument doc(jsonObj);
+    //QJsonDocument doc(jsonObj);
     // std::cout << "Json created : \n" << doc.toJson().toStdString() << std::endl;
 
     // TODO: Check for jsonObj sanity
@@ -212,7 +211,7 @@ QJsonObject DatabaseController::readRow(const QString &tableName
 
   if ( ! query.prepare(sqlStatement) ) return {};
 
-  query.bindValue(":id", id);
+  query.bindValue(":id", id.toInt());
 
   if ( ! query.exec() ) return {};
   if ( ! query.first() ) return {};
@@ -247,7 +246,7 @@ bool DatabaseController::updateRow(const QString &tableName
     return false;
   }
 
-  query.bindValue(":id",          QVariant(id) );
+  query.bindValue(":id",          QVariant(id.toInt()) );
   query.bindValue(":name",        QVariant(jsonObject["name"]) );
   query.bindValue(":phone",       QVariant(jsonObject["phone"]) );
   query.bindValue(":cellphone",   QVariant(jsonObject["cellphone"]) );

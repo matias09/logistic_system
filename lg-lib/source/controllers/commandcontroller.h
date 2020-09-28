@@ -53,6 +53,7 @@ public:
   void setSelectedClient(models::Client *client);
 
 public slots:
+  void onCreateClientFillExecuted();
   void onCreateClientSaveExecuted();
   void onFindClientViewContextCommands();
   void onEditClientSaveExecuted();
