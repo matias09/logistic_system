@@ -29,7 +29,7 @@ Item {
         spacing: Style.heightDataControls / 2
 
       Text {
-        id: textReference
+        id: textId
         anchors.left: parent.left
         text:   client.ui_reference.ui_label + ": "
               + client.ui_reference.ui_value
@@ -41,7 +41,7 @@ Item {
       Text {
         id: textName
         anchors {
-          top: textReference.bottom
+          top: textId.bottom
           left: parent.left
           topMargin: 10
         }
@@ -55,7 +55,7 @@ Item {
       Text {
         id: textAddress
         anchors {
-          top:   textReference.top
+          top:   textId.top
           right: parent.right
 
           rightMargin: Style.heightDataControls / 4

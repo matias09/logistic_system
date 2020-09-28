@@ -23,14 +23,6 @@ Item {
             spacing: Style.sizeControlSpacing
 
             StringEditorSingleLine {
-              stringDecorator: newClient.ui_reference
-              anchors {
-                left: parent.left
-                right: parent.right
-              }
-            }
-
-            StringEditorSingleLine {
               stringDecorator: newClient.ui_name
               anchors {
                 left: parent.left

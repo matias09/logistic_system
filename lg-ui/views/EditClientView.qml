@@ -42,6 +42,7 @@ Item {
                   left: parent.left
                   right: parent.right
                 }
+                enabled: false
               }
 
               StringEditorSingleLine {
