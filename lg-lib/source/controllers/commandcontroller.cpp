@@ -137,7 +137,7 @@ void CommandController::onCreateClientSaveExecuted()
     std::cout << "New Client Saved!" << std::endl;
 
     implementation->clientSearch->searchText()
-                  ->setValue( implementation->newClient->id() );
+                  ->setValue( implementation->newClient->name->value() );
     implementation->clientSearch->search();
     implementation->navigationController->goFindClientView();
   } else {
