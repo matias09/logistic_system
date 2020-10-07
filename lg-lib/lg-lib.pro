@@ -23,7 +23,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 INCLUDEPATH += source
 
 SOURCES += \
-        source/controllers/commandcontroller.cpp \
+        source/controllers/clicommandcontroller.cpp \
         source/controllers/databasecontroller.cpp \
         source/controllers/mastercontroller.cpp \
         source/data/datadecorator.cpp \
@@ -41,7 +41,7 @@ SOURCES += \
 
 HEADERS += \
         source/lg-lib_global.h \
-        source/controllers/commandcontroller.h \
+        source/controllers/clicommandcontroller.h \
         source/controllers/databasecontroller.h \
         source/controllers/idatabasecontroller.h \
         source/data/datadecorator.h \

@@ -60,8 +60,7 @@ void ClientSearch::search()
             <<  implementation->searchText->value().toStdString()
             << "..." << std::endl;
 
-  auto resultsArray = implementation->databaseController->find(
-    "client",
+  auto resultsArray = implementation->databaseController->findClientByName(
     implementation->searchText->value() );
 
   implementation->searchResults->update( resultsArray );

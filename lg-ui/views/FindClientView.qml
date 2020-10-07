@@ -51,6 +51,6 @@ Item {
 
   CommandBar {
     commandList:
-      masterController.ui_commandController.ui_findClientViewContextCommands
+      masterController.ui_cliCommandController.ui_findClientViewContextCommands
   }
 }

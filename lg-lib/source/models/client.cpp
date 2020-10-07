@@ -6,7 +6,7 @@ namespace lg {
 namespace models {
 
 Client::Client(QObject *parent)
-  : Entity(parent, "client")
+  : Entity(parent, "clients")
 {
   reference = static_cast<StringDecorator*>(addDataItem(
       new StringDecorator(this, "reference", "Referencia del Cliente")

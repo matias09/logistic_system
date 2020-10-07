@@ -97,19 +97,17 @@ DatabaseController::DatabaseController(QObject *parent) : IDatabaseController(pa
 
 DatabaseController::~DatabaseController() {}
 
-bool DatabaseController::createRow(const QString &tableName
-                                  ,const QString &id
-                                  ,const QJsonObject &jsonObject) const
+bool DatabaseController::createClient(const QString &id
+                                     ,const QJsonObject &jsonObject) const
 {
-  if ( tableName.isEmpty() ) return false;
   if ( id.isEmpty() ) return false;
   if ( jsonObject.isEmpty() ) return false;
 
   QSqlQuery query(implementation->database);
-  QString sqlStatement = "INSERT INTO " + tableName
-    +  " (name, phone, cellphone, mail , street, city, post_code) "
-    +  "  VALUES "
-    +  " (:name, :phone, :cellphone, :mail, :street, :city, :post_code)";
+  QString sqlStatement = "INSERT INTO clients "
+       " (name, phone, cellphone, mail , street, city, post_code) "
+       "  VALUES "
+       " (:name, :phone, :cellphone, :mail, :street, :city, :post_code)";
 
   query.prepare(sqlStatement);
   if ( query.lastError().type() != QSqlError::NoError ) {
@@ -136,14 +134,12 @@ bool DatabaseController::createRow(const QString &tableName
   return query.numRowsAffected() > 0;
 }
 
-bool DatabaseController::deleteRow(const QString &tableName
-                                 , const QString &id) const
+bool DatabaseController::deleteClient(const QString &id) const
 {
-  if ( tableName.isEmpty() ) return false;
   if ( id.isEmpty() ) return false;
 
   QSqlQuery query(implementation->database);
-  QString sqlStatement = "DELETE FROM " + tableName   + " WHERE id = :id";
+  QString sqlStatement = "DELETE FROM clients WHERE id = :id";
 
   if ( ! query.prepare(sqlStatement) ) return false;
 
@@ -154,17 +150,15 @@ bool DatabaseController::deleteRow(const QString &tableName
   return query.numRowsAffected() > 0;
 }
 
-QJsonArray DatabaseController::find(const QString &tableName
-                                   ,const QString &searchText) const
+QJsonArray DatabaseController::findClientByName(const QString &searchText) const
 {
-  if ( tableName.isEmpty() ) return {};
   if ( searchText.isEmpty() ) return {};
 
   QSqlQuery query(implementation->database);
   QString sqlStatement = "SELECT id, name, phone, cellphone, mail, street, "
                              " city, post_code "
-                         "  FROM " + tableName
-                       + " WHERE LOWER(name) LIKE :searchText" ;
+                         "  FROM clients "
+                         " WHERE LOWER(name) LIKE :searchText" ;
 
   if ( ! query.prepare(sqlStatement) ) return {};
 
@@ -200,44 +194,18 @@ QJsonArray DatabaseController::find(const QString &tableName
   return returnValue;
 }
 
-QJsonObject DatabaseController::readRow(const QString &tableName
-                                       ,const QString &id) const
+bool DatabaseController::updateClient(const QString &id
+                                     ,const QJsonObject &jsonObject) const
 {
-  if ( tableName.isEmpty() ) return {};
-  if ( id.isEmpty() ) return {};
-
-  QSqlQuery query(implementation->database);
-  QString sqlStatement = "SELECT json FROM " + tableName   + " WHERE id = :id";
-
-  if ( ! query.prepare(sqlStatement) ) return {};
-
-  query.bindValue(":id", id.toInt());
-
-  if ( ! query.exec() ) return {};
-  if ( ! query.first() ) return {};
-
-  auto json = query.value(0).toByteArray();
-  auto jsonDocument = QJsonDocument::fromJson(json);
-
-  if ( ! jsonDocument.isObject() ) return {};
-
-  return jsonDocument.object();
-}
-
-bool DatabaseController::updateRow(const QString &tableName
-                                  ,const QString &id
-                                  ,const QJsonObject &jsonObject) const
-{
-  if ( tableName.isEmpty() ) return false;
   if ( id.isEmpty() ) return false;
   if ( jsonObject.isEmpty() ) return false;
 
   QSqlQuery query(implementation->database);
-  QString sqlStatement = "UPDATE " + tableName
-    +"  SET "
-    +"   name = :name, phone = :phone, cellphone = :cellphone "
-    +" , mail = :mail, street = :street, city = :city, post_code = :post_code "
-    +"  WHERE id = :id";
+  QString sqlStatement = "UPDATE clients "
+     "  SET "
+     "   name = :name, phone = :phone, cellphone = :cellphone "
+     " , mail = :mail, street = :street, city = :city, post_code = :post_code "
+     "  WHERE id = :id";
 
   query.prepare(sqlStatement);
   if ( query.lastError().type() != QSqlError::NoError ) {

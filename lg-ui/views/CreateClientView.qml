@@ -65,6 +65,6 @@ Item {
     CommandBar {
       id: commandList
       commandList:
-        masterController.ui_commandController.ui_createClientViewContextCommands
+        masterController.ui_cliCommandController.ui_createClientViewContextCommands
     }
 }

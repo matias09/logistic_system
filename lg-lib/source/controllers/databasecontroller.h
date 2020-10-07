@@ -16,20 +16,16 @@ public:
   explicit DatabaseController(QObject *parent = nullptr);
   ~DatabaseController() override;
 
-    bool createRow(
-       const QString &tableName
-      ,const QString &id
+    bool createClient(
+       const QString &id
       ,const QJsonObject &jsonObject) const override;
 
-    bool deleteRow( const QString &tableName, const QString &id) const override;
+    bool deleteClient(const QString &id) const override;
 
-   QJsonArray find( const QString &tableName, const QString &searchText) const override;
-   QJsonObject readRow(const QString &tableName, const QString &id) const override;
+   QJsonArray findClientByName(const QString &searchText) const override;
 
-   bool updateRow(
-      const QString &tableName
-     ,const QString &id
-     ,const QJsonObject &jsonObject) const override;
+   bool updateClient(const QString &id
+                    ,const QJsonObject &jsonObject) const override;
 
 private:
   class Implementation;

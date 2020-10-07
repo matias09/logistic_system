@@ -7,7 +7,7 @@ import components 1.0
 Item {
     property Client selectedClient
     Component.onCompleted:
-      masterController.ui_commandController.setSelectedClient(selectedClient)
+      masterController.ui_cliCommandController.setSelectedClient(selectedClient)
 
     Rectangle {
       anchors.fill: parent
@@ -20,7 +20,7 @@ Item {
         left:      parent.left
         right:     parent.right
         top:       parent.top
-        bottom: commandBar.top
+        bottom:    commandBar.top
 
         margins:   Style.sizeScreenMargin
       }
@@ -89,7 +89,7 @@ Item {
   CommandBar {
     id: commandList
     commandList:
-      masterController.ui_commandController.ui_editClientViewContextCommands
+      masterController.ui_cliCommandController.ui_editClientViewContextCommands
   }
 }
 

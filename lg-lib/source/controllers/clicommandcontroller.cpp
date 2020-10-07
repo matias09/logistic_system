@@ -1,4 +1,4 @@
-#include "commandcontroller.h"
+#include "clicommandcontroller.h"
 
 #include <QList>
 
@@ -9,70 +9,70 @@ using namespace lg::framework;
 namespace lg {
 namespace controllers {
 
-class CommandController::Implementation
+class CliCommandController::Implementation
 {
 public:
   Implementation(
-            CommandController    *_commandController
+            CliCommandController    *_cliCommandController
            ,IDatabaseController  *_databaseController
            ,NavigationController *_navigationController
            ,models::Client       *_newClient
            ,models::ClientSearch *_clientSearch )
-    : commandController(_commandController)
+    : cliCommandController(_cliCommandController)
     , databaseController(_databaseController)
     , navigationController(_navigationController)
     , newClient(_newClient)
     , clientSearch(_clientSearch)
   {
      Command *createClientFillCommand = new Command(
-       commandController, QChar( 0xf234 ), "Nuevo"
+       cliCommandController, QChar( 0xf234 ), "Nuevo"
      );
      QObject::connect(
        createClientFillCommand, &Command::executed,
-       commandController, &CommandController::onCreateClientFillExecuted
+       cliCommandController, &CliCommandController::onCreateClientFillExecuted
      );
 
      Command *createClientSaveCommand = new Command(
-       commandController, QChar(  0xf0c7 ), "Guardar"
+       cliCommandController, QChar(  0xf0c7 ), "Guardar"
      );
      QObject::connect(
        createClientSaveCommand, &Command::executed,
-       commandController, &CommandController::onCreateClientSaveExecuted
+       cliCommandController, &CliCommandController::onCreateClientSaveExecuted
      );
      createClientVIewContextCommands.append( createClientSaveCommand );
 
      Command *findClientSearchCommand = new Command(
-      commandController, QChar(  0xf002 ), "Buscar"
+      cliCommandController, QChar(  0xf002 ), "Buscar"
      );
      QObject::connect(
        findClientSearchCommand, &Command::executed,
-       commandController, &CommandController::onFindClientViewContextCommands
+       cliCommandController, &CliCommandController::onFindClientViewContextCommands
      );
      findClientViewContextCommands.append( findClientSearchCommand );
      findClientViewContextCommands.append( createClientFillCommand );
 
 
      Command *editClientSaveCommand = new Command(
-      commandController, QChar(  0xf0c7 ), "Editar"
+      cliCommandController, QChar(  0xf0c7 ), "Editar"
      );
      QObject::connect(
        editClientSaveCommand, &Command::executed,
-       commandController, &CommandController::onEditClientSaveExecuted
+       cliCommandController, &CliCommandController::onEditClientSaveExecuted
      );
      editClientViewContextCommands.append( editClientSaveCommand );
 
 
      Command *editClientDeleteCommand = new Command(
-      commandController, QChar(  0xf235 ), "Borrar"
+      cliCommandController, QChar(  0xf235 ), "Borrar"
      );
      QObject::connect(
        editClientDeleteCommand, &Command::executed,
-       commandController, &CommandController::onEditClientDeleteExecuted
+       cliCommandController, &CliCommandController::onEditClientDeleteExecuted
      );
      editClientViewContextCommands.append( editClientDeleteCommand );
   }
 
-  CommandController *commandController{nullptr};
+  CliCommandController *cliCommandController{nullptr};
 
   QList<Command*> createClientVIewContextCommands{};
   QList<Command*> findClientViewContextCommands{};
@@ -86,7 +86,7 @@ public:
   models::ClientSearch *clientSearch{nullptr};
 };
 
-CommandController::CommandController(
+CliCommandController::CliCommandController(
             QObject *parent
            ,IDatabaseController  *databaseController
            ,NavigationController *navigationController
@@ -101,35 +101,34 @@ CommandController::CommandController(
                                           ,clientSearch) );
 }
 
-CommandController::~CommandController() {}
+CliCommandController::~CliCommandController() {}
 
-void CommandController::setSelectedClient(models::Client *client)
+void CliCommandController::setSelectedClient(models::Client *client)
 {
   implementation->selectedClient = client;
 }
 
 QQmlListProperty<Command>
-CommandController::ui_createClientViewContextCommands()
+CliCommandController::ui_createClientViewContextCommands()
 {
    return QQmlListProperty<Command>(
             this,
             implementation->createClientVIewContextCommands );
 }
 
-void CommandController::onCreateClientFillExecuted()
+void CliCommandController::onCreateClientFillExecuted()
 {
   std::cout << "You executed the Create New Client Command!" << std::endl;
 
   implementation->navigationController->goCreateClientView();
 }
 
-void CommandController::onCreateClientSaveExecuted()
+void CliCommandController::onCreateClientSaveExecuted()
 {
   std::cout << "You executed the Save Command!" << std::endl;
 
-  bool r = implementation->databaseController->createRow(
-    implementation->newClient->key()
-   ,implementation->newClient->id()
+  bool r = implementation->databaseController->createClient(
+    implementation->newClient->id()
    ,implementation->newClient->toJson()
   );
 
@@ -146,14 +145,14 @@ void CommandController::onCreateClientSaveExecuted()
 }
 
 QQmlListProperty<Command>
-CommandController::ui_findClientViewContextCommands()
+CliCommandController::ui_findClientViewContextCommands()
 {
    return QQmlListProperty<Command>(
             this,
             implementation->findClientViewContextCommands );
 }
 
-void CommandController::onFindClientViewContextCommands()
+void CliCommandController::onFindClientViewContextCommands()
 {
   std::cout << "You executed the Search Command!" << std::endl;
   implementation->clientSearch->search();
@@ -161,20 +160,19 @@ void CommandController::onFindClientViewContextCommands()
 
 
 QQmlListProperty<Command>
-CommandController::ui_editClientViewContextCommands()
+CliCommandController::ui_editClientViewContextCommands()
 {
    return QQmlListProperty<Command>(
             this,
             implementation->editClientViewContextCommands );
 }
 
-void CommandController::onEditClientSaveExecuted()
+void CliCommandController::onEditClientSaveExecuted()
 {
   std::cout << "You executed the Edit Command!" << std::endl;
 
-  bool r = implementation->databaseController->updateRow(
-    implementation->selectedClient->key()
-   ,implementation->selectedClient->id()
+  bool r = implementation->databaseController->updateClient(
+    implementation->selectedClient->id()
    ,implementation->selectedClient->toJson() );
 
   if ( r ) {
@@ -186,19 +184,18 @@ void CommandController::onEditClientSaveExecuted()
 
 
 QQmlListProperty<Command>
-CommandController::ui_deleteClientViewContextCommands()
+CliCommandController::ui_deleteClientViewContextCommands()
 {
    return QQmlListProperty<Command>(
             this,
             implementation->editClientViewContextCommands );
 }
 
-void CommandController::onEditClientDeleteExecuted()
+void CliCommandController::onEditClientDeleteExecuted()
 {
   std::cout << "You executed the Delete Command!" << std::endl;
-  implementation->databaseController->deleteRow(
-    implementation->selectedClient->key()
-   ,implementation->selectedClient->id() );
+  implementation->databaseController->deleteClient(
+    implementation->selectedClient->id() );
 
   implementation->selectedClient = nullptr;
 

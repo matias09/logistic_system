@@ -16,7 +16,7 @@ public:
       clientSearch = new models::ClientSearch(masterController
                                              ,databaseController);
 
-      commandController = new CommandController(masterController
+      cliCommandController = new CliCommandController(masterController
                                                ,databaseController
                                                ,navigationController
                                                ,newClient
@@ -25,13 +25,11 @@ public:
 
    MasterController* masterController{nullptr};
    NavigationController* navigationController{nullptr};
-   CommandController* commandController{nullptr};
+   CliCommandController* cliCommandController{nullptr};
    DatabaseController* databaseController{nullptr};
 
    models::Client *newClient{nullptr};
    models::ClientSearch *clientSearch{nullptr};
-
-   QString welcomeMessage = "This is MasterController to Major Tom";
 };
 
 MasterController::MasterController(QObject* parent)
@@ -57,9 +55,9 @@ models::ClientSearch* MasterController::clientSearch()
   return  implementation->clientSearch;
 }
 
-CommandController* MasterController::commandController()
+CliCommandController* MasterController::cliCommandController()
 {
-  return  implementation->commandController;
+  return  implementation->cliCommandController;
 }
 
 DatabaseController* MasterController::databaseController()
@@ -67,15 +65,10 @@ DatabaseController* MasterController::databaseController()
   return  implementation->databaseController;
 }
 
-const QString& MasterController::welcomeMessage() const
-{
-  return implementation->welcomeMessage;
-}
-
 // Slots Imp
 void MasterController::selectClient(lg::models::Client *client)
 {
-  implementation->commandController->setSelectedClient(client);
+  implementation->cliCommandController->setSelectedClient(client);
   implementation->navigationController->goEditClientView(client);
 }
 

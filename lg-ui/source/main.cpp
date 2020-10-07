@@ -4,7 +4,7 @@
 
 #include <controllers/mastercontroller.h>
 #include <controllers/navigationcontroller.h>
-#include <controllers/commandcontroller.h>
+#include <controllers/clicommandcontroller.h>
 
 #include <framework/command.h>
 
@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
   QGuiApplication app(argc, argv);
   qmlRegisterType<lg::controllers::MasterController>("LG", 1,  0,  "MasterController");
   qmlRegisterType<lg::controllers::NavigationController>("LG", 1,  0,  "NavigationController");
-  qmlRegisterType<lg::controllers::CommandController>("LG", 1,  0,  "CommandController");
+  qmlRegisterType<lg::controllers::CliCommandController>("LG", 1,  0,  "CliCommandController");
 
   qmlRegisterType<lg::framework::Command>("LG", 1,  0,  "Command");
 

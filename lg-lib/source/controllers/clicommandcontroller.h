@@ -1,5 +1,5 @@
-#ifndef COMMANDCONTROLLER_H
-#define COMMANDCONTROLLER_H
+#ifndef CLICOMMANDCONTROLLER_H
+#define CLICOMMANDCONTROLLER_H
 
 #include <QObject>
 #include <QtQml/QQmlListProperty>
@@ -16,7 +16,7 @@
 namespace lg {
 namespace controllers {
 
-class LGLIBSHARED_EXPORT  CommandController : public QObject
+class LGLIBSHARED_EXPORT  CliCommandController : public QObject
 {
   Q_OBJECT
   Q_PROPERTY(QQmlListProperty<lg::framework::Command>
@@ -36,14 +36,14 @@ class LGLIBSHARED_EXPORT  CommandController : public QObject
     ui_deleteClientViewContextCommands CONSTANT)
 
 public:
-  explicit CommandController(
+  explicit CliCommandController(
     QObject              *parent = nullptr
    ,IDatabaseController  *databaseController = nullptr
    ,NavigationController *navigationController = nullptr
    ,models::Client       *newClient = nullptr
    ,models::ClientSearch *clientSearch = nullptr);
 
-  ~CommandController();
+  ~CliCommandController();
 
   QQmlListProperty<framework::Command> ui_createClientViewContextCommands();
   QQmlListProperty<framework::Command> ui_findClientViewContextCommands();
@@ -67,4 +67,4 @@ public slots:
 } // controllers
 } // lg
 
-#endif // COMMANDCONTROLLER_H
+#endif // CLICOMMANDCONTROLLER_H
