@@ -16,15 +16,19 @@ public:
   explicit DatabaseController(QObject *parent = nullptr);
   ~DatabaseController() override;
 
-    bool createClient(
-       const QString &id
-      ,const QJsonObject &jsonObject) const override;
-
+    bool createClient(const QString &id
+                     ,const QJsonObject &jsonObject) const override;
     bool deleteClient(const QString &id) const override;
-
    QJsonArray findClientByName(const QString &searchText) const override;
-
    bool updateClient(const QString &id
+                    ,const QJsonObject &jsonObject) const override;
+
+
+    bool createDriver(const QString &id
+                     ,const QJsonObject &jsonObject) const override;
+    bool deleteDriver(const QString &id) const override;
+   QJsonArray findDriverByName(const QString &searchText) const override;
+   bool updateDriver(const QString &id
                     ,const QJsonObject &jsonObject) const override;
 
 private:

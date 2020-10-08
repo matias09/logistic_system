@@ -4,7 +4,9 @@
 #include <QObject>
 
 #include <lg-lib_global.h>
+
 #include <models/client.h>
+#include <models/driver.h>
 
 namespace lg {
 namespace controllers {
@@ -19,9 +21,14 @@ public:
 
 signals:
   void goDashboardView();
+
   void goCreateClientView();
-  void goEditClientView(lg::models::Client* client);
+  void goEditClientView(lg::models::Client *client);
   void goFindClientView();
+
+  void goCreateDriverView();
+  void goEditDriverView(lg::models::Driver *driver);
+  void goFindDriverView();
 };
 
 } // controllers

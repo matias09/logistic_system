@@ -41,6 +41,14 @@ Item {
         onNavigationButtonClicked:
             masterController.ui_navigationController.goFindClientView();
       }
+
+      NavigationButton {
+        iconCharacter: "\uf017"
+        description: "Choferes"
+        hoverColour: "#ffaa63"
+        onNavigationButtonClicked:
+            masterController.ui_navigationController.goFindDriverView();
+      }
     }
   }
 }

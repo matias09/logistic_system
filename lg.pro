@@ -4,4 +4,4 @@ SUBDIRS += \
   lg-lib \
   lg-ui
 
-message(lg project dir: $${PWD})
+#message(lg project dir: $${PWD})

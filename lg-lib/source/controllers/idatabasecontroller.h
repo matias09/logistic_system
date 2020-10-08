@@ -32,6 +32,13 @@ public:
   virtual bool updateClient(
     const QString &id
    ,const QJsonObject &jsonObject) const = 0;
+
+  virtual  bool createDriver(const QString &id
+                   ,const QJsonObject &jsonObject) const = 0;
+  virtual  bool deleteDriver(const QString &id) const = 0;
+  virtual QJsonArray findDriverByName(const QString &searchText) const = 0;
+  virtual bool updateDriver(const QString &id
+                  ,const QJsonObject &jsonObject) const = 0;
 };
 
 } // namespace controllers

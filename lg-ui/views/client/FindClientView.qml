@@ -43,7 +43,7 @@ Item {
       }
       clip: true
       model: clientSearch.ui_searchResults
-      delegate: SearchResultDelegate {
+      delegate: CliSearchResultDelegate {
         client: modelData
       }
     }

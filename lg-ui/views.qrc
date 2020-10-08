@@ -3,8 +3,13 @@
         <file alias="MasterView.qml">views/MasterView.qml</file>
         <file alias="DashboardView.qml">views/DashboardView.qml</file>
         <file alias="SplashView.qml">views/SplashView.qml</file>
-        <file alias="CreateClientView.qml">views/CreateClientView.qml</file>
-        <file alias="EditClientView.qml">views/EditClientView.qml</file>
-        <file alias="FindClientView.qml">views/FindClientView.qml</file>
+
+        <file alias="CreateClientView.qml">views/client/CreateClientView.qml</file>
+        <file alias="EditClientView.qml">views/client/EditClientView.qml</file>
+        <file alias="FindClientView.qml">views/client/FindClientView.qml</file>
+
+        <file alias="CreateDriverView.qml">views/driver/CreateDriverView.qml</file>
+        <file alias="EditDriverView.qml">views/driver/EditDriverView.qml</file>
+        <file alias="FindDriverView.qml">views/driver/FindDriverView.qml</file>
     </qresource>
 </RCC>

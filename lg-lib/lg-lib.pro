@@ -24,6 +24,7 @@ INCLUDEPATH += source
 
 SOURCES += \
         source/controllers/clicommandcontroller.cpp \
+        source/controllers/dricommandcontroller.cpp \
         source/controllers/databasecontroller.cpp \
         source/controllers/mastercontroller.cpp \
         source/data/datadecorator.cpp \
@@ -37,11 +38,13 @@ SOURCES += \
         source/models/appointment.cpp \
         source/models/client.cpp \
         source/models/clientsearch.cpp \
-        source/models/contact.cpp
+        source/models/driver.cpp \
+        source/models/driversearch.cpp
 
 HEADERS += \
         source/lg-lib_global.h \
         source/controllers/clicommandcontroller.h \
+        source/controllers/dricommandcontroller.h \
         source/controllers/databasecontroller.h \
         source/controllers/idatabasecontroller.h \
         source/data/datadecorator.h \
@@ -56,9 +59,10 @@ HEADERS += \
         source/models/appointment.h \
         source/models/client.h \
         source/models/clientsearch.h \
+        source/models/driver.h \
+        source/models/driversearch.h \
         source/controllers/navigationcontroller.h \
-        source/controllers/mastercontroller.h \
-        source/models/contact.h
+        source/controllers/mastercontroller.h
 
 DESTDIR = $$PWD/../binaries/$$DESTINATION_PATH
 OBJECTS_DIR = $$PWD/build/$$DESTINATION_PATH/.obj

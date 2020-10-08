@@ -5,6 +5,7 @@
 #include <controllers/mastercontroller.h>
 #include <controllers/navigationcontroller.h>
 #include <controllers/clicommandcontroller.h>
+#include <controllers/dricommandcontroller.h>
 
 #include <framework/command.h>
 
@@ -17,7 +18,8 @@
 #include <models/appointment.h>
 #include <models/client.h>
 #include <models/clientsearch.h>
-#include <models/contact.h>
+#include <models/driver.h>
+#include <models/driversearch.h>
 
 int main(int argc, char *argv[])
 {
@@ -27,6 +29,7 @@ int main(int argc, char *argv[])
   qmlRegisterType<lg::controllers::MasterController>("LG", 1,  0,  "MasterController");
   qmlRegisterType<lg::controllers::NavigationController>("LG", 1,  0,  "NavigationController");
   qmlRegisterType<lg::controllers::CliCommandController>("LG", 1,  0,  "CliCommandController");
+  qmlRegisterType<lg::controllers::DriCommandController>("LG", 1,  0,  "DriCommandController");
 
   qmlRegisterType<lg::framework::Command>("LG", 1,  0,  "Command");
 
@@ -37,9 +40,12 @@ int main(int argc, char *argv[])
 
   qmlRegisterType<lg::models::Address>("LG", 1, 0, "Address");
   qmlRegisterType<lg::models::Appointment>("LG", 1, 0, "Appointment");
+
   qmlRegisterType<lg::models::Client>("LG", 1, 0, "Client");
   qmlRegisterType<lg::models::ClientSearch>("LG", 1, 0, "ClientSearch");
-  qmlRegisterType<lg::models::Contact>("LG", 1, 0, "Contact");
+
+  qmlRegisterType<lg::models::Driver>("LG", 1, 0, "Driver");
+  qmlRegisterType<lg::models::DriverSearch>("LG", 1, 0, "DriverSearch");
 
   lg::controllers::MasterController masterController;
   QQmlApplicationEngine engine;

@@ -18,4 +18,4 @@ BUILD_DEBUG {
 }
 
 DESTINATION_PATH = $$platform_path/$$compiler_path/$$processor_path/$$build_path
-message(Dest Path: $${DESTINATION_PATH})
+#message(Dest Path: $${DESTINATION_PATH})

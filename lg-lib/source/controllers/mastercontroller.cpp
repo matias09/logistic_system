@@ -21,15 +21,29 @@ public:
                                                ,navigationController
                                                ,newClient
                                                ,clientSearch);
+
+      newDriver    = new models::Driver(masterController);
+      driverSearch = new models::DriverSearch(masterController
+                                       ,databaseController);
+
+      driCommandController = new DriCommandController(masterController
+                                               ,databaseController
+                                               ,navigationController
+                                               ,newDriver
+                                               ,driverSearch);
    }
 
    MasterController* masterController{nullptr};
    NavigationController* navigationController{nullptr};
    CliCommandController* cliCommandController{nullptr};
+   DriCommandController* driCommandController{nullptr};
    DatabaseController* databaseController{nullptr};
 
    models::Client *newClient{nullptr};
    models::ClientSearch *clientSearch{nullptr};
+
+   models::Driver *newDriver{nullptr};
+   models::DriverSearch *driverSearch{nullptr};
 };
 
 MasterController::MasterController(QObject* parent)
@@ -55,9 +69,24 @@ models::ClientSearch* MasterController::clientSearch()
   return  implementation->clientSearch;
 }
 
+models::Driver* MasterController::newDriver()
+{
+  return  implementation->newDriver;
+}
+
+models::DriverSearch* MasterController::driverSearch()
+{
+  return  implementation->driverSearch;
+}
+
 CliCommandController* MasterController::cliCommandController()
 {
   return  implementation->cliCommandController;
+}
+
+DriCommandController* MasterController::driCommandController()
+{
+  return  implementation->driCommandController;
 }
 
 DatabaseController* MasterController::databaseController()
@@ -70,6 +99,12 @@ void MasterController::selectClient(lg::models::Client *client)
 {
   implementation->cliCommandController->setSelectedClient(client);
   implementation->navigationController->goEditClientView(client);
+}
+
+void MasterController::selectDriver(lg::models::Driver *driver)
+{
+  implementation->driCommandController->setSelectedDriver(driver);
+  implementation->navigationController->goEditDriverView(driver);
 }
 
 } // controllers

@@ -9,15 +9,21 @@ Window {
     visible: true
     width: 1920
     height: 1080
-    title: qsTr("Client Management")
+    title: qsTr("Sistema de Logistica")
 
     Connections {
       target: masterController.ui_navigationController
-      onGoCreateClientView: contentFrame.replace("qrc:/views/CreateClientView.qml")
       onGoDashboardView: contentFrame.replace("qrc:/views/DashboardView.qml")
+
+      onGoCreateClientView: contentFrame.replace("qrc:/views/CreateClientView.qml")
       onGoEditClientView: contentFrame.replace("qrc:/views/EditClientView.qml",
               {selectedClient: client})
       onGoFindClientView: contentFrame.replace("qrc:/views/FindClientView.qml")
+
+      onGoCreateDriverView: contentFrame.replace("qrc:/views/CreateDriverView.qml")
+      onGoEditDriverView: contentFrame.replace("qrc:/views/EditDriverView.qml",
+              {selectedDriver: driver})
+      onGoFindDriverView: contentFrame.replace("qrc:/views/FindDriverView.qml")
     }
 
     NavigationBar {

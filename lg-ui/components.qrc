@@ -8,6 +8,7 @@
         <file alias="StringEditorSingleLine.qml">components/StringEditorSingleLine.qml</file>
         <file alias="Panel.qml">components/Panel.qml</file>
         <file alias="AddressEditor.qml">components/AddressEditor.qml</file>
-        <file alias="SearchResultDelegate.qml">components/SearchResultDelegate.qml</file>
+        <file alias="CliSearchResultDelegate.qml">components/CliSearchResultDelegate.qml</file>
+        <file alias="DriSearchResultDelegate.qml">components/DriSearchResultDelegate.qml</file>
     </qresource>
 </RCC>
