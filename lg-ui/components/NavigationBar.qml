@@ -35,7 +35,7 @@ Item {
       }
 
       NavigationButton {
-        iconCharacter: "\uf007"
+        iconCharacter: "\uf0f2"
         description: "Clientes"
         hoverColour: "#8aef63"
         onNavigationButtonClicked:
@@ -43,7 +43,7 @@ Item {
       }
 
       NavigationButton {
-        iconCharacter: "\uf017"
+        iconCharacter: "\uf0c0"
         description: "Choferes"
         hoverColour: "#ffaa63"
         onNavigationButtonClicked:
