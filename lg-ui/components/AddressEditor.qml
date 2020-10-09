@@ -19,7 +19,7 @@ Panel {
       }
 
       StringEditorSingleLine {
-        stringDecorator: address.ui_city
+        stringDecorator: address.ui_house_nro
         anchors {
           left:  parent.left
           right: parent.right
