@@ -37,6 +37,8 @@ signals:
 private:
   class Implementation;
   QScopedPointer<Implementation> implementation;
+
+  class FindByName;
 };
 
 }

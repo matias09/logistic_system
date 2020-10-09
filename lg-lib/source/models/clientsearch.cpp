@@ -1,4 +1,5 @@
 #include "clientsearch.h"
+#include "db_operations/client/findbyname.hpp"
 
 #include <iostream>
 
@@ -60,8 +61,10 @@ void ClientSearch::search()
             <<  implementation->searchText->value().toStdString()
             << "..." << std::endl;
 
-  auto resultsArray = implementation->databaseController->findClientByName(
-    implementation->searchText->value() );
+  QJsonArray resultsArray;
+  FindByName::call(resultsArray
+                  ,implementation->searchText->value()
+                  ,implementation->databaseController->getDatabaseConn());
 
   implementation->searchResults->update( resultsArray );
 

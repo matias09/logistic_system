@@ -159,24 +159,18 @@ QJsonArray DatabaseController::findClientByName(const QString &searchText) const
 {
   if ( searchText.isEmpty() ) return {};
 
-   std::cout << "1  \n" << std::endl;
-
   QSqlQuery query(implementation->database);
   QString sqlStatement = "SELECT id, name, phone, cellphone, mail, street, "
                              " house_nro, post_code "
                          "  FROM clients "
                          " WHERE LOWER(name) LIKE :searchText" ;
 
-   std::cout << "2  \n" << std::endl;
   if ( ! query.prepare(sqlStatement) ) return {};
 
-   std::cout << "3  \n" << std::endl;
   query.bindValue(":searchText", QVariant("%" + searchText.toLower() + "%") );
 
-   std::cout << "4  \n" << std::endl;
   if ( ! query.exec() ) return {};
 
-   std::cout << "5  \n" << std::endl;
   QJsonArray returnValue;
 
   while ( query.next() ) {
@@ -200,7 +194,6 @@ QJsonArray DatabaseController::findClientByName(const QString &searchText) const
 
     // TODO: Check for jsonObj sanity
     returnValue.append( jsonObj );
-     std::cout << "6  \n" << std::endl;
   }
 
   return returnValue;

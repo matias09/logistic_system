@@ -38,10 +38,13 @@ SOURCES += \
         source/models/client.cpp \
         source/models/clientsearch.cpp \
         source/models/driver.cpp \
-        source/models/driversearch.cpp
+        source/models/driversearch.cpp \
+        source/db_operations/client/findbyname.hpp
 
 HEADERS += \
         source/lg-lib_global.h \
+        source/controllers/navigationcontroller.h \
+        source/controllers/mastercontroller.h     \
         source/controllers/clicommandcontroller.h \
         source/controllers/dricommandcontroller.h \
         source/controllers/databasecontroller.h \
@@ -57,9 +60,7 @@ HEADERS += \
         source/models/client.h \
         source/models/clientsearch.h \
         source/models/driver.h \
-        source/models/driversearch.h \
-        source/controllers/navigationcontroller.h \
-        source/controllers/mastercontroller.h
+        source/models/driversearch.h
 
 DESTDIR = $$PWD/../binaries/$$DESTINATION_PATH
 OBJECTS_DIR = $$PWD/build/$$DESTINATION_PATH/.obj
