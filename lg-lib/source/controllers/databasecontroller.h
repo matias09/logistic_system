@@ -1,35 +1,40 @@
 #ifndef DATABASECONTROLLER_H
 #define DATABASECONTROLLER_H
 
-#include <QScopedPointer>
+#include <QtSql/QSqlDatabase>
 
-#include <controllers/idatabasecontroller.h>
+#include <QObject>
+#include <QScopedPointer>
+#include <QJsonObject>
+
 #include <lg-lib_global.h>
 
 namespace lg {
 namespace controllers {
 
-class LGLIBSHARED_EXPORT DatabaseController : public IDatabaseController
+class LGLIBSHARED_EXPORT DatabaseController : public QObject
 {
   Q_OBJECT
 public:
-  explicit DatabaseController(QObject *parent = nullptr);
-  ~DatabaseController() override;
+  explicit DatabaseController();
+  ~DatabaseController();
+
+    const QSqlDatabase& getDatabaseConn() const;
 
     bool createClient(const QString &id
-                     ,const QJsonObject &jsonObject) const override;
-    bool deleteClient(const QString &id) const override;
-   QJsonArray findClientByName(const QString &searchText) const override;
+                     ,const QJsonObject &jsonObject) const;
+    bool deleteClient(const QString &id) const;
+   QJsonArray findClientByName(const QString &searchText) const;
    bool updateClient(const QString &id
-                    ,const QJsonObject &jsonObject) const override;
+                    ,const QJsonObject &jsonObject) const;
 
 
     bool createDriver(const QString &id
-                     ,const QJsonObject &jsonObject) const override;
-    bool deleteDriver(const QString &id) const override;
-   QJsonArray findDriverByName(const QString &searchText) const override;
+                     ,const QJsonObject &jsonObject) const;
+    bool deleteDriver(const QString &id) const;
+   QJsonArray findDriverByName(const QString &searchText) const;
    bool updateDriver(const QString &id
-                    ,const QJsonObject &jsonObject) const override;
+                    ,const QJsonObject &jsonObject) const;
 
 private:
   class Implementation;
@@ -39,3 +44,7 @@ private:
 } //  controllers
 } // lg
 #endif // DATABASECONTROLLER_H
+
+
+
+

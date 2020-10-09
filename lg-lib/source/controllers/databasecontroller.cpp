@@ -1,13 +1,13 @@
 #include "databasecontroller.h"
 
-#include <QSqlDatabase>
+#include <QJsonArray>
 #include <QSqlQuery>
-#include <QJsonDocument>
+
 #include <QDir>
 #include <QFile>
+
 #include <QDebug>
 #include <QSqlError>
-
 // C++
 #include <iostream>
 
@@ -90,12 +90,17 @@ private:
   }
 };
 
-DatabaseController::DatabaseController(QObject *parent) : IDatabaseController(parent)
+DatabaseController::DatabaseController()
 {
   implementation.reset( new Implementation(this) );
 }
 
 DatabaseController::~DatabaseController() {}
+
+const QSqlDatabase& DatabaseController::getDatabaseConn() const
+{
+  return implementation->database;
+}
 
 bool DatabaseController::createClient(const QString &id
                                      ,const QJsonObject &jsonObject) const
@@ -105,9 +110,9 @@ bool DatabaseController::createClient(const QString &id
 
   QSqlQuery query(implementation->database);
   QString sqlStatement = "INSERT INTO clients "
-       " (name, phone, cellphone, mail , street, city, post_code) "
+       " (name, phone, cellphone, mail , street, house_nro, post_code) "
        "  VALUES "
-       " (:name, :phone, :cellphone, :mail, :street, :city, :post_code)";
+       " (:name, :phone, :cellphone, :mail, :street, :house_nro, :post_code)";
 
   query.prepare(sqlStatement);
   if ( query.lastError().type() != QSqlError::NoError ) {
@@ -121,7 +126,7 @@ bool DatabaseController::createClient(const QString &id
   query.bindValue(":cellphone",   QVariant(jsonObject["cellphone"]) );
   query.bindValue(":mail",        QVariant(jsonObject["mail"]) );
   query.bindValue(":street",      QVariant(jsonObject["address"]["street"]) );
-  query.bindValue(":city",        QVariant(jsonObject["address"]["city"]) );
+  query.bindValue(":house_nro",        QVariant(jsonObject["address"]["house_nro"]) );
   query.bindValue(":post_code",   QVariant(jsonObject["address"]["postcode"]) );
 
   query.exec();
@@ -154,18 +159,24 @@ QJsonArray DatabaseController::findClientByName(const QString &searchText) const
 {
   if ( searchText.isEmpty() ) return {};
 
+   std::cout << "1  \n" << std::endl;
+
   QSqlQuery query(implementation->database);
   QString sqlStatement = "SELECT id, name, phone, cellphone, mail, street, "
-                             " city, post_code "
+                             " house_nro, post_code "
                          "  FROM clients "
                          " WHERE LOWER(name) LIKE :searchText" ;
 
+   std::cout << "2  \n" << std::endl;
   if ( ! query.prepare(sqlStatement) ) return {};
 
+   std::cout << "3  \n" << std::endl;
   query.bindValue(":searchText", QVariant("%" + searchText.toLower() + "%") );
 
+   std::cout << "4  \n" << std::endl;
   if ( ! query.exec() ) return {};
 
+   std::cout << "5  \n" << std::endl;
   QJsonArray returnValue;
 
   while ( query.next() ) {
@@ -179,7 +190,7 @@ QJsonArray DatabaseController::findClientByName(const QString &searchText) const
 
     QJsonObject jsonObjAddress;
     jsonObjAddress.insert("street",    query.value(5).toString() );
-    jsonObjAddress.insert("city",      query.value(6).toString() );
+    jsonObjAddress.insert("house_nro", query.value(6).toString() );
     jsonObjAddress.insert("postcode", query.value(7).toString() );
 
     jsonObj.insert("address",      jsonObjAddress );
@@ -189,6 +200,7 @@ QJsonArray DatabaseController::findClientByName(const QString &searchText) const
 
     // TODO: Check for jsonObj sanity
     returnValue.append( jsonObj );
+     std::cout << "6  \n" << std::endl;
   }
 
   return returnValue;
@@ -204,7 +216,7 @@ bool DatabaseController::updateClient(const QString &id
   QString sqlStatement = "UPDATE clients "
      "  SET "
      "   name = :name, phone = :phone, cellphone = :cellphone "
-     " , mail = :mail, street = :street, city = :city, post_code = :post_code "
+     " , mail = :mail, street = :street, house_nro = :house_nro, post_code = :post_code "
      "  WHERE id = :id";
 
   query.prepare(sqlStatement);
@@ -220,7 +232,7 @@ bool DatabaseController::updateClient(const QString &id
   query.bindValue(":cellphone",   QVariant(jsonObject["cellphone"]) );
   query.bindValue(":mail",        QVariant(jsonObject["mail"]) );
   query.bindValue(":street",      QVariant(jsonObject["address"]["street"]) );
-  query.bindValue(":city",        QVariant(jsonObject["address"]["city"]) );
+  query.bindValue(":house_nro",        QVariant(jsonObject["address"]["house_nro"]) );
   query.bindValue(":post_code",   QVariant(jsonObject["address"]["postcode"]) );
 
   query.exec();
@@ -247,9 +259,9 @@ bool DatabaseController::createDriver(const QString &id
 
   QSqlQuery query(implementation->database);
   QString sqlStatement = "INSERT INTO drivers "
-       " (name, phone, lic_nro, lic_caducity_date, cellphone, mail , street, city, post_code) "
+       " (name, phone, lic_nro, lic_caducity_date, cellphone, mail , street, house_nro, post_code) "
        "  VALUES "
-       " (:name, :phone, :lic_nro, :lic_cad, :cellphone, :mail, :street, :city, :post_code)";
+       " (:name, :phone, :lic_nro, :lic_cad, :cellphone, :mail, :street, :house_nro, :post_code)";
 
   query.prepare(sqlStatement);
   if ( query.lastError().type() != QSqlError::NoError ) {
@@ -265,7 +277,7 @@ bool DatabaseController::createDriver(const QString &id
   query.bindValue(":cellphone",   QVariant(jsonObject["cellphone"]) );
   query.bindValue(":mail",        QVariant(jsonObject["mail"]) );
   query.bindValue(":street",      QVariant(jsonObject["address"]["street"]) );
-  query.bindValue(":city",        QVariant(jsonObject["address"]["city"]) );
+  query.bindValue(":house_nro",        QVariant(jsonObject["address"]["house_nro"]) );
   query.bindValue(":post_code",   QVariant(jsonObject["address"]["postcode"]) );
 
   query.exec();
@@ -301,7 +313,7 @@ QJsonArray DatabaseController::findDriverByName(const QString &searchText) const
   QSqlQuery query(implementation->database);
   QString sqlStatement = "SELECT id, name, phone, lic_nro, lic_caducity_date, "
                              " cellphone, mail, street, "
-                             " city, post_code "
+                             " house_nro, post_code "
                          "  FROM drivers "
                          " WHERE LOWER(name) LIKE :searchText" ;
 
@@ -326,7 +338,7 @@ QJsonArray DatabaseController::findDriverByName(const QString &searchText) const
 
     QJsonObject jsonObjAddress;
     jsonObjAddress.insert("street",    query.value(7).toString() );
-    jsonObjAddress.insert("city",      query.value(8).toString() );
+    jsonObjAddress.insert("house_nro",      query.value(8).toString() );
     jsonObjAddress.insert("postcode", query.value(9).toString() );
 
     jsonObj.insert("address",      jsonObjAddress );
@@ -352,7 +364,7 @@ bool DatabaseController::updateDriver(const QString &id
      "  SET "
      "   name = :name, phone = :phone, lic_nro = :lic_nro "
      " , lic_caducity_date = :lic_cad, cellphone = :cellphone "
-     " , mail = :mail, street = :street, city = :city, post_code = :post_code "
+     " , mail = :mail, street = :street, house_nro = :house_nro, post_code = :post_code "
      "  WHERE id = :id";
 
   query.prepare(sqlStatement);
@@ -370,7 +382,7 @@ bool DatabaseController::updateDriver(const QString &id
   query.bindValue(":cellphone",   QVariant(jsonObject["cellphone"]) );
   query.bindValue(":mail",        QVariant(jsonObject["mail"]) );
   query.bindValue(":street",      QVariant(jsonObject["address"]["street"]) );
-  query.bindValue(":city",        QVariant(jsonObject["address"]["city"]) );
+  query.bindValue(":house_nro",        QVariant(jsonObject["address"]["house_nro"]) );
   query.bindValue(":post_code",   QVariant(jsonObject["address"]["postcode"]) );
 
   query.exec();

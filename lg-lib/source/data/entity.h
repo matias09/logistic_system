@@ -10,7 +10,6 @@
 #include <data/datadecorator.h>
 #include <data/entitycollection.h>
 
-#include <controllers/idatabasecontroller.h>
 #include <data/stringdecorator.h>
 
 namespace lg {

@@ -14,7 +14,7 @@ class LGLIBSHARED_EXPORT Address : public data::Entity
 {
   Q_OBJECT
   Q_PROPERTY(lg::data::StringDecorator* ui_street MEMBER street CONSTANT)
-  Q_PROPERTY(lg::data::StringDecorator* ui_city MEMBER city CONSTANT)
+  Q_PROPERTY(lg::data::StringDecorator* ui_house_nro MEMBER house_nro CONSTANT)
   Q_PROPERTY(lg::data::StringDecorator* ui_postcode MEMBER postcode CONSTANT)
   Q_PROPERTY(QString ui_fullAddress READ fullAddress CONSTANT)
 
@@ -23,7 +23,7 @@ public:
   Address(QObject *parent, const QJsonObject &json);
 
   data::StringDecorator* street{nullptr};
-  data::StringDecorator* city{nullptr};
+  data::StringDecorator* house_nro{nullptr};
   data::StringDecorator* postcode{nullptr};
 
   QString fullAddress() const;

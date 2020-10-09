@@ -8,17 +8,13 @@ namespace data {
 class Entity::Implementation
 {
 public:
-  Implementation(
-                Entity *_entity
-               ,controllers::IDatabaseController *_databaseController
-               ,const QString &_key)
+  Implementation(Entity *_entity
+                ,const QString &_key)
    : entity(_entity)
-    ,databaseController(_databaseController)
     ,key(_key)
     ,id( QUuid::createUuid().toString() ) {}
 
     Entity* entity{nullptr};
-    controllers::IDatabaseController *databaseController;
     QString key;
     QString id;
 
@@ -32,7 +28,7 @@ public:
  Entity::Entity( QObject* parent , const QString &key)
   : QObject (parent)
  {
-    implementation.reset( new Implementation(this, nullptr, key) );
+    implementation.reset( new Implementation(this, key) );
  }
 
  Entity::Entity(

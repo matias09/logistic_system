@@ -12,18 +12,18 @@ class ClientSearch::Implementation
 {
 public:
   Implementation( ClientSearch *_clientSearch
-                 ,IDatabaseController *_databaseController )
+                 ,DatabaseController  *_databaseController )
     : clientSearch( _clientSearch )
     , databaseController( _databaseController ) {}
 
     ClientSearch *clientSearch{nullptr};
-    IDatabaseController *databaseController{nullptr};
+    DatabaseController    *databaseController{nullptr};
     data::StringDecorator *searchText{nullptr};
     data::EntityCollection<Client> *searchResults{nullptr};
 };
 
 ClientSearch::ClientSearch( QObject *parent
-                          ,IDatabaseController *databaseController )
+                          ,DatabaseController *databaseController )
      : Entity( parent, "ClientSearch")
 {
   implementation.reset( new Implementation(this, databaseController) );

@@ -7,7 +7,7 @@
 #include <lg-lib_global.h>
 #include <framework/command.h>
 
-#include <controllers/idatabasecontroller.h>
+#include <controllers/databasecontroller.h>
 #include <controllers/navigationcontroller.h>
 
 #include <models/client.h>
@@ -38,7 +38,7 @@ class LGLIBSHARED_EXPORT  CliCommandController : public QObject
 public:
   explicit CliCommandController(
     QObject              *parent = nullptr
-   ,IDatabaseController  *databaseController = nullptr
+   ,DatabaseController   *databaseController = nullptr
    ,NavigationController *navigationController = nullptr
    ,models::Client       *newClient = nullptr
    ,models::ClientSearch *clientSearch = nullptr);

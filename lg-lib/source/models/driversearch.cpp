@@ -12,18 +12,18 @@ class DriverSearch::Implementation
 {
 public:
   Implementation( DriverSearch *_driverSearch
-                 ,IDatabaseController *_databaseController )
+                 ,DatabaseController *_databaseController )
     : driverSearch( _driverSearch )
     , databaseController( _databaseController ) {}
 
     DriverSearch *driverSearch{nullptr};
-    IDatabaseController *databaseController{nullptr};
+    DatabaseController    *databaseController{nullptr};
     data::StringDecorator *searchText{nullptr};
     data::EntityCollection<Driver> *searchResults{nullptr};
 };
 
 DriverSearch::DriverSearch( QObject *parent
-                          ,IDatabaseController *databaseController )
+                          ,DatabaseController *databaseController )
      : Entity( parent, "DriverSearch")
 {
   implementation.reset( new Implementation(this, databaseController) );

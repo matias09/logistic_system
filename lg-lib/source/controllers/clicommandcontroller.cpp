@@ -13,8 +13,8 @@ class CliCommandController::Implementation
 {
 public:
   Implementation(
-            CliCommandController    *_cliCommandController
-           ,IDatabaseController  *_databaseController
+            CliCommandController *_cliCommandController
+           ,DatabaseController   *_databaseController
            ,NavigationController *_navigationController
            ,models::Client       *_newClient
            ,models::ClientSearch *_clientSearch )
@@ -78,7 +78,7 @@ public:
   QList<Command*> findClientViewContextCommands{};
   QList<Command*> editClientViewContextCommands{};
 
-  IDatabaseController  *databaseController{nullptr};
+  DatabaseController   *databaseController{nullptr};
   NavigationController *navigationController{nullptr};
 
   models::Client       *newClient{nullptr};
@@ -88,7 +88,7 @@ public:
 
 CliCommandController::CliCommandController(
             QObject *parent
-           ,IDatabaseController  *databaseController
+           ,DatabaseController   *databaseController
            ,NavigationController *navigationController
            ,models::Client       *newClient
            ,models::ClientSearch *clientSearch )

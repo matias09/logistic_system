@@ -30,7 +30,6 @@ SOURCES += \
         source/data/datadecorator.cpp \
         source/data/datetimedecorator.cpp \
         source/data/entity.cpp \
-        source/data/enumeratordecorator.cpp \
         source/data/intdecorator.cpp \
         source/data/stringdecorator.cpp \
         source/framework/command.cpp \
@@ -46,12 +45,10 @@ HEADERS += \
         source/controllers/clicommandcontroller.h \
         source/controllers/dricommandcontroller.h \
         source/controllers/databasecontroller.h \
-        source/controllers/idatabasecontroller.h \
         source/data/datadecorator.h \
         source/data/datetimedecorator.h \
         source/data/entity.h \
         source/data/entitycollection.h \
-        source/data/enumeratordecorator.h \
         source/data/intdecorator.h \
         source/data/stringdecorator.h \
         source/framework/command.h \

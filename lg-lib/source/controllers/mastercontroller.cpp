@@ -9,7 +9,7 @@ public:
   Implementation(MasterController* _masterController)
     : masterController(_masterController)
    {
-      databaseController   = new DatabaseController(masterController);
+      databaseController   = new DatabaseController();
       navigationController = new NavigationController(masterController);
 
       newClient    = new models::Client(masterController);

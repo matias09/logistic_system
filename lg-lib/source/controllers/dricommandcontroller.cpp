@@ -14,7 +14,7 @@ class DriCommandController::Implementation
 public:
   Implementation(
             DriCommandController    *_driCommandController
-           ,IDatabaseController  *_databaseController
+           ,DatabaseController   *_databaseController
            ,NavigationController *_navigationController
            ,models::Driver       *_newDriver
            ,models::DriverSearch *_driverSearch )
@@ -78,7 +78,7 @@ public:
   QList<Command*> findDriverViewContextCommands{};
   QList<Command*> editDriverViewContextCommands{};
 
-  IDatabaseController  *databaseController{nullptr};
+  DatabaseController   *databaseController{nullptr};
   NavigationController *navigationController{nullptr};
 
   models::Driver       *newDriver{nullptr};
@@ -88,7 +88,7 @@ public:
 
 DriCommandController::DriCommandController(
             QObject *parent
-           ,IDatabaseController  *databaseController
+           ,DatabaseController   *databaseController
            ,NavigationController *navigationController
            ,models::Driver       *newDriver
            ,models::DriverSearch *driverSearch )

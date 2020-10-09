@@ -7,7 +7,7 @@
 #include <lg-lib_global.h>
 #include <framework/command.h>
 
-#include <controllers/idatabasecontroller.h>
+#include <controllers/databasecontroller.h>
 #include <controllers/navigationcontroller.h>
 
 #include <models/driver.h>
@@ -38,7 +38,7 @@ class LGLIBSHARED_EXPORT  DriCommandController : public QObject
 public:
   explicit DriCommandController(
     QObject              *parent = nullptr
-   ,IDatabaseController  *databaseController = nullptr
+   ,DatabaseController   *databaseController = nullptr
    ,NavigationController *navigationController = nullptr
    ,models::Driver       *newDriver = nullptr
    ,models::DriverSearch *driverSearch = nullptr);

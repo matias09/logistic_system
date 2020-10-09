@@ -12,8 +12,8 @@ Address::Address(QObject *parent)
       new StringDecorator(this, "street", "Calle")
   ) );
 
-  city = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "city", "Ciudad")
+  house_nro = static_cast<StringDecorator*>(addDataItem(
+      new StringDecorator(this, "house_nro", "Numeracion")
   ) );
 
   postcode = static_cast<StringDecorator*>(addDataItem(
@@ -28,8 +28,8 @@ Address::Address(QObject *parent, const QJsonObject &json)
 
 QString Address::fullAddress() const
 {
-  return  street->value() + "\n"
-          + city->value() + "\n"
+  return  street->value() + " "
+          + house_nro->value() + "\n"
           + postcode->value();
 }
 

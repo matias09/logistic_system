@@ -4,7 +4,7 @@
 #include <QScopedPointer>
 
 #include <lg-lib_global.h>
-#include <controllers/idatabasecontroller.h>
+#include <controllers/databasecontroller.h>
 #include <data/stringdecorator.h>
 #include <data/entity.h>
 #include <data/entitycollection.h>
@@ -23,7 +23,7 @@ class LGLIBSHARED_EXPORT DriverSearch : public data::Entity
 
 public:
   DriverSearch(QObject *parent = nullptr,
-               controllers::IDatabaseController *databaseController = nullptr);
+               controllers::DatabaseController *databaseController = nullptr);
 
   ~DriverSearch();
 
