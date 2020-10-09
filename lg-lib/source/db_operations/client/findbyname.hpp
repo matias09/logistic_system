@@ -1,14 +1,12 @@
 #ifndef FIND_BY_NAME_H
 #define FIND_BY_NAME_H
 
+#include <controllers/databasecontroller.h>
 #include <models/clientsearch.h>
-
-#include <QtSql/QSqlDatabase>
-#include <QtSql/QSqlQuery>
-#include <QtSql/QSqlError>
 
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QSqlQuery>
 
 #include <lg-lib_global.h>
 
@@ -20,39 +18,29 @@ namespace models {
 class LGLIBSHARED_EXPORT ClientSearch::FindByName
 {
 public:
-  static bool call(QJsonArray &returnValue,
-                   const QString &searchText,
-                   const QSqlDatabase &database)
-  { return FindByName().exec(returnValue, searchText, database); }
+  static bool call(QJsonArray &returnValue
+                  ,const QString &searchText
+                  ,const controllers::DatabaseController &db)
+  { return FindByName().exec(returnValue, searchText, db); }
 
 private:
   bool exec(QJsonArray &returnValue
            ,const QString &searchText
-           ,const QSqlDatabase &database)
+           ,const controllers::DatabaseController &db)
   {
     if ( searchText.isEmpty() ) return false;
 
-    QSqlQuery query(database);
-    QString sqlStatement = "SELECT id, name, phone, cellphone, mail, street, "
+    QString sqlStm = "SELECT id, name, phone, cellphone, mail, street, "
       " house_nro, post_code "
       "  FROM clients "
       " WHERE LOWER(name) LIKE :searchText" ;
 
-    query.prepare(sqlStatement);
-    if ( query.lastError().type() != QSqlError::NoError ) {
-      std::cout << "Can't Select Client: "
-                << query.lastError().text().toStdString() << std::endl;
-      return false;
-    }
+    std::map<QString, QVariant> binds;
+    binds.insert(std::pair<QString, QVariant>(
+                  ":searchText",
+                  QVariant("%" + searchText.toLower() + "%") ));
 
-    query.bindValue(":searchText", QVariant("%" + searchText.toLower() + "%") );
-
-    query.exec();
-    if ( query.lastError().type() != QSqlError::NoError ) {
-      std::cout << "Can't Select Client: "
-                << query.lastError().text().toStdString() << std::endl;
-      return false;
-    }
+    QSqlQuery&& query = db.findClientByName(sqlStm, binds);
 
     while ( query.next() ) {
       QJsonObject jsonObj;

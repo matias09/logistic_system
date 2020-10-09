@@ -2,6 +2,7 @@
 #define DATABASECONTROLLER_H
 
 #include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlQuery>
 
 #include <QObject>
 #include <QScopedPointer>
@@ -24,7 +25,8 @@ public:
     bool createClient(const QString &id
                      ,const QJsonObject &jsonObject) const;
     bool deleteClient(const QString &id) const;
-   QJsonArray findClientByName(const QString &searchText) const;
+    QSqlQuery findClientByName(const QString &sqlStatement
+                              ,const std::map<QString, QVariant> &binds) const;
    bool updateClient(const QString &id
                     ,const QJsonObject &jsonObject) const;
 

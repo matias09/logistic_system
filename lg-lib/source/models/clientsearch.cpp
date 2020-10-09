@@ -64,7 +64,7 @@ void ClientSearch::search()
   QJsonArray resultsArray;
   FindByName::call(resultsArray
                   ,implementation->searchText->value()
-                  ,implementation->databaseController->getDatabaseConn());
+                  ,*(implementation->databaseController));
 
   implementation->searchResults->update( resultsArray );
 

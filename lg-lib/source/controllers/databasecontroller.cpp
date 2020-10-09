@@ -1,13 +1,16 @@
 #include "databasecontroller.h"
 
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlError>
+
 #include <QJsonArray>
-#include <QSqlQuery>
 
 #include <QDir>
 #include <QFile>
 
 #include <QDebug>
-#include <QSqlError>
+
 // C++
 #include <iostream>
 
@@ -155,48 +158,34 @@ bool DatabaseController::deleteClient(const QString &id) const
   return query.numRowsAffected() > 0;
 }
 
-QJsonArray DatabaseController::findClientByName(const QString &searchText) const
+QSqlQuery DatabaseController::findClientByName(
+    const QString &sqlStatement
+   ,const std::map<QString, QVariant> &binds) const
 {
-  if ( searchText.isEmpty() ) return {};
-
   QSqlQuery query(implementation->database);
-  QString sqlStatement = "SELECT id, name, phone, cellphone, mail, street, "
-                             " house_nro, post_code "
-                         "  FROM clients "
-                         " WHERE LOWER(name) LIKE :searchText" ;
 
-  if ( ! query.prepare(sqlStatement) ) return {};
+  query.prepare(sqlStatement);
+  if ( query.lastError().type() != QSqlError::NoError ) {
+    std::cout << "Can't Prepare sql file: "
+              << query.lastError().text().toStdString() << std::endl;
 
-  query.bindValue(":searchText", QVariant("%" + searchText.toLower() + "%") );
-
-  if ( ! query.exec() ) return {};
-
-  QJsonArray returnValue;
-
-  while ( query.next() ) {
-    QJsonObject jsonObj;
-
-    jsonObj.insert("reference",        query.value(0).toString() );
-    jsonObj.insert("name",      query.value(1).toString() );
-    jsonObj.insert("phone",     query.value(2).toString() );
-    jsonObj.insert("cellphone", query.value(3).toString() );
-    jsonObj.insert("mail",      query.value(4).toString() );
-
-    QJsonObject jsonObjAddress;
-    jsonObjAddress.insert("street",    query.value(5).toString() );
-    jsonObjAddress.insert("house_nro", query.value(6).toString() );
-    jsonObjAddress.insert("postcode", query.value(7).toString() );
-
-    jsonObj.insert("address",      jsonObjAddress );
-
-    //QJsonDocument doc(jsonObj);
-    // std::cout << "Json created : \n" << doc.toJson().toStdString() << std::endl;
-
-    // TODO: Check for jsonObj sanity
-    returnValue.append( jsonObj );
+    return QSqlQuery();
   }
 
-  return returnValue;
+  std::for_each(binds.begin(), binds.end(), [&](std::pair<QString, QVariant> p) {
+     query.bindValue(p.first, p.second);
+  });
+
+
+  query.exec();
+  if ( query.lastError().type() != QSqlError::NoError ) {
+    std::cout << "Can't Prepare sql file: "
+              << query.lastError().text().toStdString() << std::endl;
+
+    return QSqlQuery();
+  }
+
+  return query;
 }
 
 bool DatabaseController::updateClient(const QString &id
