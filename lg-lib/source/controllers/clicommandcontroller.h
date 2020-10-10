@@ -62,6 +62,9 @@ public slots:
  private:
   class  Implementation;
   QScopedPointer<Implementation> implementation;
+
+  class DeleteById;
+  class UpdateById;
 };
 
 } // controllers

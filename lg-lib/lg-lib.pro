@@ -39,7 +39,9 @@ SOURCES += \
         source/models/clientsearch.cpp \
         source/models/driver.cpp \
         source/models/driversearch.cpp \
-        source/db_operations/client/findbyname.hpp
+        source/db_operations/client/findbyname.hpp  \
+        source/db_operations/client/updatebyid.hpp \
+        source/db_operations/client/deletebyid.hpp
 
 HEADERS += \
         source/lg-lib_global.h \

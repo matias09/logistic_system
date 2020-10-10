@@ -1,4 +1,6 @@
 #include "clicommandcontroller.h"
+#include "db_operations/client/deletebyid.hpp"
+#include "db_operations/client/updatebyid.hpp"
 
 #include <QList>
 
@@ -171,9 +173,9 @@ void CliCommandController::onEditClientSaveExecuted()
 {
   std::cout << "You executed the Edit Command!" << std::endl;
 
-  bool r = implementation->databaseController->updateClient(
-    implementation->selectedClient->id()
-   ,implementation->selectedClient->toJson() );
+  bool r = UpdateById::call( implementation->selectedClient->toJson()
+                          ,  implementation->selectedClient->id()
+                          ,*(implementation->databaseController) );
 
   if ( r ) {
     std::cout << "Client Updated"     << std::endl;
@@ -194,8 +196,8 @@ CliCommandController::ui_deleteClientViewContextCommands()
 void CliCommandController::onEditClientDeleteExecuted()
 {
   std::cout << "You executed the Delete Command!" << std::endl;
-  implementation->databaseController->deleteClient(
-    implementation->selectedClient->id() );
+  DeleteById::call( implementation->selectedClient->id()
+                   ,*(implementation->databaseController) );
 
   implementation->selectedClient = nullptr;
 

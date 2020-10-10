@@ -142,18 +142,32 @@ bool DatabaseController::createClient(const QString &id
   return query.numRowsAffected() > 0;
 }
 
-bool DatabaseController::deleteClient(const QString &id) const
+bool DatabaseController::deleteClient(
+    const QString &sqlStatement
+   ,const std::map<QString, QVariant> &binds) const
 {
-  if ( id.isEmpty() ) return false;
-
   QSqlQuery query(implementation->database);
-  QString sqlStatement = "DELETE FROM clients WHERE id = :id";
 
-  if ( ! query.prepare(sqlStatement) ) return false;
+  query.prepare(sqlStatement);
+  if ( query.lastError().type() != QSqlError::NoError ) {
+    std::cout << "Can't Prepare sql file: "
+              << query.lastError().text().toStdString() << std::endl;
 
-  query.bindValue(":id", id.toInt());
+    return false;
+  }
 
-  if ( ! query.exec() ) return false;
+  std::for_each(binds.begin(), binds.end(),
+  [&](std::pair<QString, QVariant> p) {
+     query.bindValue(p.first, p.second);
+  });
+
+  query.exec();
+  if ( query.lastError().type() != QSqlError::NoError ) {
+    std::cout << "Can't Prepare sql file: "
+              << query.lastError().text().toStdString() << std::endl;
+
+    return false;
+  }
 
   return query.numRowsAffected() > 0;
 }
@@ -172,7 +186,8 @@ QSqlQuery DatabaseController::findClientByName(
     return QSqlQuery();
   }
 
-  std::for_each(binds.begin(), binds.end(), [&](std::pair<QString, QVariant> p) {
+  std::for_each(binds.begin(), binds.end(),
+  [&](std::pair<QString, QVariant> p) {
      query.bindValue(p.first, p.second);
   });
 
@@ -188,18 +203,11 @@ QSqlQuery DatabaseController::findClientByName(
   return query;
 }
 
-bool DatabaseController::updateClient(const QString &id
-                                     ,const QJsonObject &jsonObject) const
+bool DatabaseController::updateClient(
+    const QString &sqlStatement
+   ,const std::map<QString, QVariant> &binds) const
 {
-  if ( id.isEmpty() ) return false;
-  if ( jsonObject.isEmpty() ) return false;
-
   QSqlQuery query(implementation->database);
-  QString sqlStatement = "UPDATE clients "
-     "  SET "
-     "   name = :name, phone = :phone, cellphone = :cellphone "
-     " , mail = :mail, street = :street, house_nro = :house_nro, post_code = :post_code "
-     "  WHERE id = :id";
 
   query.prepare(sqlStatement);
   if ( query.lastError().type() != QSqlError::NoError ) {
@@ -208,14 +216,10 @@ bool DatabaseController::updateClient(const QString &id
     return false;
   }
 
-  query.bindValue(":id",          QVariant(id.toInt()) );
-  query.bindValue(":name",        QVariant(jsonObject["name"]) );
-  query.bindValue(":phone",       QVariant(jsonObject["phone"]) );
-  query.bindValue(":cellphone",   QVariant(jsonObject["cellphone"]) );
-  query.bindValue(":mail",        QVariant(jsonObject["mail"]) );
-  query.bindValue(":street",      QVariant(jsonObject["address"]["street"]) );
-  query.bindValue(":house_nro",        QVariant(jsonObject["address"]["house_nro"]) );
-  query.bindValue(":post_code",   QVariant(jsonObject["address"]["postcode"]) );
+  std::for_each(binds.begin(), binds.end(),
+  [&](std::pair<QString, QVariant> p) {
+     query.bindValue(p.first, p.second);
+  });
 
   query.exec();
   if ( query.lastError().type() != QSqlError::NoError ) {

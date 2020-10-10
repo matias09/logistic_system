@@ -24,11 +24,12 @@ public:
 
     bool createClient(const QString &id
                      ,const QJsonObject &jsonObject) const;
-    bool deleteClient(const QString &id) const;
+    bool deleteClient(const QString &sqlStatement
+                     ,const std::map<QString, QVariant> &binds) const;
     QSqlQuery findClientByName(const QString &sqlStatement
                               ,const std::map<QString, QVariant> &binds) const;
-   bool updateClient(const QString &id
-                    ,const QJsonObject &jsonObject) const;
+   bool updateClient(const QString &sqlStatement
+                    ,const std::map<QString, QVariant> &binds) const;
 
 
     bool createDriver(const QString &id
