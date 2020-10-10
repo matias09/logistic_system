@@ -1,4 +1,5 @@
 #include "driversearch.h"
+#include "db_operations/driver/findbyname.hpp"
 
 #include <iostream>
 
@@ -60,8 +61,10 @@ void DriverSearch::search()
             <<  implementation->searchText->value().toStdString()
             << "..." << std::endl;
 
-  auto resultsArray = implementation->databaseController->findDriverByName(
-    implementation->searchText->value() );
+  QJsonArray resultsArray;
+  FindByName::call(resultsArray
+                  ,implementation->searchText->value()
+                  ,*(implementation->databaseController));
 
   implementation->searchResults->update( resultsArray );
 

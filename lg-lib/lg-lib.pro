@@ -42,7 +42,11 @@ SOURCES += \
         source/db_operations/client/findbyname.hpp  \
         source/db_operations/client/updatebyid.hpp \
         source/db_operations/client/insert.hpp \
-        source/db_operations/client/deletebyid.hpp
+        source/db_operations/client/deletebyid.hpp \
+        source/db_operations/driver/findbyname.hpp  \
+        source/db_operations/driver/updatebyid.hpp \
+        source/db_operations/driver/insert.hpp \
+        source/db_operations/driver/deletebyid.hpp
 
 HEADERS += \
         source/lg-lib_global.h \

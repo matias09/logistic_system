@@ -1,8 +1,8 @@
-#ifndef DELETE_CLIENT_BY_ID_H
-#define DELETE_CLIENT_BY_ID_H
+#ifndef DELETE_BY_ID_H
+#define DELETE_BY_ID_H
 
 #include <controllers/databasecontroller.h>
-#include <controllers/clicommandcontroller.h>
+#include <controllers/dricommandcontroller.h>
 
 #include <lg-lib_global.h>
 
@@ -11,7 +11,7 @@
 namespace lg {
 namespace controllers {
 
-class LGLIBSHARED_EXPORT CliCommandController::DeleteById
+class LGLIBSHARED_EXPORT DriCommandController::DeleteById
 {
 public:
   static bool call(const QString &id
@@ -24,7 +24,7 @@ private:
   {
     if ( id.isEmpty() ) return false;
 
-    QString sqlStm = "DELETE FROM clients WHERE id = :id";
+    QString sqlStm = "DELETE FROM drivers WHERE id = :id";
 
     std::map<QString, QVariant> binds;
     binds.insert(std::pair<QString, QVariant>( ":id", QVariant(id).toInt() ));
@@ -43,4 +43,4 @@ private:
 } //  controllers
 } // lg
 
-#endif  // DELETE_CLIENT_BY_ID_H
+#endif  // DELETE_BY_ID_H

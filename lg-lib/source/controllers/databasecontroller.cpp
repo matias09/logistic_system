@@ -1,10 +1,7 @@
 #include "databasecontroller.h"
 
 #include <QtSql/QSqlDatabase>
-#include <QtSql/QSqlQuery>
 #include <QtSql/QSqlError>
-
-#include <QJsonArray>
 
 #include <QDir>
 #include <QFile>
@@ -99,11 +96,6 @@ DatabaseController::DatabaseController()
 }
 
 DatabaseController::~DatabaseController() {}
-
-const QSqlDatabase& DatabaseController::getDatabaseConn() const
-{
-  return implementation->database;
-}
 
 bool DatabaseController::create(
     const QString &sqlStatement
@@ -210,156 +202,6 @@ bool DatabaseController::update(
   [&](std::pair<QString, QVariant> p) {
      query.bindValue(p.first, p.second);
   });
-
-  query.exec();
-  if ( query.lastError().type() != QSqlError::NoError ) {
-    std::cout << "Can't Execute sql file: "
-              << query.lastError().text().toStdString() << std::endl;
-    return false;
-  }
-
-  return query.numRowsAffected() > 0;
-}
-
-
-//----------------------------------------------------------------
-//-- Drivers
-//----------------------------------------------------------------
-
-
-bool DatabaseController::createDriver(const QString &id
-                                     ,const QJsonObject &jsonObject) const
-{
-  if ( id.isEmpty() ) return false;
-  if ( jsonObject.isEmpty() ) return false;
-
-  QSqlQuery query(implementation->database);
-  QString sqlStatement = "INSERT INTO drivers "
-       " (name, phone, lic_nro, lic_caducity_date, cellphone, mail , street, house_nro, post_code) "
-       "  VALUES "
-       " (:name, :phone, :lic_nro, :lic_cad, :cellphone, :mail, :street, :house_nro, :post_code)";
-
-  query.prepare(sqlStatement);
-  if ( query.lastError().type() != QSqlError::NoError ) {
-    std::cout << "Can't Prepare sql file: "
-              << query.lastError().text().toStdString() << std::endl;
-    return false;
-  }
-
-  query.bindValue(":name",        QVariant(jsonObject["name"]) );
-  query.bindValue(":phone",       QVariant(jsonObject["phone"]) );
-  query.bindValue(":lic_nro",     QVariant(jsonObject["lic_nro"]) );
-  query.bindValue(":lic_cad",     QVariant(jsonObject["lic_cad"]) );
-  query.bindValue(":cellphone",   QVariant(jsonObject["cellphone"]) );
-  query.bindValue(":mail",        QVariant(jsonObject["mail"]) );
-  query.bindValue(":street",      QVariant(jsonObject["address"]["street"]) );
-  query.bindValue(":house_nro",        QVariant(jsonObject["address"]["house_nro"]) );
-  query.bindValue(":post_code",   QVariant(jsonObject["address"]["postcode"]) );
-
-  query.exec();
-  if ( query.lastError().type() != QSqlError::NoError ) {
-    std::cout << "Can't Execute sql file: "
-              << query.lastError().text().toStdString() << std::endl;
-    return false;
-  }
-
-  return query.numRowsAffected() > 0;
-}
-
-bool DatabaseController::deleteDriver(const QString &id) const
-{
-  if ( id.isEmpty() ) return false;
-
-  QSqlQuery query(implementation->database);
-  QString sqlStatement = "DELETE FROM drivers WHERE id = :id";
-
-  if ( ! query.prepare(sqlStatement) ) return false;
-
-  query.bindValue(":id", id.toInt());
-
-  if ( ! query.exec() ) return false;
-
-  return query.numRowsAffected() > 0;
-}
-
-QJsonArray DatabaseController::findDriverByName(const QString &searchText) const
-{
-  if ( searchText.isEmpty() ) return {};
-
-  QSqlQuery query(implementation->database);
-  QString sqlStatement = "SELECT id, name, phone, lic_nro, lic_caducity_date, "
-                             " cellphone, mail, street, "
-                             " house_nro, post_code "
-                         "  FROM drivers "
-                         " WHERE LOWER(name) LIKE :searchText" ;
-
-  if ( ! query.prepare(sqlStatement) ) return {};
-
-  query.bindValue(":searchText", QVariant("%" + searchText.toLower() + "%") );
-
-  if ( ! query.exec() ) return {};
-
-  QJsonArray returnValue;
-
-  while ( query.next() ) {
-    QJsonObject jsonObj;
-
-    jsonObj.insert("reference",        query.value(0).toString() );
-    jsonObj.insert("name",      query.value(1).toString() );
-    jsonObj.insert("phone",     query.value(2).toString() );
-    jsonObj.insert("lic_nro",   query.value(3).toString() );
-    jsonObj.insert("lic_cad",   query.value(4).toString() );
-    jsonObj.insert("cellphone", query.value(5).toString() );
-    jsonObj.insert("mail",      query.value(6).toString() );
-
-    QJsonObject jsonObjAddress;
-    jsonObjAddress.insert("street",    query.value(7).toString() );
-    jsonObjAddress.insert("house_nro",      query.value(8).toString() );
-    jsonObjAddress.insert("postcode", query.value(9).toString() );
-
-    jsonObj.insert("address",      jsonObjAddress );
-
-    //QJsonDocument doc(jsonObj);
-    // std::cout << "Json created : \n" << doc.toJson().toStdString() << std::endl;
-
-    // TODO: Check for jsonObj sanity
-    returnValue.append( jsonObj );
-  }
-
-  return returnValue;
-}
-
-bool DatabaseController::updateDriver(const QString &id
-                                     ,const QJsonObject &jsonObject) const
-{
-  if ( id.isEmpty() ) return false;
-  if ( jsonObject.isEmpty() ) return false;
-
-  QSqlQuery query(implementation->database);
-  QString sqlStatement = "UPDATE drivers "
-     "  SET "
-     "   name = :name, phone = :phone, lic_nro = :lic_nro "
-     " , lic_caducity_date = :lic_cad, cellphone = :cellphone "
-     " , mail = :mail, street = :street, house_nro = :house_nro, post_code = :post_code "
-     "  WHERE id = :id";
-
-  query.prepare(sqlStatement);
-  if ( query.lastError().type() != QSqlError::NoError ) {
-    std::cout << "Can't Prepare sql file: "
-              << query.lastError().text().toStdString() << std::endl;
-    return false;
-  }
-
-  query.bindValue(":id",          QVariant(id.toInt()) );
-  query.bindValue(":name",        QVariant(jsonObject["name"]) );
-  query.bindValue(":phone",       QVariant(jsonObject["phone"]) );
-  query.bindValue(":lic_nro",     QVariant(jsonObject["lic_nro"]) );
-  query.bindValue(":lic_cad",     QVariant(jsonObject["lic_cad"]) );
-  query.bindValue(":cellphone",   QVariant(jsonObject["cellphone"]) );
-  query.bindValue(":mail",        QVariant(jsonObject["mail"]) );
-  query.bindValue(":street",      QVariant(jsonObject["address"]["street"]) );
-  query.bindValue(":house_nro",        QVariant(jsonObject["address"]["house_nro"]) );
-  query.bindValue(":post_code",   QVariant(jsonObject["address"]["postcode"]) );
 
   query.exec();
   if ( query.lastError().type() != QSqlError::NoError ) {

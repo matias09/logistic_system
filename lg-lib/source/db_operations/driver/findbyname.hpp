@@ -1,8 +1,8 @@
-#ifndef FIND_CLIENT_BY_NAME_H
-#define FIND_CLIENT_BY_NAME_H
+#ifndef FIND_BY_NAME_H
+#define FIND_BY_NAME_H
 
 #include <controllers/databasecontroller.h>
-#include <models/clientsearch.h>
+#include <models/driversearch.h>
 
 #include <QJsonObject>
 #include <QJsonArray>
@@ -14,7 +14,7 @@
 namespace lg {
 namespace models {
 
-class LGLIBSHARED_EXPORT ClientSearch::FindByName
+class LGLIBSHARED_EXPORT DriverSearch::FindByName
 {
 public:
   static bool call(QJsonArray &returnValue
@@ -29,10 +29,11 @@ private:
   {
     if ( searchText.isEmpty() ) return false;
 
-    QString sqlStm = "SELECT id, name, phone, cellphone, mail, street, "
-      " house_nro, post_code "
-      "  FROM clients "
-      " WHERE LOWER(name) LIKE :searchText" ;
+    QString sqlStm = "SELECT id, name, phone, lic_nro, lic_caducity_date, "
+                           " cellphone, mail, street, "
+                           " house_nro, post_code "
+                         "  FROM drivers "
+                         " WHERE LOWER(name) LIKE :searchText" ;
 
     std::map<QString, QVariant> binds;
     binds.insert(std::pair<QString, QVariant>(
@@ -47,13 +48,15 @@ private:
       jsonObj.insert("reference", query.value(0).toString() );
       jsonObj.insert("name",      query.value(1).toString() );
       jsonObj.insert("phone",     query.value(2).toString() );
-      jsonObj.insert("cellphone", query.value(3).toString() );
-      jsonObj.insert("mail",      query.value(4).toString() );
+      jsonObj.insert("lic_nro",   query.value(3).toString() );
+      jsonObj.insert("lic_cad",   query.value(4).toString() );
+      jsonObj.insert("cellphone", query.value(5).toString() );
+      jsonObj.insert("mail",      query.value(6).toString() );
 
       QJsonObject jsonObjAddress;
-      jsonObjAddress.insert("street",    query.value(5).toString() );
-      jsonObjAddress.insert("house_nro", query.value(6).toString() );
-      jsonObjAddress.insert("postcode",  query.value(7).toString() );
+      jsonObjAddress.insert("street",    query.value(7).toString() );
+      jsonObjAddress.insert("house_nro", query.value(8).toString() );
+      jsonObjAddress.insert("postcode",  query.value(9).toString() );
 
       jsonObj.insert("address", jsonObjAddress );
 
@@ -74,4 +77,4 @@ private:
 } //  models {
 } // lg
 
-#endif  // FIND_CLIENT_BY_NAME_H
+#endif  // FIND_BY_NAME_H

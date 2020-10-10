@@ -1,7 +1,6 @@
 #ifndef DATABASECONTROLLER_H
 #define DATABASECONTROLLER_H
 
-#include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
 
 #include <QObject>
@@ -20,8 +19,6 @@ public:
   explicit DatabaseController();
   ~DatabaseController();
 
-  const QSqlDatabase& getDatabaseConn() const;
-
   bool create(const QString &sqlStatement
              ,const std::map<QString, QVariant> &binds) const;
 
@@ -34,14 +31,6 @@ public:
   bool remove(const QString &sqlStatement
              ,const std::map<QString, QVariant> &binds) const;
 
-
-  bool createDriver(const QString &id
-                   ,const QJsonObject &jsonObject) const;
-  bool deleteDriver(const QString &id) const;
-  QJsonArray findDriverByName(const QString &searchText) const;
-  bool updateDriver(const QString &id
-                  ,const QJsonObject &jsonObject) const;
-
 private:
   class Implementation;
   QScopedPointer<Implementation> implementation;
@@ -50,7 +39,3 @@ private:
 } //  controllers
 } // lg
 #endif // DATABASECONTROLLER_H
-
-
-
-

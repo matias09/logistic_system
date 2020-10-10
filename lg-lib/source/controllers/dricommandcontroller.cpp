@@ -1,4 +1,7 @@
 #include "dricommandcontroller.h"
+#include "db_operations/driver/deletebyid.hpp"
+#include "db_operations/driver/updatebyid.hpp"
+#include "db_operations/driver/insert.hpp"
 
 #include <QList>
 
@@ -119,7 +122,6 @@ DriCommandController::ui_createDriverViewContextCommands()
 void DriCommandController::onCreateDriverFillExecuted()
 {
   std::cout << "You executed the Create New Driver Command!" << std::endl;
-
   implementation->navigationController->goCreateDriverView();
 }
 
@@ -127,10 +129,8 @@ void DriCommandController::onCreateDriverSaveExecuted()
 {
   std::cout << "You executed the Save Command!" << std::endl;
 
-  bool r = implementation->databaseController->createDriver(
-    implementation->newDriver->id()
-   ,implementation->newDriver->toJson()
-  );
+  bool r = Insert::call(implementation->newDriver->toJson()
+                     ,*(implementation->databaseController) );
 
   if (r) {
     std::cout << "New Driver Saved!" << std::endl;
@@ -171,9 +171,9 @@ void DriCommandController::onEditDriverSaveExecuted()
 {
   std::cout << "You executed the Edit Command!" << std::endl;
 
-  bool r = implementation->databaseController->updateDriver(
-    implementation->selectedDriver->id()
-   ,implementation->selectedDriver->toJson() );
+  bool r = UpdateById::call( implementation->selectedDriver->toJson()
+                          ,  implementation->selectedDriver->id()
+                          ,*(implementation->databaseController) );
 
   if ( r ) {
     std::cout << "Driver Updated"     << std::endl;
@@ -194,8 +194,9 @@ DriCommandController::ui_deleteDriverViewContextCommands()
 void DriCommandController::onEditDriverDeleteExecuted()
 {
   std::cout << "You executed the Delete Command!" << std::endl;
-  implementation->databaseController->deleteDriver(
-    implementation->selectedDriver->id() );
+
+  DeleteById::call( implementation->selectedDriver->id()
+                   ,*(implementation->databaseController) );
 
   implementation->selectedDriver = nullptr;
 

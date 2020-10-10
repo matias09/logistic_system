@@ -1,8 +1,8 @@
-#ifndef UPDATE_CLIENT_BY_ID_H
-#define UPDATE_CLIENT_BY_ID_H
+#ifndef UPDATE_BY_ID_H
+#define UPDATE_BY_ID_H
 
 #include <controllers/databasecontroller.h>
-#include <controllers/clicommandcontroller.h>
+#include <controllers/dricommandcontroller.h>
 
 #include <QJsonObject>
 
@@ -13,7 +13,7 @@
 namespace lg {
 namespace controllers {
 
-class LGLIBSHARED_EXPORT CliCommandController::UpdateById
+class LGLIBSHARED_EXPORT DriCommandController::UpdateById
 {
   typedef std::pair<QString, QVariant> Burden;
 public:
@@ -29,17 +29,19 @@ private:
   {
     if ( id.isEmpty() ) return false;
 
-    QString sqlStm = "UPDATE clients "
+    QString sqlStm = "UPDATE drivers "
      "  SET "
-     "   name = :name, phone = :phone, cellphone = :cellphone "
-     " , mail = :mail, street = :street, house_nro = :house_nro "
-     " , post_code = :post_code "
-     "  WHERE id = :id ";
+     "   name = :name, phone = :phone, lic_nro = :lic_nro "
+     " , lic_caducity_date = :lic_cad, cellphone = :cellphone "
+     " , mail = :mail, street = :street, house_nro = :house_nro, post_code = :post_code "
+     "  WHERE id = :id";
 
     std::map<QString, QVariant>  binds;
     binds.insert(Burden(":id",        QVariant(id.toInt()) ));
     binds.insert(Burden(":name",      QVariant(jo["name"]) ));
     binds.insert(Burden(":phone",     QVariant(jo["phone"]) ));
+    binds.insert(Burden(":lic_nro",   QVariant(jo["lic_nro"]) ));
+    binds.insert(Burden(":lic_cad",   QVariant(jo["lic_cad"]) ));
     binds.insert(Burden(":cellphone", QVariant(jo["cellphone"]) ));
     binds.insert(Burden(":mail",      QVariant(jo["mail"]) ));
     binds.insert(Burden(":street",    QVariant(jo["address"]["street"]) ));
@@ -60,4 +62,4 @@ private:
 } //  controllers
 } // lg
 
-#endif  // UPDATE_CLIENT_BY_ID_H
+#endif  // UPDATE_BY_ID_H
