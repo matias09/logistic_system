@@ -40,7 +40,7 @@ private:
                   ":searchText",
                   QVariant("%" + searchText.toLower() + "%") ));
 
-    QSqlQuery&& query = db.findClientByName(sqlStm, binds);
+    QSqlQuery&& query = db.search(sqlStm, binds);
 
     while ( query.next() ) {
       QJsonObject jsonObj;

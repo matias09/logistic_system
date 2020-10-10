@@ -1,6 +1,7 @@
 #include "clicommandcontroller.h"
 #include "db_operations/client/deletebyid.hpp"
 #include "db_operations/client/updatebyid.hpp"
+#include "db_operations/client/insert.hpp"
 
 #include <QList>
 
@@ -114,14 +115,13 @@ QQmlListProperty<Command>
 CliCommandController::ui_createClientViewContextCommands()
 {
    return QQmlListProperty<Command>(
-            this,
-            implementation->createClientVIewContextCommands );
+      this,
+      implementation->createClientVIewContextCommands );
 }
 
 void CliCommandController::onCreateClientFillExecuted()
 {
   std::cout << "You executed the Create New Client Command!" << std::endl;
-
   implementation->navigationController->goCreateClientView();
 }
 
@@ -129,10 +129,8 @@ void CliCommandController::onCreateClientSaveExecuted()
 {
   std::cout << "You executed the Save Command!" << std::endl;
 
-  bool r = implementation->databaseController->createClient(
-    implementation->newClient->id()
-   ,implementation->newClient->toJson()
-  );
+  bool r = Insert::call(implementation->newClient->toJson()
+                     ,*(implementation->databaseController) );
 
   if (r) {
     std::cout << "New Client Saved!" << std::endl;
@@ -150,8 +148,8 @@ QQmlListProperty<Command>
 CliCommandController::ui_findClientViewContextCommands()
 {
    return QQmlListProperty<Command>(
-            this,
-            implementation->findClientViewContextCommands );
+      this,
+      implementation->findClientViewContextCommands );
 }
 
 void CliCommandController::onFindClientViewContextCommands()
@@ -165,8 +163,8 @@ QQmlListProperty<Command>
 CliCommandController::ui_editClientViewContextCommands()
 {
    return QQmlListProperty<Command>(
-            this,
-            implementation->editClientViewContextCommands );
+      this,
+      implementation->editClientViewContextCommands );
 }
 
 void CliCommandController::onEditClientSaveExecuted()

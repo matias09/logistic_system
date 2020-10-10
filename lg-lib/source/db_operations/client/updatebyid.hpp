@@ -37,16 +37,16 @@ private:
      "  WHERE id = :id ";
 
     std::map<QString, QVariant>  binds;
-    binds.insert(Burden(":id",          QVariant(id.toInt()) ));
-    binds.insert(Burden(":name",        QVariant(jo["name"]) ));
-    binds.insert(Burden(":phone",       QVariant(jo["phone"]) ));
-    binds.insert(Burden(":cellphone",   QVariant(jo["cellphone"]) ));
-    binds.insert(Burden(":mail",        QVariant(jo["mail"]) ));
-    binds.insert(Burden(":street",      QVariant(jo["address"]["street"]) ));
-    binds.insert(Burden(":house_nro",   QVariant(jo["address"]["house_nro"]) ));
-    binds.insert(Burden(":post_code",   QVariant(jo["address"]["postcode"]) ));
+    binds.insert(Burden(":id",        QVariant(id.toInt()) ));
+    binds.insert(Burden(":name",      QVariant(jo["name"]) ));
+    binds.insert(Burden(":phone",     QVariant(jo["phone"]) ));
+    binds.insert(Burden(":cellphone", QVariant(jo["cellphone"]) ));
+    binds.insert(Burden(":mail",      QVariant(jo["mail"]) ));
+    binds.insert(Burden(":street",    QVariant(jo["address"]["street"]) ));
+    binds.insert(Burden(":house_nro", QVariant(jo["address"]["house_nro"]) ));
+    binds.insert(Burden(":post_code", QVariant(jo["address"]["postcode"]) ));
 
-    return db.updateClient(sqlStm, binds);
+    return db.update(sqlStm, binds);
   }
 
   UpdateById() = default;

@@ -29,7 +29,7 @@ private:
     std::map<QString, QVariant> binds;
     binds.insert(std::pair<QString, QVariant>( ":id", QVariant(id).toInt() ));
 
-    return db.deleteClient(sqlStm, binds);
+    return db.remove(sqlStm, binds);
   }
 
   DeleteById() = default;

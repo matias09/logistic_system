@@ -20,24 +20,27 @@ public:
   explicit DatabaseController();
   ~DatabaseController();
 
-    const QSqlDatabase& getDatabaseConn() const;
+  const QSqlDatabase& getDatabaseConn() const;
 
-    bool createClient(const QString &id
-                     ,const QJsonObject &jsonObject) const;
-    bool deleteClient(const QString &sqlStatement
-                     ,const std::map<QString, QVariant> &binds) const;
-    QSqlQuery findClientByName(const QString &sqlStatement
-                              ,const std::map<QString, QVariant> &binds) const;
-   bool updateClient(const QString &sqlStatement
-                    ,const std::map<QString, QVariant> &binds) const;
+  bool create(const QString &sqlStatement
+             ,const std::map<QString, QVariant> &binds) const;
+
+  QSqlQuery search(const QString &sqlStatement
+                  ,const std::map<QString, QVariant> &binds) const;
+
+  bool update(const QString &sqlStatement
+             ,const std::map<QString, QVariant> &binds) const;
+
+  bool remove(const QString &sqlStatement
+             ,const std::map<QString, QVariant> &binds) const;
 
 
-    bool createDriver(const QString &id
-                     ,const QJsonObject &jsonObject) const;
-    bool deleteDriver(const QString &id) const;
-   QJsonArray findDriverByName(const QString &searchText) const;
-   bool updateDriver(const QString &id
-                    ,const QJsonObject &jsonObject) const;
+  bool createDriver(const QString &id
+                   ,const QJsonObject &jsonObject) const;
+  bool deleteDriver(const QString &id) const;
+  QJsonArray findDriverByName(const QString &searchText) const;
+  bool updateDriver(const QString &id
+                  ,const QJsonObject &jsonObject) const;
 
 private:
   class Implementation;

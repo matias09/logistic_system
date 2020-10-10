@@ -105,17 +105,11 @@ const QSqlDatabase& DatabaseController::getDatabaseConn() const
   return implementation->database;
 }
 
-bool DatabaseController::createClient(const QString &id
-                                     ,const QJsonObject &jsonObject) const
+bool DatabaseController::create(
+    const QString &sqlStatement
+   ,const std::map<QString, QVariant> &binds) const
 {
-  if ( id.isEmpty() ) return false;
-  if ( jsonObject.isEmpty() ) return false;
-
   QSqlQuery query(implementation->database);
-  QString sqlStatement = "INSERT INTO clients "
-       " (name, phone, cellphone, mail , street, house_nro, post_code) "
-       "  VALUES "
-       " (:name, :phone, :cellphone, :mail, :street, :house_nro, :post_code)";
 
   query.prepare(sqlStatement);
   if ( query.lastError().type() != QSqlError::NoError ) {
@@ -124,13 +118,10 @@ bool DatabaseController::createClient(const QString &id
     return false;
   }
 
-  query.bindValue(":name",        QVariant(jsonObject["name"]) );
-  query.bindValue(":phone",       QVariant(jsonObject["phone"]) );
-  query.bindValue(":cellphone",   QVariant(jsonObject["cellphone"]) );
-  query.bindValue(":mail",        QVariant(jsonObject["mail"]) );
-  query.bindValue(":street",      QVariant(jsonObject["address"]["street"]) );
-  query.bindValue(":house_nro",        QVariant(jsonObject["address"]["house_nro"]) );
-  query.bindValue(":post_code",   QVariant(jsonObject["address"]["postcode"]) );
+  std::for_each(binds.begin(), binds.end(),
+  [&](std::pair<QString, QVariant> p) {
+     query.bindValue(p.first, p.second);
+  });
 
   query.exec();
   if ( query.lastError().type() != QSqlError::NoError ) {
@@ -142,7 +133,7 @@ bool DatabaseController::createClient(const QString &id
   return query.numRowsAffected() > 0;
 }
 
-bool DatabaseController::deleteClient(
+bool DatabaseController::remove(
     const QString &sqlStatement
    ,const std::map<QString, QVariant> &binds) const
 {
@@ -172,7 +163,7 @@ bool DatabaseController::deleteClient(
   return query.numRowsAffected() > 0;
 }
 
-QSqlQuery DatabaseController::findClientByName(
+QSqlQuery DatabaseController::search(
     const QString &sqlStatement
    ,const std::map<QString, QVariant> &binds) const
 {
@@ -190,7 +181,6 @@ QSqlQuery DatabaseController::findClientByName(
   [&](std::pair<QString, QVariant> p) {
      query.bindValue(p.first, p.second);
   });
-
 
   query.exec();
   if ( query.lastError().type() != QSqlError::NoError ) {
@@ -203,7 +193,7 @@ QSqlQuery DatabaseController::findClientByName(
   return query;
 }
 
-bool DatabaseController::updateClient(
+bool DatabaseController::update(
     const QString &sqlStatement
    ,const std::map<QString, QVariant> &binds) const
 {
