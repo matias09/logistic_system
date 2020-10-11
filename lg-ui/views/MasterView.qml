@@ -24,6 +24,11 @@ Window {
       onGoEditDriverView: contentFrame.replace("qrc:/views/EditDriverView.qml",
               {selectedDriver: driver})
       onGoFindDriverView: contentFrame.replace("qrc:/views/FindDriverView.qml")
+
+      onGoCreateVehicleView: contentFrame.replace("qrc:/views/CreateVehicleView.qml")
+      onGoEditVehicleView: contentFrame.replace("qrc:/views/EditVehicleView.qml",
+              {selectedVehicle: vehicle})
+      onGoFindVehicleView: contentFrame.replace("qrc:/views/FindVehicleView.qml")
     }
 
     NavigationBar {

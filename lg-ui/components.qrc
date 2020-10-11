@@ -10,5 +10,6 @@
         <file alias="AddressEditor.qml">components/AddressEditor.qml</file>
         <file alias="CliSearchResultDelegate.qml">components/CliSearchResultDelegate.qml</file>
         <file alias="DriSearchResultDelegate.qml">components/DriSearchResultDelegate.qml</file>
+        <file alias="VehSearchResultDelegate.qml">components/VehSearchResultDelegate.qml</file>
     </qresource>
 </RCC>

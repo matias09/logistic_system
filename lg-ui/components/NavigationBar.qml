@@ -49,6 +49,14 @@ Item {
         onNavigationButtonClicked:
             masterController.ui_navigationController.goFindDriverView();
       }
+
+      NavigationButton {
+        iconCharacter: "\uf1b9"
+        description: "Vehiculos"
+        hoverColour: "#ffccaa"
+        onNavigationButtonClicked:
+            masterController.ui_navigationController.goFindVehicleView();
+      }
     }
   }
 }

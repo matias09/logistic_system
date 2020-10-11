@@ -11,5 +11,9 @@
         <file alias="CreateDriverView.qml">views/driver/CreateDriverView.qml</file>
         <file alias="EditDriverView.qml">views/driver/EditDriverView.qml</file>
         <file alias="FindDriverView.qml">views/driver/FindDriverView.qml</file>
+
+        <file alias="CreateVehicleView.qml">views/vehicle/CreateVehicleView.qml</file>
+        <file alias="EditVehicleView.qml">views/vehicle/EditVehicleView.qml</file>
+        <file alias="FindVehicleView.qml">views/vehicle/FindVehicleView.qml</file>
     </qresource>
 </RCC>
