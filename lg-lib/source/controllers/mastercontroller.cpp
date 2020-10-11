@@ -17,33 +17,47 @@ public:
                                              ,databaseController);
 
       cliCommandController = new CliCommandController(masterController
-                                               ,databaseController
-                                               ,navigationController
-                                               ,newClient
-                                               ,clientSearch);
+                                                     ,databaseController
+                                                     ,navigationController
+                                                     ,newClient
+                                                     ,clientSearch);
 
       newDriver    = new models::Driver(masterController);
       driverSearch = new models::DriverSearch(masterController
-                                       ,databaseController);
+                                             ,databaseController);
 
       driCommandController = new DriCommandController(masterController
-                                               ,databaseController
-                                               ,navigationController
-                                               ,newDriver
-                                               ,driverSearch);
+                                                     ,databaseController
+                                                     ,navigationController
+                                                     ,newDriver
+                                                     ,driverSearch);
+
+      newVehicle   = new models::Vehicle(masterController);
+      vehicleSearch = new models::VehicleSearch(masterController
+                                              ,databaseController);
+
+      vehCommandController = new VehCommandController(masterController
+                                                     ,databaseController
+                                                     ,navigationController
+                                                     ,newVehicle
+                                                     ,vehicleSearch);
    }
 
-   MasterController* masterController{nullptr};
-   NavigationController* navigationController{nullptr};
-   CliCommandController* cliCommandController{nullptr};
-   DriCommandController* driCommandController{nullptr};
-   DatabaseController* databaseController{nullptr};
+   MasterController        *masterController{nullptr};
+   NavigationController    *navigationController{nullptr};
+   CliCommandController    *cliCommandController{nullptr};
+   DriCommandController    *driCommandController{nullptr};
+   VehCommandController    *vehCommandController{nullptr};
+   DatabaseController      *databaseController{nullptr};
 
-   models::Client *newClient{nullptr};
+   models::Client       *newClient{nullptr};
    models::ClientSearch *clientSearch{nullptr};
 
-   models::Driver *newDriver{nullptr};
+   models::Driver       *newDriver{nullptr};
    models::DriverSearch *driverSearch{nullptr};
+
+   models::Vehicle       *newVehicle{nullptr};
+   models::VehicleSearch *vehicleSearch{nullptr};
 };
 
 MasterController::MasterController(QObject* parent)
@@ -79,6 +93,16 @@ models::DriverSearch* MasterController::driverSearch()
   return  implementation->driverSearch;
 }
 
+models::Vehicle* MasterController::newVehicle()
+{
+  return  implementation->newVehicle;
+}
+
+models::VehicleSearch* MasterController::vehicleSearch()
+{
+  return  implementation->vehicleSearch;
+}
+
 CliCommandController* MasterController::cliCommandController()
 {
   return  implementation->cliCommandController;
@@ -87,6 +111,11 @@ CliCommandController* MasterController::cliCommandController()
 DriCommandController* MasterController::driCommandController()
 {
   return  implementation->driCommandController;
+}
+
+VehCommandController* MasterController::vehCommandController()
+{
+  return  implementation->vehCommandController;
 }
 
 DatabaseController* MasterController::databaseController()
@@ -105,6 +134,12 @@ void MasterController::selectDriver(lg::models::Driver *driver)
 {
   implementation->driCommandController->setSelectedDriver(driver);
   implementation->navigationController->goEditDriverView(driver);
+}
+
+void MasterController::selectVehicle(lg::models::Vehicle *vehicle)
+{
+  implementation->vehCommandController->setSelectedVehicle(vehicle);
+  implementation->navigationController->goEditVehicleView(vehicle);
 }
 
 } // controllers

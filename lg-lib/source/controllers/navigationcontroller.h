@@ -7,6 +7,7 @@
 
 #include <models/client.h>
 #include <models/driver.h>
+#include <models/vehicle.h>
 
 namespace lg {
 namespace controllers {
@@ -29,6 +30,10 @@ signals:
   void goCreateDriverView();
   void goEditDriverView(lg::models::Driver *driver);
   void goFindDriverView();
+
+  void goCreateVehicleView();
+  void goEditVehicleView(lg::models::Vehicle *vehicle);
+  void goFindVehicleView();
 };
 
 } // controllers
