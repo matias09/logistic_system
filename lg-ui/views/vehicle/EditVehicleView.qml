@@ -31,7 +31,7 @@ Item {
         width: scrollView.width
 
         Panel {
-        headerText: "Detalles del Vehiclee"
+        headerText: "Detalles del Vehiculo"
           contentComponent:
             Column {
               spacing: Style.sizeControlSpacing

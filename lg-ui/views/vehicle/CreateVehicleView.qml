@@ -84,6 +84,6 @@ Item {
     CommandBar {
       id: commandList
       commandList:
-        masterController.ui_cliCommandController.ui_createVehicleViewContextCommands
+        masterController.ui_vehCommandController.ui_createVehicleViewContextCommands
     }
 }
