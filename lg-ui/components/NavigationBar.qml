@@ -45,7 +45,7 @@ Item {
       NavigationButton {
         iconCharacter: "\uf0c0"
         description: "Choferes"
-        hoverColour: "#ffaa63"
+        hoverColour: "#f55a63"
         onNavigationButtonClicked:
             masterController.ui_navigationController.goFindDriverView();
       }
@@ -53,7 +53,7 @@ Item {
       NavigationButton {
         iconCharacter: "\uf1b9"
         description: "Vehiculos"
-        hoverColour: "#ffccaa"
+        hoverColour: "#77ccaa"
         onNavigationButtonClicked:
             masterController.ui_navigationController.goFindVehicleView();
       }
