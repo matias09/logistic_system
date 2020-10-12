@@ -29,25 +29,14 @@ private:
   {
     if ( searchText.isEmpty() ) return false;
 
-//  QString sqlStm = "                                              \
-//      SELECT b.id id_brand, m.id id_model, vt.id id_type          \
-//            ,v.id, v.vin, v.max_weight,                           \
-//            ,v.vin, v.vin_cad_date, v.year                        \
-//      FROM vehicles v                                             \
-//      INNER JOIN vehicle_types vt ON (v.id_type_vehicle = vt.id)  \
-//      INNER JOIN models m ON (v.id_model = m.id)                  \
-//      INNER JOIN brands b ON (m.id_brand = b.id)                  \
-//     WHERE LOWER(b.name) LIKE :searchText ";
-
-    QString sqlStm = ""
-        " SELECT b.id as id_brand, m.id as id_model, vt.id as id_type         "
-              " ,v.id, v.vin, v.max_weight                           "
-              " ,v.vin, v.vin_cad_date, v.year                       "
-        " FROM vehicles v                                            "
-        " INNER JOIN vehicle_types vt ON (v.id_type_vehicle = vt.id) "
-        " INNER JOIN models m ON (v.id_model = m.id)                 "
-        " INNER JOIN brands b ON (m.id_brand = b.id)                 "
-       " WHERE LOWER(b.name) LIKE :searchText ";
+    QString sqlStm = "                                              \
+    SELECT b.id as id_brand, m.id as id_model, vt.id as id_type     \
+          ,v.id, v.max_weight ,v.vin, v.vin_cad_date, v.year        \
+    FROM vehicles v                                                 \
+    INNER JOIN vehicle_types vt ON (v.id_type_vehicle = vt.id)      \
+    INNER JOIN models m ON (v.id_model = m.id)                      \
+    INNER JOIN brands b ON (m.id_brand = b.id)                      \
+    WHERE LOWER(b.name) LIKE :searchText ";
 
     std::map<QString, QVariant> binds;
     binds.insert(std::pair<QString, QVariant>(

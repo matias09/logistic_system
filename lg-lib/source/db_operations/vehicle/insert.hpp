@@ -29,9 +29,9 @@ private:
 
     QString sqlStm = "                                                      \
       INSERT INTO vehicles                                                  \
-      ( id, id_type_vehicle, id_model, max_weight, vin, vin_cad_date, year) \
+      ( id_type_vehicle, id_model, max_weight, vin, vin_cad_date, year)     \
        VALUES                                                               \
-      ( :id, :type, :model, :max_w, :vin, :vin_cad, :year) ";
+      ( :type, :model, :max_w, :vin, :vin_cad, :year) ";
 
     std::map<QString, QVariant> binds;
     binds.insert(Burden(":model",      QVariant(jo["model"])) );
