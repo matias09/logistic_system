@@ -165,6 +165,6 @@ INSERT INTO vehicle_types (name) VALUES ("tren");
 INSERT INTO vehicle_types (name) VALUES ("barco");
 INSERT INTO vehicle_types (name) VALUES ("avion");
 
-INSERT INTO vehicles ( id_type_vehicle, id_model, vin, vin_cad_date, year)
-VALUES ( 1, 1, 123455, "12/12/2021", "2000");
+INSERT INTO vehicles ( id_type_vehicle, id_model, max_weight, vin, vin_cad_date, year)
+VALUES ( 1, 1, 40, 123455, "12/12/2021", "2000");
 
