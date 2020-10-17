@@ -1,7 +1,6 @@
 /*
 /database/*.swp
-/documentation/cooked_files/*
-/documentation/*.pdf
+documentation/*.swp
 /lg-lib/build/
 !documentation/
 !database/
