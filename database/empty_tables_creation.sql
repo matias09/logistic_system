@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS CLIENTS (
 CREATE TABLE IF NOT EXISTS INVOICES (
   id         INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
   id_client  INTEGER       NULL,
-  inv_type   CHAR(1)       NULL,
+  inv_type   CHAR(1)       NULL, -- invoice type ( A - B - C ...)
   inv_date   DATE          NULL,
   balance    REAL          NULL DEFAULT 0.0,
   sub_total  REAL          NULL,
@@ -44,9 +44,8 @@ CREATE TABLE IF NOT EXISTS RECEIPT (
 
 CREATE TABLE IF NOT EXISTS TRAVELS (
   id           INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
-  id_invoice   INTEGER       NULL,
-  tra_date     DATE          NULL,
-  price        REAL          NULL);
+  id_client    INTEGER       NULL,
+  tra_date     DATE          NULL);
 
 CREATE TABLE IF NOT EXISTS TRAVELS_DESTINATIONS (
   id               INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
@@ -60,7 +59,9 @@ CREATE TABLE IF NOT EXISTS DESTINATIONS (
   id_state        INTEGER       NULL,
   id_town         INTEGER       NULL,
   des_date        DATE          NULL,
-  address         CHAR(50)      NULL,
+  street          CHAR(50)      NULL,
+  house_nro       CHAR(4)       NULL,
+  post_code       CHAR(4)       NULL,
   building_floor  CHAR(4)       NULL,
   apartment_nro   CHAR(4)       NULL,
   latitude        CHAR(12)      NULL,
