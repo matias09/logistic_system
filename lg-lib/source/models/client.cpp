@@ -33,6 +33,13 @@ Client::Client(QObject *parent)
 
   clientAddress = static_cast<Address*>(addChild(new Address(this), "address")  );
 
+
+  err = static_cast<StringDecorator*>(addDataItem(new StringDecorator(this, "error", ""))  );
+
+  err_color = static_cast<StringDecorator*>(addDataItem(new StringDecorator(this, "error_color", ""))  );
+
+  err_visible = static_cast<StringDecorator*>(addDataItem(new StringDecorator(this, "error_visible", ""))  );
+
   setPrimaryKey(reference);
 }
 

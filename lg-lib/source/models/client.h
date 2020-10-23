@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QtQml/QQmlListProperty>
+#include <QString>
 
 #include <lg-lib_global.h>
 
@@ -26,6 +27,10 @@ class LGLIBSHARED_EXPORT Client : public data::Entity
 
   Q_PROPERTY(lg::models::Address* ui_clientAddress MEMBER clientAddress CONSTANT)
 
+  Q_PROPERTY(lg::data::StringDecorator* ui_err         MEMBER err         CONSTANT)
+  Q_PROPERTY(lg::data::StringDecorator* ui_err_color   MEMBER err_color   CONSTANT)
+  Q_PROPERTY(lg::data::StringDecorator* ui_err_visible MEMBER err_visible CONSTANT)
+
 public:
   explicit Client(QObject *parent = nullptr);
   Client(QObject *parent, const QJsonObject &json);
@@ -37,6 +42,10 @@ public:
   data::StringDecorator *mail{nullptr};
 
   Address *clientAddress{nullptr};
+
+  data::StringDecorator *err{nullptr};
+  data::StringDecorator *err_color{nullptr};
+  data::StringDecorator *err_visible{nullptr};
 
 signals:
   void appointmentsChanged();
