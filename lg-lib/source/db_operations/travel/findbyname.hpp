@@ -36,7 +36,8 @@ private:
          "  FROM travels t "
          "  INNER JOIN travels_destinations td ON (t.id = td.id_travel) "
          "  INNER JOIN destinations d          ON (td.id_destination = d.id) "
-         " WHERE LOWER(name) LIKE :searchText" ;
+         "  INNER JOIN clients c               ON (t.id_client = c.id) "
+         " WHERE LOWER(c.name) LIKE :searchText" ;
 
     std::map<QString, QVariant> binds;
     binds.insert(std::pair<QString, QVariant>(

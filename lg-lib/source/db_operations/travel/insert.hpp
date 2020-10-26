@@ -58,17 +58,24 @@ private:
   {
     QString sqlStm =
        " INSERT INTO destinations "
-       " ( id_driver, id_vehicle, street, house_nro, post_code) "
+       " ( id_driver, id_vehicle, arrival_date "
+       " , street, house_nro, post_code) "
        "  VALUES "
-       " ( :id_driver, :id_vehicle, :street, :house_nro, :post_code) ";
+       " ( :id_driver, :id_vehicle, :arrival_date "
+       " , :street, :house_nro, :post_code) ";
 
     std::map<QString, QVariant> binds;
     binds.insert(Burden( ":id_driver",  QVariant(jo_["destiny"]["id_dri"]) ));
     binds.insert(Burden( ":id_vehicle", QVariant(jo_["destiny"]["id_veh"]) ));
+    binds.insert(Burden( ":arrival_date",
+          QVariant(jo_["destiny"]["arrival_date"]) ));
 
-    binds.insert(Burden(":street",    QVariant(jo_["destiny"]["street"])) );
-    binds.insert(Burden(":house_nro", QVariant(jo_["destiny"]["house_nro"]) ));
-    binds.insert(Burden(":post_code", QVariant(jo_["destiny"]["post_code"]) ));
+    binds.insert(Burden(":street",
+          QVariant(jo_["destiny"]["address"]["street"])) );
+    binds.insert(Burden(":house_nro",
+          QVariant(jo_["destiny"]["address"]["house_nro"]) ));
+    binds.insert(Burden(":post_code",
+          QVariant(jo_["destiny"]["address"]["post_code"]) ));
 
     return db_.create(sqlStm, binds);
   }

@@ -13,6 +13,7 @@ namespace controllers {
 
 class LGLIBSHARED_EXPORT TraCommandController::DeleteById
 {
+  typedef std::pair<QString, QVariant> Burden;
 public:
   static bool call(const QString &id
                   ,const controllers::DatabaseController &db)
@@ -38,10 +39,10 @@ private:
 
   bool deleteTravel(const QString &id) const
   {
-    QString sqlStm = "   DELETE FROM travels WHERE id_travel = :id_t ";
+    QString sqlStm = " DELETE FROM travels WHERE id = :id ";
 
     std::map<QString, QVariant> binds;
-    binds.insert(std::pair<QString, QVariant>( ":id_t", QVariant(id).toInt() ));
+    binds.insert(Burden( ":id", QVariant(id).toInt() ));
 
     return db_.remove(sqlStm, binds);
   }
@@ -52,7 +53,7 @@ private:
                       "   WHERE id_travel = :id_t ";
 
     std::map<QString, QVariant> binds;
-    binds.insert(std::pair<QString, QVariant>( ":id_t", QVariant(id).toInt() ));
+    binds.insert(Burden( ":id_t", QVariant(id).toInt() ));
 
     return db_.remove(sqlStm, binds);
   }
@@ -68,7 +69,7 @@ private:
                     " ) " ;
 
     std::map<QString, QVariant> binds;
-    binds.insert(std::pair<QString, QVariant>( ":id_t", QVariant(id).toInt() ));
+    binds.insert(Burden( ":id_t", QVariant(id).toInt() ));
 
     return db_.remove(sqlStm, binds);
   }

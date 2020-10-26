@@ -25,7 +25,7 @@ public:
 private:
   bool exec()
   {
-    if ( id_.isEmpty() ) return false;
+    if ( jo_.isEmpty() ) return false;
 
     QSqlDatabase::database().transaction();
 
@@ -50,16 +50,21 @@ private:
      "  WHERE id = :id_destination";
 
     std::map<QString, QVariant>  binds;
-    binds.insert(Burden(":id",        QVariant(jo["destiny"]["reference"]) ));
-    binds.insert(Burden(":id_driver", QVariant(jo["destiny"]["id_dri"]) ));
-    binds.insert(Burden(":id_vehicle",QVariant(jo["destiny"]["id_veh"]) ));
+    binds.insert(Burden(":id_destination",
+          QVariant(jo_["destiny"]["reference"]) ));
+
+    binds.insert(Burden(":id_driver", QVariant(jo_["destiny"]["id_dri"]) ));
+    binds.insert(Burden(":id_vehicle",QVariant(jo_["destiny"]["id_veh"]) ));
+
+    binds.insert(Burden(":arrival_date",
+          QVariant(jo_["destiny"]["arrival_date"]) ));
 
     binds.insert(Burden(":street",
-          QVariant(jo["destiny"]["address"]["street"]) ));
+          QVariant(jo_["destiny"]["address"]["street"]) ));
     binds.insert(Burden(":house_nro",
-          QVariant(jo["destiny"]["address"]["house_nro"]) ));
+          QVariant(jo_["destiny"]["address"]["house_nro"]) ));
     binds.insert(Burden(":post_code",
-          QVariant(jo["destiny"]["address"]["postcode"]) ));
+          QVariant(jo_["destiny"]["address"]["postcode"]) ));
 
     return db_.update(sqlStm, binds);
   }
@@ -72,9 +77,9 @@ private:
      "  WHERE id = :id";
 
     std::map<QString, QVariant>  binds;
-    binds.insert(Burden(":id",        QVariant(jo["reference"]) ));
-    binds.insert(Burden(":id_client", QVariant(jo["id_cli"]) ));
-    binds.insert(Burden(":sta_date",  QVariant(jo["sta_date"]) ));
+    binds.insert(Burden(":id",        QVariant(jo_["reference"]) ));
+    binds.insert(Burden(":id_client", QVariant(jo_["id_cli"]) ));
+    binds.insert(Burden(":sta_date",  QVariant(jo_["sta_date"]) ));
 
     return db_.update(sqlStm, binds);
   }
@@ -85,6 +90,7 @@ private:
     : jo_(jo)
      ,id_(id)
      ,db_(db) = default;
+
   UpdateById(const UpdateById&) = delete;
   UpdateById& operator =(const UpdateById&) = delete;
 
