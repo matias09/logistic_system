@@ -83,9 +83,9 @@ private:
   bool insertDestinationsAssociation() const
   {
     QString sqlStm =
-      "INSERT INTO travels_destinations ";
-      " ( id_travel, id_destination ) ";
-      " VALUES ";
+      "INSERT INTO travels_destinations "
+      " ( id_travel, id_destination ) "
+      " VALUES "
       " ( :id_travel, :id_destination )";
 
     std::map<QString, QVariant> binds;
@@ -100,7 +100,7 @@ private:
   Insert(const QJsonObject &jo
         ,const controllers::DatabaseController &db)
     : jo_(jo)
-     ,db_(db) = default;
+     ,db_(db) {}
 
   Insert(const Insert&) = delete;
   Insert& operator =(const Insert&) = delete;

@@ -122,7 +122,7 @@ models::Travel* MasterController::newTravel()
   return  implementation->newTravel;
 }
 
-models::TravelSearch* MasterController::TravelSearch()
+models::TravelSearch* MasterController::travelSearch()
 {
   return  implementation->travelSearch;
 }
@@ -169,7 +169,7 @@ void MasterController::selectVehicle(lg::models::Vehicle *vehicle)
 void MasterController::selectTravel(lg::models::Travel *travel)
 {
   implementation->traCommandController->setSelectedTravel(travel);
-  implementation->navigationController->goEditTavelView(travel);
+  implementation->navigationController->goEditTravelView(travel);
 }
 
 } // controllers

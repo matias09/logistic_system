@@ -136,7 +136,7 @@ void TraCommandController::onCreateTravelSaveExecuted()
     std::cout << "New Travel Saved!" << std::endl;
 
     implementation->travelSearch->searchText()
-                  ->setValue( implementation->newTravel->name->value() );
+                  ->setValue( implementation->newTravel->reference->value() );
     implementation->travelSearch->search();
     implementation->navigationController->goFindTravelView();
   } else {

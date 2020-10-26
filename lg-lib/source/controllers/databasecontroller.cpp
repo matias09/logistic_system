@@ -213,7 +213,7 @@ bool DatabaseController::update(
   return query.numRowsAffected() > 0;
 }
 
-int DatabaseController::getTableLastId( const QString &table )
+int DatabaseController::getTableLastId( const QString &table ) const
 {
   QSqlQuery query(implementation->database);
   QString sqlStatement = "SELECT id FROM " + table + " ORDER BY DESC";

@@ -89,7 +89,7 @@ private:
             ,const controllers::DatabaseController &db)
     : jo_(jo)
      ,id_(id)
-     ,db_(db) = default;
+     ,db_(db) {}
 
   UpdateById(const UpdateById&) = delete;
   UpdateById& operator =(const UpdateById&) = delete;

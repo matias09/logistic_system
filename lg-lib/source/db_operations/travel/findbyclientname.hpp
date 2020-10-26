@@ -53,10 +53,10 @@ private:
       jsonObjAddress.insert("postcode",  query.value(9).toString() );
 
       QJsonObject jsonObjDestination;
-      jsonObj.insert("id_dri",     query.value(4).toString() );
-      jsonObj.insert("id_veh",     query.value(5).toString() );
-      jsonObj.insert("arr_date",   query.value(6).toString() );
-      jsonObj.insert("address", jsonObjAddress );
+      jsonObjDestination.insert("id_dri",     query.value(4).toString() );
+      jsonObjDestination.insert("id_veh",     query.value(5).toString() );
+      jsonObjDestination.insert("arr_date",   query.value(6).toString() );
+      jsonObjDestination.insert("address", jsonObjAddress );
 
       QJsonObject jsonObj;
       jsonObj.insert("reference", query.value(1).toString() );

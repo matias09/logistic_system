@@ -74,7 +74,7 @@ private:
     return db_.remove(sqlStm, binds);
   }
 
-  DeleteById(const controllers::DatabaseController &db) : db_(db) = default;
+  DeleteById(const controllers::DatabaseController &db) : db_(db) {}
   DeleteById(const DeleteById&) = delete;
   DeleteById& operator =(const DeleteById&) = delete;
 
