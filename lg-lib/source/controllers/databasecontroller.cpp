@@ -213,5 +213,30 @@ bool DatabaseController::update(
   return query.numRowsAffected() > 0;
 }
 
+int DatabaseController::getTableLastId( const QString &table )
+{
+  QSqlQuery query(implementation->database);
+  QString sqlStatement = "SELECT id FROM " + table + " ORDER BY DESC";
+
+  query.prepare(sqlStatement);
+  if ( query.lastError().type() != QSqlError::NoError ) {
+    std::cout << "Can't Prepare sql file: "
+              << query.lastError().text().toStdString() << std::endl;
+
+    return 0;
+  }
+
+  query.exec();
+  if ( query.lastError().type() != QSqlError::NoError ) {
+    std::cout << "Can't Prepare sql file: "
+              << query.lastError().text().toStdString() << std::endl;
+
+    return 0;
+  }
+
+  query.next();
+  return query.value(1).toInt();
+}
+
 } //  controllers
 } // lg

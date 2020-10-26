@@ -21,9 +21,9 @@ CREATE TABLE IF NOT EXISTS CLIENTS (
   mail             CHAR(50)      NULL, -- |
   street           CHAR(50)      NULL,
   house_nro        CHAR(4)       NULL,
-  post_code        CHAR(4)       NULL,
-  building_floor   CHAR(4)       NULL,
-  apartment_nro    CHAR(4)       NULL);
+  post_code        CHAR(4)       NULL);
+--building_floor   CHAR(4)       NULL,
+--apartment_nro    CHAR(4)       NULL);
 
 CREATE TABLE IF NOT EXISTS INVOICES (
   id         INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
@@ -56,15 +56,15 @@ CREATE TABLE IF NOT EXISTS DESTINATIONS (
   id              INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
   id_driver       INTEGER       NULL,
   id_vehicle      INTEGER       NULL,
-  id_country      INTEGER       NULL,
-  id_state        INTEGER       NULL,
-  id_town         INTEGER       NULL,
+--id_country      INTEGER       NULL,
+--id_state        INTEGER       NULL,
+--id_town         INTEGER       NULL,
   arrival_date    DATE          NULL,
   street          CHAR(50)      NULL,
   house_nro       CHAR(4)       NULL,
-  post_code       CHAR(4)       NULL,
-  building_floor  CHAR(4)       NULL,
-  apartment_nro   CHAR(4)       NULL);
+  post_code       CHAR(4)       NULL);
+--building_floor   CHAR(4)       NULL,
+--apartment_nro    CHAR(4)       NULL);
 
 CREATE TABLE IF NOT EXISTS BURDENS (
   id              INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
@@ -87,14 +87,14 @@ CREATE TABLE IF NOT EXISTS DRIVERS (
   lic_nro               CHAR(20)      NULL,
   lic_caducity_date     DATE          NULL,
   phone                 CHAR(20)      NULL, -- |
-  cellphone             CHAR(20)      NULL, -- | - on of this must be set
+  cellphone             CHAR(20)      NULL, -- | - one of this must be set
   mail                  CHAR(50)      NULL, -- |
   street                CHAR(50)      NULL,
   house_nro             CHAR(4)       NULL,
   post_code             CHAR(4)       NULL,
-  building_floor        CHAR(4)       NULL,
-  apartment_nro         CHAR(4)       NULL,
   blocked               BOOLEAN       NULL DEFAULT FALSE);
+--building_floor   CHAR(4)       NULL,
+--apartment_nro    CHAR(4)       NULL);
 
 CREATE TABLE IF NOT EXISTS PAYED_COMMISSIONS (
   id           INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
@@ -137,16 +137,15 @@ CREATE TABLE IF NOT EXISTS DRIVERS_VEHICLES (
 --  Inserts
 -- ----------------------------------------------------------------------
 
-INSERT INTO clients ( id_town, name,  phone,  cellphone, mail, street, house_nro
-                     , post_code, building_floor, apartment_nro)
+INSERT INTO clients ( id_town, name,  phone
+                     ,cellphone, mail, street, house_nro , post_code)
 VALUES (1, "matias", "12345678", "54111512345678", "name@domain.com"
-      , "street_1", "0002", "1234", null, null);
+      , "street_1", "0002", "1234");
 
-INSERT INTO drivers ( id_town, name,  lic_nro, lic_caducity_date, phone,
-                      cellphone, mail, street, house_nro, post_code
-                     , building_floor, apartment_nro)
+INSERT INTO drivers ( id_town, name,  lic_nro, lic_caducity_date, phone
+                     ,cellphone, mail, street, house_nro, post_code)
 VALUES (1, "driver_1", "1", "12/12/2022", "12345678", "54111512345678",
-        "name@domain.com", "street_1", "0002", "1234", null ,null);
+        "name@domain.com", "street_1", "0002", "1234");
 
 INSERT INTO brands (name) VALUES ("ford");
 INSERT INTO brands (name) VALUES ("fiat");

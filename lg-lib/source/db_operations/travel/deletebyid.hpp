@@ -43,7 +43,7 @@ private:
     std::map<QString, QVariant> binds;
     binds.insert(std::pair<QString, QVariant>( ":id_t", QVariant(id).toInt() ));
 
-    return db.remove(sqlStm, binds);
+    return db_.remove(sqlStm, binds);
   }
 
   bool deleteDestinationsAssociation(const QString &id) const
@@ -54,7 +54,7 @@ private:
     std::map<QString, QVariant> binds;
     binds.insert(std::pair<QString, QVariant>( ":id_t", QVariant(id).toInt() ));
 
-    return db.remove(sqlStm, binds);
+    return db_.remove(sqlStm, binds);
   }
 
   bool deleteDestinations(const QString &id) const
@@ -70,7 +70,7 @@ private:
     std::map<QString, QVariant> binds;
     binds.insert(std::pair<QString, QVariant>( ":id_t", QVariant(id).toInt() ));
 
-    return db.remove(sqlStm, binds);
+    return db_.remove(sqlStm, binds);
   }
 
   DeleteById(const controllers::DatabaseController &db) : db_(db) = default;
@@ -80,7 +80,7 @@ private:
   DeleteById(const DeleteById&&) = delete;
   ~DeleteById() = default;
 
-  const controllers::DatabaseController &db;
+  const controllers::DatabaseController &db_;
 };
 
 } //  controllers

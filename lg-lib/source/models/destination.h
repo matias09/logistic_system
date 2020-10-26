@@ -2,7 +2,6 @@
 #define DESTINATION_H
 
 #include <QObject>
-//#include <QtQml/QQmlListProperty>
 
 #include <lg-lib_global.h>
 

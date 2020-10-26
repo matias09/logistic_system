@@ -29,13 +29,14 @@ private:
   {
     if ( searchText.isEmpty() ) return false;
 
-    QString sqlStm = "SELECT   "
-                 "     t.id, t.id_client, t.sta_date "
-                 "    ,d.id_driver, d.id_vehicle ,d.arrival_date "
-                 "    ,d.street, d.house_nro, d.post_code  "
-               "  FROM travels t "
-               "  inner join travels_destinations td on (t.id = td.id_travel)"
-               " WHERE LOWER(name) LIKE :searchText" ;
+    QString sqlStm =
+         " SELECT t.id, t.id_client, t.sta_date "
+         "    ,d.id_driver, d.id_vehicle ,d.arrival_date "
+         "    ,d.street, d.house_nro, d.post_code  "
+         "  FROM travels t "
+         "  INNER JOIN travels_destinations td ON (t.id = td.id_travel) "
+         "  INNER JOIN destinations d          ON (td.id_destination = d.id) "
+         " WHERE LOWER(name) LIKE :searchText" ;
 
     std::map<QString, QVariant> binds;
     binds.insert(std::pair<QString, QVariant>(
@@ -45,22 +46,22 @@ private:
     QSqlQuery&& query = db.search(sqlStm, binds);
 
     while ( query.next() ) {
-      QJsonObject jsonObj;
-
-      jsonObj.insert("reference", query.value(0).toString() );
-      jsonObj.insert("name",      query.value(1).toString() );
-      jsonObj.insert("phone",     query.value(2).toString() );
-      jsonObj.insert("lic_nro",   query.value(3).toString() );
-      jsonObj.insert("lic_cad",   query.value(4).toString() );
-      jsonObj.insert("cellphone", query.value(5).toString() );
-      jsonObj.insert("mail",      query.value(6).toString() );
-
       QJsonObject jsonObjAddress;
       jsonObjAddress.insert("street",    query.value(7).toString() );
       jsonObjAddress.insert("house_nro", query.value(8).toString() );
       jsonObjAddress.insert("postcode",  query.value(9).toString() );
 
+      QJsonObject jsonObjDestination;
+      jsonObj.insert("id_dri",     query.value(4).toString() );
+      jsonObj.insert("id_veh",     query.value(5).toString() );
+      jsonObj.insert("arr_date",   query.value(6).toString() );
       jsonObj.insert("address", jsonObjAddress );
+
+      QJsonObject jsonObj;
+      jsonObj.insert("reference", query.value(1).toString() );
+      jsonObj.insert("id_client", query.value(2).toString() );
+      jsonObj.insert("sta_date",  query.value(3).toString() );
+      jsonObj.insert("destiny", jsonObjDestination );
 
       returnValue.append( jsonObj );
     }

@@ -2,7 +2,7 @@
 #define INSERT_H
 
 #include <controllers/databasecontroller.h>
-#include <controllers/dricommandcontroller.h>
+#include <controllers/tracommandcontroller.h>
 
 #include <QJsonObject>
 
@@ -13,47 +13,96 @@
 namespace lg {
 namespace controllers {
 
-class LGLIBSHARED_EXPORT DriCommandController::Insert
+class LGLIBSHARED_EXPORT TraCommandController::Insert
 {
   typedef std::pair<QString, QVariant> Burden;
 public:
   static bool call(const QJsonObject &jo
-                  ,const controllers::DatabaseController &db)
-  { return Insert().exec(jo, db); }
+                 , const controllers::DatabaseController &db)
+  { return Insert(jo, db).exec(); }
 
 private:
-  bool exec(const QJsonObject &jo
-           ,const controllers::DatabaseController &db)
+  bool exec() const
   {
-    if ( jo.isEmpty() ) return false;
+    if ( jo_.isEmpty() ) return false;
 
-    QString sqlStm = "INSERT INTO drivers "
-       " ( name, phone, lic_nro, lic_caducity_date, cellphone "
-       "  ,mail , street, house_nro, post_code) "
-       "  VALUES "
-       " ( :name, :phone, :lic_nro, :lic_cad, :cellphone, :mail "
-       "  ,:street, :house_nro, :post_code)";
+    QSqlDatabase::database().transaction();
 
-    std::map<QString, QVariant> binds;
-    binds.insert(Burden(":name",      QVariant(jo["name"])) );
-    binds.insert(Burden(":phone",     QVariant(jo["phone"])) );
-    binds.insert(Burden(":lic_nro",   QVariant(jo["lic_nro"]) ));
-    binds.insert(Burden(":lic_cad",   QVariant(jo["lic_cad"]) ));
-    binds.insert(Burden(":cellphone", QVariant(jo["cellphone"])) );
-    binds.insert(Burden(":mail",      QVariant(jo["mail"])) );
-    binds.insert(Burden(":street",    QVariant(jo["address"]["street"])) );
-    binds.insert(Burden(":house_nro", QVariant(jo["address"]["house_nro"])) );
-    binds.insert(Burden(":post_code", QVariant(jo["address"]["postcode"])) );
+    if ( not insertTravel()
+      || not insertDestinations()
+      || not insertDestinationsAssociation()
+   // || not blockDrivers()  FIXME: Add Update
+   // || not blockVehicles() FIXME: Add Update
+    ) {
+      QSqlDatabase::database().rollback();
+      return false;
+    }
 
-    return  db.create(sqlStm, binds);
+    QSqlDatabase::database().commit();
+    return true;
   }
 
-  Insert() = default;
+  bool insertTravel() const
+  {
+    QString sqlStm =
+      "INSERT INTO travels ( id_cli, sta_date ) VALUES ( :id_cli, :sta_date )";
+
+    std::map<QString, QVariant> binds;
+    binds.insert(Burden(":id_cli",    QVariant(jo_["id_cli"])) );
+    binds.insert(Burden(":sta_date",  QVariant(jo_["sta_date"])) );
+
+    return  db_.create(sqlStm, binds);
+  }
+
+  bool insertDestinations() const
+  {
+    QString sqlStm =
+       " INSERT INTO destinations "
+       " ( id_driver, id_vehicle, street, house_nro, post_code) "
+       "  VALUES "
+       " ( :id_driver, :id_vehicle, :street, :house_nro, :post_code) ";
+
+    std::map<QString, QVariant> binds;
+    binds.insert(Burden( ":id_driver",  QVariant(jo_["destiny"]["id_dri"]) ));
+    binds.insert(Burden( ":id_vehicle", QVariant(jo_["destiny"]["id_veh"]) ));
+
+    binds.insert(Burden(":street",    QVariant(jo_["destiny"]["street"])) );
+    binds.insert(Burden(":house_nro", QVariant(jo_["destiny"]["house_nro"]) ));
+    binds.insert(Burden(":post_code", QVariant(jo_["destiny"]["post_code"]) ));
+
+    return db_.create(sqlStm, binds);
+  }
+
+  bool insertDestinationsAssociation() const
+  {
+    QString sqlStm =
+      "INSERT INTO travels_destinations ";
+      " ( id_travel, id_destination ) ";
+      " VALUES ";
+      " ( :id_travel, :id_destination )";
+
+    std::map<QString, QVariant> binds;
+    binds.insert(Burden(":id_travel",
+                        QVariant( db_.getTableLastId("travels"))) );
+    binds.insert(Burden(":id_destination",
+                        QVariant( db_.getTableLastId("destinations"))) );
+
+    return db_.create(sqlStm, binds);
+  }
+
+  Insert(const QJsonObject &jo
+        ,const controllers::DatabaseController &db)
+    : jo_(jo)
+     ,db_(db) = default;
+
   Insert(const Insert&) = delete;
   Insert& operator =(const Insert&) = delete;
 
   Insert(const Insert&&) = delete;
   ~Insert() = default;
+
+  const QJsonObject &jo_;
+  const controllers::DatabaseController &db_;
 };
 
 } //  controllers
