@@ -11,12 +11,15 @@
 #include <controllers/clicommandcontroller.h>
 #include <controllers/dricommandcontroller.h>
 #include <controllers/vehcommandcontroller.h>
+#include <controllers/tracommandcontroller.h>
 #include <controllers/databasecontroller.h>
 
 #include <models/client.h>
 #include <models/clientsearch.h>
 #include <models/driver.h>
 #include <models/driversearch.h>
+#include <models/travel.h>
+#include <models/travelsearch.h>
 #include <models/vehicle.h>
 #include <models/vehiclesearch.h>
 
@@ -35,6 +38,8 @@ class LGLIBSHARED_EXPORT MasterController : public QObject
     READ  driCommandController CONSTANT)
   Q_PROPERTY(lg::controllers::VehCommandController *ui_vehCommandController
     READ  vehCommandController CONSTANT)
+  Q_PROPERTY(lg::controllers::TraCommandController *ui_traCommandController
+    READ  traCommandController CONSTANT)
 
   Q_PROPERTY(lg::models::Client *ui_newClient
     READ  newClient CONSTANT)
@@ -51,6 +56,11 @@ class LGLIBSHARED_EXPORT MasterController : public QObject
   Q_PROPERTY(lg::models::VehicleSearch *ui_vehicleSearch
     READ  vehicleSearch CONSTANT)
 
+  Q_PROPERTY(lg::models::Travel *ui_newTravel
+    READ  newTravel CONSTANT)
+  Q_PROPERTY(lg::models::TravelSearch *ui_travelSearch
+    READ  travelSearch CONSTANT)
+
 public:
   explicit MasterController(QObject *parent = nullptr);
   ~MasterController();
@@ -59,6 +69,7 @@ public:
   CliCommandController* cliCommandController();
   DriCommandController* driCommandController();
   VehCommandController* vehCommandController();
+  TraCommandController* traCommandController();
   DatabaseController*   databaseController();
 
   models::Client*       newClient();
@@ -70,10 +81,14 @@ public:
   models::Vehicle*       newVehicle();
   models::VehicleSearch* vehicleSearch();
 
+  models::Travel*       newTravel();
+  models::TravelSearch* travelSearch();
+
 public slots:
   void selectClient( lg::models::Client *client );
   void selectDriver( lg::models::Driver *driver );
   void selectVehicle( lg::models::Vehicle *vehicle );
+  void selectTravel( lg::models::Travel *travel );
 
 private:
   class Implementation;

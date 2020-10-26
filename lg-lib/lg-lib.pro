@@ -26,6 +26,7 @@ SOURCES += \
         source/controllers/clicommandcontroller.cpp   \
         source/controllers/dricommandcontroller.cpp   \
         source/controllers/vehcommandcontroller.cpp   \
+        source/controllers/tracommandcontroller.cpp   \
         source/controllers/databasecontroller.cpp     \
         source/controllers/mastercontroller.cpp       \
         source/data/datadecorator.cpp                 \
@@ -34,14 +35,16 @@ SOURCES += \
         source/data/intdecorator.cpp                  \
         source/data/stringdecorator.cpp               \
         source/framework/command.cpp                  \
+        source/models/destination.cpp                 \
         source/models/address.cpp                     \
-        source/models/appointment.cpp                 \
         source/models/client.cpp                      \
         source/models/clientsearch.cpp                \
         source/models/driver.cpp                      \
         source/models/driversearch.cpp                \
         source/models/vehicle.cpp                     \
         source/models/vehiclesearch.cpp               \
+        source/models/travel.cpp                      \
+        source/models/travelsearch.cpp                \
         source/db_operations/client/findbyname.hpp    \
         source/db_operations/client/updatebyid.hpp    \
         source/db_operations/client/insert.hpp        \
@@ -62,6 +65,7 @@ HEADERS += \
         source/controllers/clicommandcontroller.h     \
         source/controllers/dricommandcontroller.h     \
         source/controllers/vehcommandcontroller.h     \
+        source/controllers/tracommandcontroller.h     \
         source/controllers/databasecontroller.h       \
         source/data/datadecorator.h                   \
         source/data/datetimedecorator.h               \
@@ -71,13 +75,17 @@ HEADERS += \
         source/data/stringdecorator.h                 \
         source/framework/command.h                    \
         source/models/address.h                       \
-        source/models/appointment.h                   \
         source/models/client.h                        \
         source/models/clientsearch.h                  \
         source/models/driver.h                        \
         source/models/driversearch.h                  \
         source/models/vehicle.h                       \
-        source/models/vehiclesearch.h
+        source/models/vehiclesearch.h                 \
+        source/models/destination.h                   \
+        source/models/travel.h                        \
+        source/models/travelsearch.h
+
+
 
 DESTDIR = $$PWD/../binaries/$$DESTINATION_PATH
 OBJECTS_DIR = $$PWD/build/$$DESTINATION_PATH/.obj

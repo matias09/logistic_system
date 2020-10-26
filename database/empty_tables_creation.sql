@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS RECEIPT (
 CREATE TABLE IF NOT EXISTS TRAVELS (
   id           INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
   id_client    INTEGER       NULL,
-  tra_date     DATE          NULL);
+  sta_date     DATE          NULL); -- date when the transport begins his journy
 
 CREATE TABLE IF NOT EXISTS TRAVELS_DESTINATIONS (
   id               INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
@@ -55,17 +55,16 @@ CREATE TABLE IF NOT EXISTS TRAVELS_DESTINATIONS (
 CREATE TABLE IF NOT EXISTS DESTINATIONS (
   id              INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
   id_driver       INTEGER       NULL,
+  id_vehicle      INTEGER       NULL,
   id_country      INTEGER       NULL,
   id_state        INTEGER       NULL,
   id_town         INTEGER       NULL,
-  des_date        DATE          NULL,
+  arrival_date    DATE          NULL,
   street          CHAR(50)      NULL,
   house_nro       CHAR(4)       NULL,
   post_code       CHAR(4)       NULL,
   building_floor  CHAR(4)       NULL,
-  apartment_nro   CHAR(4)       NULL,
-  latitude        CHAR(12)      NULL,
-  des_length      CHAR(12)      NULL);
+  apartment_nro   CHAR(4)       NULL);
 
 CREATE TABLE IF NOT EXISTS BURDENS (
   id              INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
@@ -94,7 +93,8 @@ CREATE TABLE IF NOT EXISTS DRIVERS (
   house_nro             CHAR(4)       NULL,
   post_code             CHAR(4)       NULL,
   building_floor        CHAR(4)       NULL,
-  apartment_nro         CHAR(4)       NULL);
+  apartment_nro         CHAR(4)       NULL,
+  blocked               BOOLEAN       NULL DEFAULT FALSE);
 
 CREATE TABLE IF NOT EXISTS PAYED_COMMISSIONS (
   id           INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
@@ -119,7 +119,8 @@ CREATE TABLE IF NOT EXISTS VEHICLES (
   max_weight        CHAR(25)      NULL,
   vin               CHAR(25)      NULL, -- vehicule identification number
   vin_cad_date      DATE          NULL, -- vin caducity
-  year              CHAR(4)       NULL);
+  year              CHAR(4)       NULL,
+  blocked           BOOLEAN       NULL DEFAULT FALSE);
 
 CREATE TABLE IF NOT EXISTS VEHICLE_TYPES (
   id         INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
