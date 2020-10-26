@@ -14,13 +14,13 @@
 namespace lg {
 namespace models {
 
-class LGLIBSHARED_EXPORT TravelSearch::FindByName
+class LGLIBSHARED_EXPORT TravelSearch::FindByClientName
 {
 public:
   static bool call(QJsonArray &returnValue
                   ,const QString &searchText
                   ,const controllers::DatabaseController &db)
-  { return FindByName().exec(returnValue, searchText, db); }
+  { return FindByClientName().exec(returnValue, searchText, db); }
 
 private:
   bool exec(QJsonArray &returnValue
@@ -70,12 +70,12 @@ private:
     return true;
   }
 
-  FindByName() = default;
-  FindByName(const FindByName&) = delete;
-  FindByName& operator =(const FindByName&) = delete;
+  FindByClientName() = default;
+  FindByClientName(const FindByClientName&) = delete;
+  FindByClientName& operator =(const FindByClientName&) = delete;
 
-  FindByName(const FindByName&&) = delete;
-  ~FindByName() = default;
+  FindByClientName(const FindByClientName&&) = delete;
+  ~FindByClientName() = default;
 };
 
 } //  models {

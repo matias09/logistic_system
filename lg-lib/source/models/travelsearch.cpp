@@ -1,5 +1,5 @@
 #include "travelsearch.h"
-#include "db_operations/travel/findbyname.hpp"
+#include "db_operations/travel/findbyclientname.hpp"
 
 #include <iostream>
 
@@ -62,9 +62,9 @@ void TravelSearch::search()
             << "..." << std::endl;
 
   QJsonArray resultsArray;
-  FindByName::call(resultsArray
-                  ,implementation->searchText->value()
-                  ,*(implementation->databaseController));
+  FindByClientName::call(resultsArray
+                        ,implementation->searchText->value()
+                        ,*(implementation->databaseController));
 
   implementation->searchResults->update( resultsArray );
 
