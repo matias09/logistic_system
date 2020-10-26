@@ -137,6 +137,11 @@ DriCommandController* MasterController::driCommandController()
   return  implementation->driCommandController;
 }
 
+VehCommandController* MasterController::vehCommandController()
+{
+  return  implementation->vehCommandController;
+}
+
 TraCommandController* MasterController::traCommandController()
 {
   return  implementation->traCommandController;

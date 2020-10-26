@@ -11,5 +11,6 @@
         <file alias="CliSearchResultDelegate.qml">components/CliSearchResultDelegate.qml</file>
         <file alias="DriSearchResultDelegate.qml">components/DriSearchResultDelegate.qml</file>
         <file alias="VehSearchResultDelegate.qml">components/VehSearchResultDelegate.qml</file>
+        <file alias="TraSearchResultDelegate.qml">components/TraSearchResultDelegate.qml</file>
     </qresource>
 </RCC>

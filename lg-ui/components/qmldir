@@ -9,3 +9,4 @@ AddressEditor            1.0 AddressEditor.qml
 CliSearchResultDelegate  1.0 CliSearchResultDelegate.qml
 DriSearchResultDelegate  1.0 DriSearchResultDelegate.qml
 VehSearchResultDelegate  1.0 VehSearchResultDelegate.qml
+TraSearchResultDelegate  1.0 TraSearchResultDelegate.qml

@@ -29,6 +29,11 @@ Window {
       onGoEditVehicleView: contentFrame.replace("qrc:/views/EditVehicleView.qml",
               {selectedVehicle: vehicle})
       onGoFindVehicleView: contentFrame.replace("qrc:/views/FindVehicleView.qml")
+
+      onGoCreateTravelView: contentFrame.replace("qrc:/views/CreateTravelView.qml")
+      onGoEditTravelView: contentFrame.replace("qrc:/views/EditTravelView.qml",
+              {selectedTravel: travel})
+      onGoFindTravelView: contentFrame.replace("qrc:/views/FindTravelView.qml")
     }
 
     NavigationBar {
