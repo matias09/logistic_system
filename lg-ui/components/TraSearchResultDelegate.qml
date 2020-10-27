@@ -48,20 +48,6 @@ Item {
                 + travel.ui_destiny.ui_address.ui_fullAddress.ui_value
           font.pixelSize: Style.pixelSizeDataControls
           color: Style.colourPanelFont
-          //horizontalAlignment: Text.AlignRight
-        }
-
-        Text {
-          id: textType
-          anchors {
-            top: textId.bottom
-            left: parent.left
-          }
-          text:   travel.ui_sta_date.ui_label + ": "
-                + travel.ui_sta_date.ui_value
-
-          font.pixelSize: Style.pixelSizeDataControls
-          color: Style.colourPanelFont
         }
       }
 
