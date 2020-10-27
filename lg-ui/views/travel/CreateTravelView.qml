@@ -23,7 +23,7 @@ Item {
             spacing: Style.sizeControlSpacing
 
             StringEditorSingleLine {
-              stringDecorator: newTravel.ui_type
+              stringDecorator: newTravel.ui_id_cli
               anchors {
                 left: parent.left
                 right: parent.right
@@ -31,7 +31,7 @@ Item {
             }
 
             StringEditorSingleLine {
-              stringDecorator: newTravel.ui_brand
+              stringDecorator: newTravel.ui_sta_date
               anchors {
                 left: parent.left
                 right: parent.right
@@ -39,7 +39,7 @@ Item {
             }
 
             StringEditorSingleLine {
-              stringDecorator: newTravel.ui_model
+              stringDecorator: newTravel.ui_destiny.ui_id_dri
               anchors {
                 left: parent.left
                 right: parent.right
@@ -47,7 +47,7 @@ Item {
             }
 
             StringEditorSingleLine {
-              stringDecorator: newTravel.ui_max_w
+              stringDecorator: newTravel.ui_destiny.ui_id_veh
               anchors {
                 left: parent.left
                 right: parent.right
@@ -55,29 +55,18 @@ Item {
             }
 
             StringEditorSingleLine {
-              stringDecorator: newTravel.ui_vin
-              anchors {
-                left: parent.left
-                right: parent.right
-              }
-            }
-
-            StringEditorSingleLine {
-              stringDecorator: newTravel.ui_vin_cad
-              anchors {
-                left: parent.left
-                right: parent.right
-              }
-            }
-
-            StringEditorSingleLine {
-              stringDecorator: newTravel.ui_year
+              stringDecorator: newTravel.ui_destiny.ui_arr_date
               anchors {
                 left: parent.left
                 right: parent.right
               }
             }
           }
+        }
+
+        AddressEditor {
+          address: newTravel.ui_destiny.ui_address
+          headerText: "Direccion de Destino"
         }
     }
 

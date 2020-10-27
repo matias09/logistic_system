@@ -21,7 +21,7 @@ Travel::Travel(QObject *parent)
   ) );
 
   destiny = static_cast<Destination*>(
-      addChild(new Destination(this), "Destino")  );
+      addChild(new Destination(this), "destiny")  );
 
   setPrimaryKey(reference);
 }

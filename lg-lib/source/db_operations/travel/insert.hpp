@@ -39,16 +39,20 @@ private:
     }
 
     QSqlDatabase::database().commit();
+    //insertDestinationsAssociation();
     return true;
   }
 
   bool insertTravel() const
   {
     QString sqlStm =
-      "INSERT INTO travels ( id_cli, sta_date ) VALUES ( :id_cli, :sta_date )";
+      "INSERT INTO travels "
+      " ( id_client, sta_date ) "
+      " VALUES "
+      " ( :id_client, :sta_date )";
 
     std::map<QString, QVariant> binds;
-    binds.insert(Burden(":id_cli",    QVariant(jo_["id_cli"])) );
+    binds.insert(Burden(":id_client", QVariant(jo_["id_cli"])) );
     binds.insert(Burden(":sta_date",  QVariant(jo_["sta_date"])) );
 
     return  db_.create(sqlStm, binds);
@@ -68,14 +72,14 @@ private:
     binds.insert(Burden( ":id_driver",  QVariant(jo_["destiny"]["id_dri"]) ));
     binds.insert(Burden( ":id_vehicle", QVariant(jo_["destiny"]["id_veh"]) ));
     binds.insert(Burden( ":arrival_date",
-          QVariant(jo_["destiny"]["arrival_date"]) ));
+          QVariant(jo_["destiny"]["arr_date"]) ));
 
     binds.insert(Burden(":street",
           QVariant(jo_["destiny"]["address"]["street"])) );
     binds.insert(Burden(":house_nro",
           QVariant(jo_["destiny"]["address"]["house_nro"]) ));
     binds.insert(Burden(":post_code",
-          QVariant(jo_["destiny"]["address"]["post_code"]) ));
+          QVariant(jo_["destiny"]["address"]["postcode"]) ));
 
     return db_.create(sqlStm, binds);
   }

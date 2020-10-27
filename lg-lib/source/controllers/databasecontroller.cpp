@@ -216,7 +216,7 @@ bool DatabaseController::update(
 int DatabaseController::getTableLastId( const QString &table ) const
 {
   QSqlQuery query(implementation->database);
-  QString sqlStatement = "SELECT id FROM " + table + " ORDER BY DESC";
+  QString sqlStatement = "SELECT id FROM " + table + " ORDER BY id DESC";
 
   query.prepare(sqlStatement);
   if ( query.lastError().type() != QSqlError::NoError ) {
@@ -235,7 +235,7 @@ int DatabaseController::getTableLastId( const QString &table ) const
   }
 
   query.next();
-  return query.value(1).toInt();
+  return query.value(0).toInt();
 }
 
 } //  controllers

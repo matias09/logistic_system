@@ -48,20 +48,20 @@ private:
 
     while ( query.next() ) {
       QJsonObject jsonObjAddress;
-      jsonObjAddress.insert("street",    query.value(7).toString() );
-      jsonObjAddress.insert("house_nro", query.value(8).toString() );
-      jsonObjAddress.insert("postcode",  query.value(9).toString() );
+      jsonObjAddress.insert("street",    query.value(6).toString() );
+      jsonObjAddress.insert("house_nro", query.value(7).toString() );
+      jsonObjAddress.insert("postcode",  query.value(8).toString() );
 
       QJsonObject jsonObjDestination;
-      jsonObjDestination.insert("id_dri",     query.value(4).toString() );
-      jsonObjDestination.insert("id_veh",     query.value(5).toString() );
-      jsonObjDestination.insert("arr_date",   query.value(6).toString() );
+      jsonObjDestination.insert("id_dri",     query.value(3).toString() );
+      jsonObjDestination.insert("id_veh",     query.value(4).toString() );
+      jsonObjDestination.insert("arr_date",   query.value(5).toString() );
       jsonObjDestination.insert("address", jsonObjAddress );
 
       QJsonObject jsonObj;
-      jsonObj.insert("reference", query.value(1).toString() );
-      jsonObj.insert("id_client", query.value(2).toString() );
-      jsonObj.insert("sta_date",  query.value(3).toString() );
+      jsonObj.insert("reference", query.value(0).toString() );
+      jsonObj.insert("id_cli",    query.value(1).toString() );
+      jsonObj.insert("sta_date",  query.value(2).toString() );
       jsonObj.insert("destiny", jsonObjDestination );
 
       returnValue.append( jsonObj );

@@ -46,7 +46,7 @@ Item {
               }
 
               StringEditorSingleLine {
-                stringDecorator: selectedTravel.ui_type
+                stringDecorator: selectedTravel.ui_id_cli
                 anchors {
                   left: parent.left
                   right: parent.right
@@ -54,7 +54,7 @@ Item {
               }
 
               StringEditorSingleLine {
-                stringDecorator: selectedTravel.ui_brand
+                stringDecorator: selectedTravel.ui_sta_date
                 anchors {
                   left: parent.left
                   right: parent.right
@@ -62,7 +62,7 @@ Item {
               }
 
               StringEditorSingleLine {
-                stringDecorator: selectedTravel.ui_model
+                stringDecorator: selectedTravel.ui_destiny.ui_id_dri
                 anchors {
                   left: parent.left
                   right: parent.right
@@ -70,7 +70,7 @@ Item {
               }
 
               StringEditorSingleLine {
-                stringDecorator: selectedTravel.ui_max_w
+                stringDecorator: selectedTravel.ui_destiny.ui_id_veh
                 anchors {
                   left: parent.left
                   right: parent.right
@@ -78,23 +78,7 @@ Item {
               }
 
               StringEditorSingleLine {
-                stringDecorator: selectedTravel.ui_vin
-                anchors {
-                  left: parent.left
-                  right: parent.right
-                }
-              }
-
-              StringEditorSingleLine {
-                stringDecorator: selectedTravel.ui_vin_cad
-                anchors {
-                  left: parent.left
-                  right: parent.right
-                }
-              }
-
-              StringEditorSingleLine {
-                stringDecorator: selectedTravel.ui_year
+                stringDecorator: selectedTravel.ui_destiny.ui_arr_date
                 anchors {
                   left: parent.left
                   right: parent.right
@@ -102,6 +86,11 @@ Item {
               }
             }
           }
+
+        AddressEditor {
+          address: selectedTravel.ui_destiny.ui_address
+          headerText: "Direccion de Destino"
+        }
       }
   }
 

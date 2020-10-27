@@ -22,8 +22,6 @@ CREATE TABLE IF NOT EXISTS CLIENTS (
   street           CHAR(50)      NULL,
   house_nro        CHAR(4)       NULL,
   post_code        CHAR(4)       NULL);
---building_floor   CHAR(4)       NULL,
---apartment_nro    CHAR(4)       NULL);
 
 CREATE TABLE IF NOT EXISTS INVOICES (
   id         INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
@@ -56,15 +54,10 @@ CREATE TABLE IF NOT EXISTS DESTINATIONS (
   id              INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
   id_driver       INTEGER       NULL,
   id_vehicle      INTEGER       NULL,
---id_country      INTEGER       NULL,
---id_state        INTEGER       NULL,
---id_town         INTEGER       NULL,
   arrival_date    DATE          NULL,
   street          CHAR(50)      NULL,
   house_nro       CHAR(4)       NULL,
   post_code       CHAR(4)       NULL);
---building_floor   CHAR(4)       NULL,
---apartment_nro    CHAR(4)       NULL);
 
 CREATE TABLE IF NOT EXISTS BURDENS (
   id              INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
@@ -93,8 +86,6 @@ CREATE TABLE IF NOT EXISTS DRIVERS (
   house_nro             CHAR(4)       NULL,
   post_code             CHAR(4)       NULL,
   blocked               BOOLEAN       NULL DEFAULT FALSE);
---building_floor   CHAR(4)       NULL,
---apartment_nro    CHAR(4)       NULL);
 
 CREATE TABLE IF NOT EXISTS PAYED_COMMISSIONS (
   id           INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
@@ -132,10 +123,9 @@ CREATE TABLE IF NOT EXISTS DRIVERS_VEHICLES (
   id_vehicle INTEGER       NULL);
 
 
-
--- ----------------------------------------------------------------------
+----------------------------------------------------------------------
 --  Inserts
--- ----------------------------------------------------------------------
+----------------------------------------------------------------------
 
 INSERT INTO clients ( id_town, name,  phone
                      ,cellphone, mail, street, house_nro , post_code)
@@ -168,4 +158,3 @@ INSERT INTO vehicle_types (name) VALUES ("avion");
 
 INSERT INTO vehicles ( id_type_vehicle, id_model, max_weight, vin, vin_cad_date, year)
 VALUES ( 1, 1, 40, 123455, "12/12/2021", "2000");
-

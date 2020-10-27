@@ -26,119 +26,44 @@ Item {
         }
         spacing: Style.heightDataControls / 2
 
-      Text {
-        id: textId
-        anchors.left: parent.left
-        text:   travel.ui_reference.ui_label + ": "
-              + travel.ui_reference.ui_value
+        Text {
+          id: textId
+          anchors.left: parent.left
+          text:   travel.ui_reference.ui_label + ": "
+                + travel.ui_reference.ui_value
 
-        font.pixelSize: Style.pixelSizeDataControls
-        color: Style.colourPanelFont
-      }
-
-      Text {
-        id: textType
-        anchors {
-          top: textId.bottom
-          left: parent.left
+          font.pixelSize: Style.pixelSizeDataControls
+          color: Style.colourPanelFont
         }
-        text:   travel.ui_type.ui_label + ": "
-              + travel.ui_type.ui_value
 
-        font.pixelSize: Style.pixelSizeDataControls
-        color: Style.colourPanelFont
-      }
+        Text {
+          id: textBrand
+          anchors {
+            top:   textType.bottom
+            left:  parent.left
 
-      Text {
-        id: textBrand
-        anchors {
-          top:   textType.bottom
-          left:  parent.left
-
-          rightMargin: Style.heightDataControls / 4
+            rightMargin: Style.heightDataControls / 4
+          }
+          text:   travel.ui_destiny.ui_address.ui_fullAddress.ui_label + ": "
+                + travel.ui_destiny.ui_address.ui_fullAddress.ui_value
+          font.pixelSize: Style.pixelSizeDataControls
+          color: Style.colourPanelFont
+          //horizontalAlignment: Text.AlignRight
         }
-        text:   travel.ui_brand.ui_label + ": "
-              + travel.ui_brand.ui_value
-        font.pixelSize: Style.pixelSizeDataControls
-        color: Style.colourPanelFont
-        //horizontalAlignment: Text.AlignRight
-      }
 
-      Text {
-        id: textModel
-        anchors {
-          top:   textBrand.bottom
-          left:  parent.left
+        Text {
+          id: textType
+          anchors {
+            top: textId.bottom
+            left: parent.left
+          }
+          text:   travel.ui_sta_date.ui_label + ": "
+                + travel.ui_sta_date.ui_value
 
-          rightMargin: Style.heightDataControls / 4
+          font.pixelSize: Style.pixelSizeDataControls
+          color: Style.colourPanelFont
         }
-        text:   travel.ui_model.ui_label + ": "
-              + travel.ui_model.ui_value
-        font.pixelSize: Style.pixelSizeDataControls
-        color: Style.colourPanelFont
-        //horizontalAlignment: Text.AlignRight
       }
-
-      Text {
-        id: textMaxWeight
-        anchors {
-          top:   parent.bottom
-          right: parent.right
-
-          rightMargin: Style.heightDataControls / 4
-        }
-        text:   travel.ui_max_w.ui_label + ": "
-              + travel.ui_max_w.ui_value
-        font.pixelSize: Style.pixelSizeDataControls
-        color: Style.colourPanelFont
-        horizontalAlignment: Text.AlignRight
-      }
-
-      Text {
-        id: textVin
-        anchors {
-          top:   textMaxWeight.bottom
-          right: parent.right
-
-          rightMargin: Style.heightDataControls / 4
-        }
-        text:   travel.ui_vin.ui_label + ": "
-              + travel.ui_vin.ui_value
-        font.pixelSize: Style.pixelSizeDataControls
-        color: Style.colourPanelFont
-        horizontalAlignment: Text.AlignRight
-      }
-
-      Text {
-        id: textVinCad
-        anchors {
-          top:   textVin.bottom
-          right: parent.right
-
-          rightMargin: Style.heightDataControls / 4
-        }
-        text:   travel.ui_vin_cad.ui_label + ": "
-              + travel.ui_vin_cad.ui_value
-        font.pixelSize: Style.pixelSizeDataControls
-        color: Style.colourPanelFont
-        horizontalAlignment: Text.AlignRight
-      }
-
-      Text {
-        id: textYear
-        anchors {
-          top:   textVinCad.bottom
-          right: parent.right
-
-          rightMargin: Style.heightDataControls / 4
-        }
-        text:   travel.ui_year.ui_label + ": "
-              + travel.ui_year.ui_value
-        font.pixelSize: Style.pixelSizeDataControls
-        color: Style.colourPanelFont
-        horizontalAlignment: Text.AlignRight
-      }
-    }
 
     Rectangle {
       id: borderBottom

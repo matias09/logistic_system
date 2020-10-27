@@ -20,6 +20,10 @@ Destination::Destination(QObject *parent)
       new StringDecorator(this, "id_veh", "Referencia del Vehiculo")
   ) );
 
+  arr_date = static_cast<StringDecorator*>(addDataItem(
+      new StringDecorator(this, "arr_date", "Fecha de Entrega")
+  ) );
+
   address = static_cast<Address*>(addChild(new Address(this), "address")  );
 
   setPrimaryKey(reference);

@@ -57,6 +57,14 @@ Item {
         onNavigationButtonClicked:
             masterController.ui_navigationController.goFindVehicleView();
       }
+
+      NavigationButton {
+        iconCharacter: "\uf48B"
+        description: "Viajes"
+        hoverColour: "#7ac0f8"
+        onNavigationButtonClicked:
+            masterController.ui_navigationController.goFindTravelView();
+      }
     }
   }
 }
