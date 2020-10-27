@@ -57,7 +57,7 @@ private:
     binds.insert(Burden(":id_vehicle",QVariant(jo_["destiny"]["id_veh"]) ));
 
     binds.insert(Burden(":arrival_date",
-          QVariant(jo_["destiny"]["arrival_date"]) ));
+          QVariant(jo_["destiny"]["arr_date"]) ));
 
     binds.insert(Burden(":street",
           QVariant(jo_["destiny"]["address"]["street"]) ));
