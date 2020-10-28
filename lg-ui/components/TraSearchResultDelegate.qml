@@ -37,18 +37,51 @@ Item {
         }
 
         Text {
-          id: textBrand
+          id: textDriver
           anchors {
-            top:   textType.bottom
+            top:   textId.bottom
             left:  parent.left
 
             rightMargin: Style.heightDataControls / 4
           }
-          text:   travel.ui_destiny.ui_address.ui_fullAddress.ui_label + ": "
-                + travel.ui_destiny.ui_address.ui_fullAddress.ui_value
+          text:   travel.ui_destiny.ui_id_dri.ui_label + ": "
+                + travel.ui_destiny.ui_id_dri.ui_value
           font.pixelSize: Style.pixelSizeDataControls
           color: Style.colourPanelFont
         }
+
+        Text {
+          id: textVehicle
+          anchors {
+            top:   textDriver.bottom
+            left:  parent.left
+
+            rightMargin: Style.heightDataControls / 4
+          }
+          text:   travel.ui_destiny.ui_id_veh.ui_label + ": "
+                + travel.ui_destiny.ui_id_veh.ui_value
+          font.pixelSize: Style.pixelSizeDataControls
+          color: Style.colourPanelFont
+        }
+
+
+      Text {
+        id: textAddress
+        anchors {
+          top:   textId.top
+          right: parent.right
+
+          rightMargin: Style.heightDataControls / 4
+        }
+        text: "Direccion completa: "
+              + travel.ui_destiny.ui_address.ui_fullAddress
+        font.pixelSize: Style.pixelSizeDataControls
+        color: Style.colourPanelFont
+        horizontalAlignment: Text.AlignRight
+      }
+
+
+
       }
 
     Rectangle {
