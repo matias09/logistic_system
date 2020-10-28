@@ -74,6 +74,26 @@ private:
     return db_.remove(sqlStm, binds);
   }
 
+  bool updateDriverToUnBlock() const
+  {
+    QString sqlStm = "update drivers set blocked = 0 where  id = :id ";
+
+    std::map<QString, QVariant> binds;
+    binds.update(Burden(":id", QVariant(jo_["destiny"]["id_dri"])) );
+
+    return  db_.update(sqlStm, binds);
+  }
+
+  bool updateVehicleToUnBlock() const
+  {
+    QString sqlStm = "update vehicles set blocked = 0 where  id = :id ";
+
+    std::map<QString, QVariant> binds;
+    binds.update(Burden(":id", QVariant(jo_["destiny"]["id_veh"])) );
+
+    return  db_.update(sqlStm, binds);
+  }
+
   DeleteById(const controllers::DatabaseController &db) : db_(db) {}
   DeleteById(const DeleteById&) = delete;
   DeleteById& operator =(const DeleteById&) = delete;

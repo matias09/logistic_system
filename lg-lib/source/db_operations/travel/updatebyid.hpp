@@ -27,6 +27,26 @@ private:
   {
     if ( jo_.isEmpty() ) return false;
 
+    /// Horrible needed code to validate IF use choose a  blocked driver
+    /// because we didn't implemented the DropDown Menu ( Combo Box )
+    if ( jo_["destiny"]["id_dri"] != jo_["destiny"]["id_dri_o"] ) {
+      if ( driverIsBlocked() ) {
+        std::cout << "Driver block" << std::endl;
+        return false;
+      }
+    }
+    /// End Horrible needed code
+
+    /// Horrible needed code to validate IF use choose a  blocked vehicle
+    /// because we didn't implemented the DropDown Menu ( Combo Box )
+    if ( jo_["destiny"]["id_veh"] != jo_["destiny"]["id_veh_o"] ) {
+      if ( vehicleIsBlocked() ) {
+        std::cout << "Vehicle block" << std::endl;
+        return false;
+      }
+    }
+    /// End Horrible needed code
+
     QSqlDatabase::database().transaction();
 
     if ( not updateDestinations()
@@ -38,6 +58,26 @@ private:
 
     QSqlDatabase::database().commit();
     return true;
+  }
+
+  bool driverIsBlocked() const
+  {
+    QString sqlStm = "select 1 from drivers where blocked = 1 and id = :id ";
+
+    std::map<QString, QVariant> binds;
+    binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_dri"])) );
+
+    return  db_.search(sqlStm, binds).next();
+  }
+
+  bool vehicleIsBlocked() const
+  {
+    QString sqlStm = "select 1 from vehicles where blocked = 1 and id = :id ";
+
+    std::map<QString, QVariant> binds;
+    binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_veh"])) );
+
+    return  db_.search(sqlStm, binds).next();
   }
 
   bool updateDestinations()

@@ -20,6 +20,14 @@ Destination::Destination(QObject *parent)
       new StringDecorator(this, "id_veh", "Referencia del Vehiculo")
   ) );
 
+  id_dri_o = static_cast<StringDecorator*>(addDataItem(
+      new StringDecorator(this, "id_dri_o", "")
+  ) );
+
+  id_veh_o = static_cast<StringDecorator*>(addDataItem(
+      new StringDecorator(this, "id_veh_o", "")
+  ) );
+
   arr_date = static_cast<StringDecorator*>(addDataItem(
       new StringDecorator(this, "arr_date", "Fecha de Entrega")
   ) );
