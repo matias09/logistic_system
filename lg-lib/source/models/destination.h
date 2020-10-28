@@ -29,6 +29,8 @@ class LGLIBSHARED_EXPORT Destination : public data::Entity
 
   Q_PROPERTY(lg::models::Address* ui_address MEMBER address CONSTANT)
 
+  Q_PROPERTY(lg::data::StringDecorator* ui_err MEMBER err CONSTANT)
+
 public:
   explicit Destination(QObject *parent = nullptr);
   Destination(QObject *parent, const QJsonObject &json);
@@ -41,6 +43,8 @@ public:
   data::StringDecorator *id_veh_o{nullptr};
 
   data::StringDecorator *arr_date{nullptr};
+
+  data::StringDecorator *err{nullptr};
 
   Address *address{nullptr};
 

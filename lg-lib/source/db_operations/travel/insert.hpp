@@ -17,9 +17,10 @@ class LGLIBSHARED_EXPORT TraCommandController::Insert
 {
   typedef std::pair<QString, QVariant> Burden;
 public:
-  static bool call(const QJsonObject &jo
+  static bool call(QString &err
+                 , const QJsonObject &jo
                  , const controllers::DatabaseController &db)
-  { return Insert(jo, db).exec(); }
+  { return Insert(err, jo, db).exec(); }
 
 private:
   bool exec() const
@@ -30,11 +31,11 @@ private:
 
     if (     driverIsBlocked()
       ||     vehicleIsBlocked()
+      || not blockDriver()
+      || not blockVehicle()
       || not insertTravel()
       || not insertDestinations()
       || not insertDestinationsAssociation()
-      || not blockDriver()
-      || not blockVehicle()
     ) {
       QSqlDatabase::database().rollback();
       return false;
@@ -51,7 +52,12 @@ private:
     std::map<QString, QVariant> binds;
     binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_dri"])) );
 
-    return  db_.search(sqlStm, binds).next();
+    if ( db_.search(sqlStm, binds).next() ) {
+      err_.append("El Conductor elegido actualmente esta bloquiado.");
+      return true;
+    }
+
+    return false ;
   }
 
   bool vehicleIsBlocked() const
@@ -61,7 +67,12 @@ private:
     std::map<QString, QVariant> binds;
     binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_veh"])) );
 
-    return  db_.search(sqlStm, binds).next();
+    if ( db_.search(sqlStm, binds).next() ) {
+      err_.append("El Vehiculo elegido actualmente esta bloquiado.");
+      return true;
+    }
+
+    return false ;
   }
 
   bool insertTravel() const
@@ -129,7 +140,12 @@ private:
     std::map<QString, QVariant> binds;
     binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_dri"])) );
 
-    return  db_.update(sqlStm, binds);
+    if ( not  db_.update(sqlStm, binds) ) {
+      err_.append("El Conductor seleccionado No Existe");
+      return false;
+    }
+
+    return true;
   }
 
   bool blockVehicle() const
@@ -139,12 +155,19 @@ private:
     std::map<QString, QVariant> binds;
     binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_veh"])) );
 
-    return  db_.update(sqlStm, binds);
+    if ( not  db_.update(sqlStm, binds) ) {
+      err_.append("El Vehiculo seleccionado No Existe");
+      return false;
+    }
+
+    return true;
   }
 
-  Insert(const QJsonObject &jo
+  Insert(QString &err
+        ,const QJsonObject &jo
         ,const controllers::DatabaseController &db)
-    : jo_(jo)
+    : err_(err)
+     ,jo_(jo)
      ,db_(db) {}
 
   Insert(const Insert&) = delete;
@@ -153,6 +176,7 @@ private:
   Insert(const Insert&&) = delete;
   ~Insert() = default;
 
+  QString &err_;
   const QJsonObject &jo_;
   const controllers::DatabaseController &db_;
 };
