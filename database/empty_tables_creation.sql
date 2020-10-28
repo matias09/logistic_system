@@ -127,26 +127,56 @@ CREATE TABLE IF NOT EXISTS DRIVERS_VEHICLES (
 --  Inserts
 ----------------------------------------------------------------------
 
+-- Clients
+----------------------------------------------------------------------
 INSERT INTO clients ( id_town, name,  phone
                      ,cellphone, mail, street, house_nro , post_code)
-VALUES (1, "matias", "12345678", "54111512345678", "name@domain.com"
-      , "street_1", "0002", "1234");
+VALUES (1, "client_1", "11223344", "11111111111111",
+        "client_1@domain.com", "street_1", "0001", "1111");
+
+INSERT INTO clients ( id_town, name,  phone
+                     ,cellphone, mail, street, house_nro , post_code)
+VALUES (1, "client_2", "22334455", "22222222222222",
+        "client_2@gmail.com", "street_2", "0002", "2222");
+
+INSERT INTO clients ( id_town, name,  phone
+                     ,cellphone, mail, street, house_nro , post_code)
+VALUES (1, "client_3", "33445566", "33333333333333",
+        "client_3@gmail.com", "street_3", "0003", "3333");
+
+-- Drivers
+----------------------------------------------------------------------
+INSERT INTO drivers ( id_town, name,  lic_nro, lic_caducity_date, phone
+                     ,cellphone, mail, street, house_nro, post_code)
+VALUES (1, "driver_1", "1", "01/01/2021", "11223344", "11111111111111",
+        "driver_1@domain.com", "street_1", "0001", "1111");
 
 INSERT INTO drivers ( id_town, name,  lic_nro, lic_caducity_date, phone
                      ,cellphone, mail, street, house_nro, post_code)
-VALUES (1, "driver_1", "1", "12/12/2022", "12345678", "54111512345678",
-        "name@domain.com", "street_1", "0002", "1234");
+VALUES (1, "driver_2", "2", "01/02/2021", "22334455", "22222222222222",
+        "driver_2@gmail.com", "street_2", "0002", "2222");
 
+INSERT INTO drivers ( id_town, name,  lic_nro, lic_caducity_date, phone
+                     ,cellphone, mail, street, house_nro, post_code)
+VALUES (1, "driver_3", "3", "01/03/2021", "33445566", "33333333333333",
+        "driver_3@gmail.com", "street_3", "0003", "3333");
+
+-- Brands
+----------------------------------------------------------------------
 INSERT INTO brands (name) VALUES ("ford");
 INSERT INTO brands (name) VALUES ("fiat");
 INSERT INTO brands (name) VALUES ("chevrolet");
 INSERT INTO brands (name) VALUES ("scania");
 
+-- Models
+----------------------------------------------------------------------
 INSERT INTO models (id_brand, name) VALUES (1, "focus");
 INSERT INTO models (id_brand, name) VALUES (2, "uno");
 INSERT INTO models (id_brand, name) VALUES (3, "camaro");
 INSERT INTO models (id_brand, name) VALUES (4, "113");
 
+-- Vehicle Types
+----------------------------------------------------------------------
 INSERT INTO vehicle_types (name) VALUES ("bici");
 INSERT INTO vehicle_types (name) VALUES ("moto");
 INSERT INTO vehicle_types (name) VALUES ("auto");
@@ -156,5 +186,13 @@ INSERT INTO vehicle_types (name) VALUES ("tren");
 INSERT INTO vehicle_types (name) VALUES ("barco");
 INSERT INTO vehicle_types (name) VALUES ("avion");
 
+-- Vehicles
+----------------------------------------------------------------------
 INSERT INTO vehicles ( id_type_vehicle, id_model, max_weight, vin, vin_cad_date, year)
-VALUES ( 1, 1, 40, 123455, "12/12/2021", "2000");
+VALUES ( 3, 1, 200, 112233, "01/01/2021", "2001");
+
+INSERT INTO vehicles ( id_type_vehicle, id_model, max_weight, vin, vin_cad_date, year)
+VALUES ( 4, 2, 300, 223344, "01/02/2021", "2002");
+
+INSERT INTO vehicles ( id_type_vehicle, id_model, max_weight, vin, vin_cad_date, year)
+VALUES ( 5, 3, 800, 334455, "01/03/2021", "2003");
