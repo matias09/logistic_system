@@ -127,7 +127,7 @@ private:
     QString sqlStm = "UPDATE drivers SET blocked = 1 WHERE  id = :id ";
 
     std::map<QString, QVariant> binds;
-    binds.update(Burden(":id", QVariant(jo_["destiny"]["id_dri"])) );
+    binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_dri"])) );
 
     return  db_.update(sqlStm, binds);
   }
@@ -137,7 +137,7 @@ private:
     QString sqlStm = "UPDATE vehicles SET blocked = 1 WHERE  id = :id ";
 
     std::map<QString, QVariant> binds;
-    binds.update(Burden(":id", QVariant(jo_["destiny"]["id_veh"])) );
+    binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_veh"])) );
 
     return  db_.update(sqlStm, binds);
   }
