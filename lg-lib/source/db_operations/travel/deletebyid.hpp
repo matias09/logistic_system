@@ -15,19 +15,22 @@ class LGLIBSHARED_EXPORT TraCommandController::DeleteById
 {
   typedef std::pair<QString, QVariant> Burden;
 public:
-  static bool call(const QString &id
+  static bool call(const QJsonObject &jo
+                  ,const QString &id
                   ,const controllers::DatabaseController &db)
-  { return DeleteById(db).exec(id); }
+  { return DeleteById(jo, db).exec(id); }
 
 private:
   bool exec(const QString &id) {
-    if ( id.isEmpty() ) return false;
+    if ( jo_.isEmpty() ) return false;
 
     QSqlDatabase::database().transaction();
 
     if ( not deleteDestinations(id)
       || not deleteDestinationsAssociation(id)
       || not deleteTravel(id)
+      || not unblockDriver()
+      || not unblockVehicle()
    ) {
       QSqlDatabase::database().rollback();
       return false;
@@ -74,33 +77,37 @@ private:
     return db_.remove(sqlStm, binds);
   }
 
-  bool updateDriverToUnBlock() const
+  bool unblockDriver() const
   {
-    QString sqlStm = "update drivers set blocked = 0 where  id = :id ";
+    QString sqlStm = "UPDATE drivers SET blocked = 0 WHERE  id = :id ";
 
     std::map<QString, QVariant> binds;
-    binds.update(Burden(":id", QVariant(jo_["destiny"]["id_dri"])) );
+    binds.update(Burden(":id", QVariant(jo_["destiny"]["id_dri_o"])) );
 
     return  db_.update(sqlStm, binds);
   }
 
-  bool updateVehicleToUnBlock() const
+  bool unblockVehicle() const
   {
-    QString sqlStm = "update vehicles set blocked = 0 where  id = :id ";
+    QString sqlStm = "UPDATE vehicles SET blocked = 0 WHERE  id = :id ";
 
     std::map<QString, QVariant> binds;
-    binds.update(Burden(":id", QVariant(jo_["destiny"]["id_veh"])) );
+    binds.update(Burden(":id", QVariant(jo_["destiny"]["id_veh_o"])) );
 
     return  db_.update(sqlStm, binds);
   }
 
-  DeleteById(const controllers::DatabaseController &db) : db_(db) {}
+  DeleteById(const QJsonObject &jo
+            ,const controllers::DatabaseController &db)
+    : jo_(jo)
+     ,db_(db) {}
   DeleteById(const DeleteById&) = delete;
   DeleteById& operator =(const DeleteById&) = delete;
 
   DeleteById(const DeleteById&&) = delete;
   ~DeleteById() = default;
 
+  const QJsonObject &jo_;
   const controllers::DatabaseController &db_;
 };
 

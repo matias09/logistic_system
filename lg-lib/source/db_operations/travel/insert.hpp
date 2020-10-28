@@ -33,8 +33,8 @@ private:
       || not insertTravel()
       || not insertDestinations()
       || not insertDestinationsAssociation()
-      || not updateDriverToBlock()
-      || not updateVehicleToBlock()
+      || not blockDriver()
+      || not blockVehicle()
     ) {
       QSqlDatabase::database().rollback();
       return false;
@@ -46,7 +46,7 @@ private:
 
   bool driverIsBlocked() const
   {
-    QString sqlStm = "select 1 from drivers where blocked = 1 and id = :id ";
+    QString sqlStm = "SELECT 1 FROM drivers WHERE blocked = 1 AND id = :id ";
 
     std::map<QString, QVariant> binds;
     binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_dri"])) );
@@ -56,7 +56,7 @@ private:
 
   bool vehicleIsBlocked() const
   {
-    QString sqlStm = "select 1 from vehicles where blocked = 1 and id = :id ";
+    QString sqlStm = "SELECT 1 FROM vehicles WHERE blocked = 1 AND id = :id ";
 
     std::map<QString, QVariant> binds;
     binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_veh"])) );
@@ -122,9 +122,9 @@ private:
     return db_.create(sqlStm, binds);
   }
 
-  bool updateDriverToBlock() const
+  bool blockDriver() const
   {
-    QString sqlStm = "update drivers set blocked = 1 where  id = :id ";
+    QString sqlStm = "UPDATE drivers SET blocked = 1 WHERE  id = :id ";
 
     std::map<QString, QVariant> binds;
     binds.update(Burden(":id", QVariant(jo_["destiny"]["id_dri"])) );
@@ -132,9 +132,9 @@ private:
     return  db_.update(sqlStm, binds);
   }
 
-  bool updateVehicleToBlock() const
+  bool blockVehicle() const
   {
-    QString sqlStm = "update vehicles set blocked = 1 where  id = :id ";
+    QString sqlStm = "UPDATE vehicles SET blocked = 1 WHERE  id = :id ";
 
     std::map<QString, QVariant> binds;
     binds.update(Burden(":id", QVariant(jo_["destiny"]["id_veh"])) );

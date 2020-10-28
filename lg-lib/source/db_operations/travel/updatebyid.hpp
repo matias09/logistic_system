@@ -51,6 +51,10 @@ private:
 
     if ( not updateDestinations()
       || not updateTravel()
+      || not unblockDriver()        // Unblock Old Driver
+      || not unblockVehicle()       // Unblock Old Vehicle
+      || not blockDriver()          // Block New Driver
+      || not blockVehicle()         // Block New Vehicle
     ) {
       QSqlDatabase::database().rollback();
       return false;
@@ -62,7 +66,7 @@ private:
 
   bool driverIsBlocked() const
   {
-    QString sqlStm = "select 1 from drivers where blocked = 1 and id = :id ";
+    QString sqlStm = "SELECT 1 FROM drivers WHERE blocked = 1 AND id = :id ";
 
     std::map<QString, QVariant> binds;
     binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_dri"])) );
@@ -72,7 +76,7 @@ private:
 
   bool vehicleIsBlocked() const
   {
-    QString sqlStm = "select 1 from vehicles where blocked = 1 and id = :id ";
+    QString sqlStm = "SELECT 1 FROM vehicles WHERE blocked = 1 AND id = :id ";
 
     std::map<QString, QVariant> binds;
     binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_veh"])) );
@@ -122,6 +126,46 @@ private:
     binds.insert(Burden(":sta_date",  QVariant(jo_["sta_date"]) ));
 
     return db_.update(sqlStm, binds);
+  }
+
+  bool unblockDriver() const
+  {
+    QString sqlStm = "UPDATE drivers SET blocked = 0 WHERE  id = :id ";
+
+    std::map<QString, QVariant> binds;
+    binds.update(Burden(":id", QVariant(jo_["destiny"]["id_dri_o"])) );
+
+    return  db_.update(sqlStm, binds);
+  }
+
+  bool unblockVehicle() const
+  {
+    QString sqlStm = "UPDATE vehicles SET blocked = 0 WHERE  id = :id ";
+
+    std::map<QString, QVariant> binds;
+    binds.update(Burden(":id", QVariant(jo_["destiny"]["id_veh_o"])) );
+
+    return  db_.update(sqlStm, binds);
+  }
+
+  bool blockDriver() const
+  {
+    QString sqlStm = "UPDATE drivers SET blocked = 1 WHERE  id = :id ";
+
+    std::map<QString, QVariant> binds;
+    binds.update(Burden(":id", QVariant(jo_["destiny"]["id_dri"])) );
+
+    return  db_.update(sqlStm, binds);
+  }
+
+  bool blockVehicle() const
+  {
+    QString sqlStm = "UPDATE vehicles SET blocked = 1 WHERE  id = :id ";
+
+    std::map<QString, QVariant> binds;
+    binds.update(Burden(":id", QVariant(jo_["destiny"]["id_veh"])) );
+
+    return  db_.update(sqlStm, binds);
   }
 
   UpdateById(const QJsonObject &jo

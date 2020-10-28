@@ -195,7 +195,8 @@ void TraCommandController::onEditTravelDeleteExecuted()
 {
   std::cout << "You executed the Delete Command!" << std::endl;
 
-  DeleteById::call( implementation->selectedTravel->id()
+  DeleteById::call(  implementation->selectedTravel->toJson()
+                   , implementation->selectedTravel->id()
                    ,*(implementation->databaseController) );
 
   implementation->selectedTravel = nullptr;
