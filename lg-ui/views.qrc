@@ -15,5 +15,9 @@
         <file alias="CreateVehicleView.qml">views/vehicle/CreateVehicleView.qml</file>
         <file alias="EditVehicleView.qml">views/vehicle/EditVehicleView.qml</file>
         <file alias="FindVehicleView.qml">views/vehicle/FindVehicleView.qml</file>
+
+        <file alias="CreateTravelView.qml">views/travel/CreateTravelView.qml</file>
+        <file alias="EditTravelView.qml">views/travel/EditTravelView.qml</file>
+        <file alias="FindTravelView.qml">views/travel/FindTravelView.qml</file>
     </qresource>
 </RCC>

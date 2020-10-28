@@ -31,6 +31,8 @@ public:
   bool remove(const QString &sqlStatement
              ,const std::map<QString, QVariant> &binds) const;
 
+  int getTableLastId( const QString &table ) const;
+
 private:
   class Implementation;
   QScopedPointer<Implementation> implementation;

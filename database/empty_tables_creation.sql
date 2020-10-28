@@ -21,14 +21,12 @@ CREATE TABLE IF NOT EXISTS CLIENTS (
   mail             CHAR(50)      NULL, -- |
   street           CHAR(50)      NULL,
   house_nro        CHAR(4)       NULL,
-  post_code        CHAR(4)       NULL,
-  building_floor   CHAR(4)       NULL,
-  apartment_nro    CHAR(4)       NULL);
+  post_code        CHAR(4)       NULL);
 
 CREATE TABLE IF NOT EXISTS INVOICES (
   id         INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
   id_client  INTEGER       NULL,
-  inv_type   CHAR(1)       NULL,
+  inv_type   CHAR(1)       NULL, -- invoice type ( A - B - C ...)
   inv_date   DATE          NULL,
   balance    REAL          NULL DEFAULT 0.0,
   sub_total  REAL          NULL,
@@ -44,9 +42,8 @@ CREATE TABLE IF NOT EXISTS RECEIPT (
 
 CREATE TABLE IF NOT EXISTS TRAVELS (
   id           INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
-  id_invoice   INTEGER       NULL,
-  tra_date     DATE          NULL,
-  price        REAL          NULL);
+  id_client    INTEGER       NULL,
+  sta_date     DATE          NULL); -- date when the transport begins his journy
 
 CREATE TABLE IF NOT EXISTS TRAVELS_DESTINATIONS (
   id               INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
@@ -56,15 +53,11 @@ CREATE TABLE IF NOT EXISTS TRAVELS_DESTINATIONS (
 CREATE TABLE IF NOT EXISTS DESTINATIONS (
   id              INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
   id_driver       INTEGER       NULL,
-  id_country      INTEGER       NULL,
-  id_state        INTEGER       NULL,
-  id_town         INTEGER       NULL,
-  des_date        DATE          NULL,
-  address         CHAR(50)      NULL,
-  building_floor  CHAR(4)       NULL,
-  apartment_nro   CHAR(4)       NULL,
-  latitude        CHAR(12)      NULL,
-  des_length      CHAR(12)      NULL);
+  id_vehicle      INTEGER       NULL,
+  arrival_date    DATE          NULL,
+  street          CHAR(50)      NULL,
+  house_nro       CHAR(4)       NULL,
+  post_code       CHAR(4)       NULL);
 
 CREATE TABLE IF NOT EXISTS BURDENS (
   id              INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
@@ -87,13 +80,12 @@ CREATE TABLE IF NOT EXISTS DRIVERS (
   lic_nro               CHAR(20)      NULL,
   lic_caducity_date     DATE          NULL,
   phone                 CHAR(20)      NULL, -- |
-  cellphone             CHAR(20)      NULL, -- | - on of this must be set
+  cellphone             CHAR(20)      NULL, -- | - one of this must be set
   mail                  CHAR(50)      NULL, -- |
   street                CHAR(50)      NULL,
   house_nro             CHAR(4)       NULL,
   post_code             CHAR(4)       NULL,
-  building_floor        CHAR(4)       NULL,
-  apartment_nro         CHAR(4)       NULL);
+  blocked               BOOLEAN       NULL DEFAULT FALSE);
 
 CREATE TABLE IF NOT EXISTS PAYED_COMMISSIONS (
   id           INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
@@ -118,7 +110,8 @@ CREATE TABLE IF NOT EXISTS VEHICLES (
   max_weight        CHAR(25)      NULL,
   vin               CHAR(25)      NULL, -- vehicule identification number
   vin_cad_date      DATE          NULL, -- vin caducity
-  year              CHAR(4)       NULL);
+  year              CHAR(4)       NULL,
+  blocked           BOOLEAN       NULL DEFAULT FALSE);
 
 CREATE TABLE IF NOT EXISTS VEHICLE_TYPES (
   id         INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
@@ -130,32 +123,60 @@ CREATE TABLE IF NOT EXISTS DRIVERS_VEHICLES (
   id_vehicle INTEGER       NULL);
 
 
-
--- ----------------------------------------------------------------------
+----------------------------------------------------------------------
 --  Inserts
--- ----------------------------------------------------------------------
+----------------------------------------------------------------------
 
-INSERT INTO clients ( id_town, name,  phone,  cellphone, mail, street, house_nro
-                     , post_code, building_floor, apartment_nro)
-VALUES (1, "matias", "12345678", "54111512345678", "name@domain.com"
-      , "street_1", "0002", "1234", null, null);
+-- Clients
+----------------------------------------------------------------------
+INSERT INTO clients ( id_town, name,  phone
+                     ,cellphone, mail, street, house_nro , post_code)
+VALUES (1, "client_1", "11223344", "11111111111111",
+        "client_1@domain.com", "street_1", "0001", "1111");
 
-INSERT INTO drivers ( id_town, name,  lic_nro, lic_caducity_date, phone,
-                      cellphone, mail, street, house_nro, post_code
-                     , building_floor, apartment_nro)
-VALUES (1, "driver_1", "1", "12/12/2022", "12345678", "54111512345678",
-        "name@domain.com", "street_1", "0002", "1234", null ,null);
+INSERT INTO clients ( id_town, name,  phone
+                     ,cellphone, mail, street, house_nro , post_code)
+VALUES (1, "client_2", "22334455", "22222222222222",
+        "client_2@gmail.com", "street_2", "0002", "2222");
 
+INSERT INTO clients ( id_town, name,  phone
+                     ,cellphone, mail, street, house_nro , post_code)
+VALUES (1, "client_3", "33445566", "33333333333333",
+        "client_3@gmail.com", "street_3", "0003", "3333");
+
+-- Drivers
+----------------------------------------------------------------------
+INSERT INTO drivers ( id_town, name,  lic_nro, lic_caducity_date, phone
+                     ,cellphone, mail, street, house_nro, post_code)
+VALUES (1, "driver_1", "1", "01/01/2021", "11223344", "11111111111111",
+        "driver_1@domain.com", "street_1", "0001", "1111");
+
+INSERT INTO drivers ( id_town, name,  lic_nro, lic_caducity_date, phone
+                     ,cellphone, mail, street, house_nro, post_code)
+VALUES (1, "driver_2", "2", "01/02/2021", "22334455", "22222222222222",
+        "driver_2@gmail.com", "street_2", "0002", "2222");
+
+INSERT INTO drivers ( id_town, name,  lic_nro, lic_caducity_date, phone
+                     ,cellphone, mail, street, house_nro, post_code)
+VALUES (1, "driver_3", "3", "01/03/2021", "33445566", "33333333333333",
+        "driver_3@gmail.com", "street_3", "0003", "3333");
+
+-- Brands
+----------------------------------------------------------------------
 INSERT INTO brands (name) VALUES ("ford");
 INSERT INTO brands (name) VALUES ("fiat");
 INSERT INTO brands (name) VALUES ("chevrolet");
 INSERT INTO brands (name) VALUES ("scania");
 
+-- Models
+----------------------------------------------------------------------
 INSERT INTO models (id_brand, name) VALUES (1, "focus");
 INSERT INTO models (id_brand, name) VALUES (2, "uno");
 INSERT INTO models (id_brand, name) VALUES (3, "camaro");
 INSERT INTO models (id_brand, name) VALUES (4, "113");
 
+-- Vehicle Types
+----------------------------------------------------------------------
 INSERT INTO vehicle_types (name) VALUES ("bici");
 INSERT INTO vehicle_types (name) VALUES ("moto");
 INSERT INTO vehicle_types (name) VALUES ("auto");
@@ -165,6 +186,13 @@ INSERT INTO vehicle_types (name) VALUES ("tren");
 INSERT INTO vehicle_types (name) VALUES ("barco");
 INSERT INTO vehicle_types (name) VALUES ("avion");
 
+-- Vehicles
+----------------------------------------------------------------------
 INSERT INTO vehicles ( id_type_vehicle, id_model, max_weight, vin, vin_cad_date, year)
-VALUES ( 1, 1, 40, 123455, "12/12/2021", "2000");
+VALUES ( 3, 1, 200, 112233, "01/01/2021", "2001");
 
+INSERT INTO vehicles ( id_type_vehicle, id_model, max_weight, vin, vin_cad_date, year)
+VALUES ( 4, 2, 300, 223344, "01/02/2021", "2002");
+
+INSERT INTO vehicles ( id_type_vehicle, id_model, max_weight, vin, vin_cad_date, year)
+VALUES ( 5, 3, 800, 334455, "01/03/2021", "2003");

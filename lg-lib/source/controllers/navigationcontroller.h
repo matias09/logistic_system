@@ -8,6 +8,7 @@
 #include <models/client.h>
 #include <models/driver.h>
 #include <models/vehicle.h>
+#include <models/travel.h>
 
 namespace lg {
 namespace controllers {
@@ -34,6 +35,10 @@ signals:
   void goCreateVehicleView();
   void goEditVehicleView(lg::models::Vehicle *vehicle);
   void goFindVehicleView();
+
+  void goCreateTravelView();
+  void goEditTravelView(lg::models::Travel *travel);
+  void goFindTravelView();
 };
 
 } // controllers

@@ -41,6 +41,16 @@ public:
                                                      ,navigationController
                                                      ,newVehicle
                                                      ,vehicleSearch);
+
+      newTravel   = new models::Travel(masterController);
+      travelSearch = new models::TravelSearch(masterController
+                                              ,databaseController);
+
+      traCommandController = new TraCommandController(masterController
+                                                     ,databaseController
+                                                     ,navigationController
+                                                     ,newTravel
+                                                     ,travelSearch);
    }
 
    MasterController        *masterController{nullptr};
@@ -48,6 +58,7 @@ public:
    CliCommandController    *cliCommandController{nullptr};
    DriCommandController    *driCommandController{nullptr};
    VehCommandController    *vehCommandController{nullptr};
+   TraCommandController    *traCommandController{nullptr};
    DatabaseController      *databaseController{nullptr};
 
    models::Client       *newClient{nullptr};
@@ -58,6 +69,9 @@ public:
 
    models::Vehicle       *newVehicle{nullptr};
    models::VehicleSearch *vehicleSearch{nullptr};
+
+   models::Travel       *newTravel{nullptr};
+   models::TravelSearch *travelSearch{nullptr};
 };
 
 MasterController::MasterController(QObject* parent)
@@ -103,6 +117,16 @@ models::VehicleSearch* MasterController::vehicleSearch()
   return  implementation->vehicleSearch;
 }
 
+models::Travel* MasterController::newTravel()
+{
+  return  implementation->newTravel;
+}
+
+models::TravelSearch* MasterController::travelSearch()
+{
+  return  implementation->travelSearch;
+}
+
 CliCommandController* MasterController::cliCommandController()
 {
   return  implementation->cliCommandController;
@@ -116,6 +140,11 @@ DriCommandController* MasterController::driCommandController()
 VehCommandController* MasterController::vehCommandController()
 {
   return  implementation->vehCommandController;
+}
+
+TraCommandController* MasterController::traCommandController()
+{
+  return  implementation->traCommandController;
 }
 
 DatabaseController* MasterController::databaseController()
@@ -140,6 +169,12 @@ void MasterController::selectVehicle(lg::models::Vehicle *vehicle)
 {
   implementation->vehCommandController->setSelectedVehicle(vehicle);
   implementation->navigationController->goEditVehicleView(vehicle);
+}
+
+void MasterController::selectTravel(lg::models::Travel *travel)
+{
+  implementation->traCommandController->setSelectedTravel(travel);
+  implementation->navigationController->goEditTravelView(travel);
 }
 
 } // controllers

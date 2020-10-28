@@ -7,6 +7,7 @@
 #include <controllers/clicommandcontroller.h>
 #include <controllers/dricommandcontroller.h>
 #include <controllers/vehcommandcontroller.h>
+#include <controllers/tracommandcontroller.h>
 
 #include <framework/command.h>
 
@@ -15,13 +16,16 @@
 #include <data/stringdecorator.h>
 
 #include <models/address.h>
-#include <models/appointment.h>
+#include <models/destination.h>
+
 #include <models/client.h>
 #include <models/clientsearch.h>
 #include <models/driver.h>
 #include <models/driversearch.h>
 #include <models/vehicle.h>
 #include <models/vehiclesearch.h>
+#include <models/travel.h>
+#include <models/travelsearch.h>
 
 int main(int argc, char *argv[])
 {
@@ -33,6 +37,7 @@ int main(int argc, char *argv[])
   qmlRegisterType<lg::controllers::CliCommandController>("LG", 1,  0,  "CliCommandController");
   qmlRegisterType<lg::controllers::DriCommandController>("LG", 1,  0,  "DriCommandController");
   qmlRegisterType<lg::controllers::VehCommandController>("LG", 1,  0,  "VehCommandController");
+  qmlRegisterType<lg::controllers::TraCommandController>("LG", 1,  0,  "TraCommandController");
 
   qmlRegisterType<lg::framework::Command>("LG", 1,  0,  "Command");
 
@@ -41,7 +46,7 @@ int main(int argc, char *argv[])
   qmlRegisterType<lg::data::StringDecorator>("LG" , 1, 0, "StringDecorator");
 
   qmlRegisterType<lg::models::Address>("LG", 1, 0, "Address");
-  qmlRegisterType<lg::models::Appointment>("LG", 1, 0, "Appointment");
+  qmlRegisterType<lg::models::Destination>("LG", 1, 0, "Destination");
 
   qmlRegisterType<lg::models::Client>("LG", 1, 0, "Client");
   qmlRegisterType<lg::models::ClientSearch>("LG", 1, 0, "ClientSearch");
@@ -51,6 +56,9 @@ int main(int argc, char *argv[])
 
   qmlRegisterType<lg::models::Vehicle>("LG", 1, 0, "Vehicle");
   qmlRegisterType<lg::models::VehicleSearch>("LG", 1, 0, "VehicleSearch");
+
+  qmlRegisterType<lg::models::Travel>("LG", 1, 0, "Travel");
+  qmlRegisterType<lg::models::TravelSearch>("LG", 1, 0, "TravelSearch");
 
   lg::controllers::MasterController masterController;
   QQmlApplicationEngine engine;
