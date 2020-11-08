@@ -72,44 +72,24 @@ Item {
         margins: Style.heightDataControls / 4
       }
 
-      textRole: "text"
-      valueRole: "value"
+      valueRole: "ui_value"
+      textRole: "ui_desc"
+
+      model: masterController.ui_countries
+
       // When an item is selected, update the backend.
       onActivated: t.text = currentValue
+      onCurrentIndexChanged:  t2.text = currentIndex
+
       // Set the initial currentIndex to the value stored in the backend.
       Component.onCompleted: {
         currentIndex = indexOfValue(1)
-
       }
-
-      model: [
-        { value: 0, text: qsTr("No modifier") },
-        { value: 1, text: qsTr("Shift") },
-        { value: 2, text: qsTr("Control") }
-      ]
     }
 
     Text { id: t; anchors.top: countries.bottom }
+    Text { id: t2; anchors.right: parent.right; color: "black"}
 
-    ListView {
-      id: lv
-      anchors.top: t.bottom
-      model: masterController.ui_countries
-      //model: ["111", "sdfsdf"]
-
-      delegate: Rectangle {
-        width: 150
-        height: td.implicitHeight + 30
-        color: "green"
-
-        Text {
-          id: td
-          width: parent.width
-          height: parent.height
-          text : modelData.ui_desc
-        }
-      }
-    }
   }
 
   CommandBar {
