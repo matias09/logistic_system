@@ -94,16 +94,19 @@ Item {
     ListView {
       id: lv
       anchors.top: t.bottom
-      model: [ "2323", "111" ]
+      model: masterController.ui_countries
+      //model: ["111", "sdfsdf"]
+
       delegate: Rectangle {
         width: 150
         height: td.implicitHeight + 30
+        color: "green"
 
         Text {
           id: td
           width: parent.width
           height: parent.height
-          text : modelData
+          text : modelData.ui_desc
         }
       }
     }

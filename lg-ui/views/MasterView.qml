@@ -53,5 +53,5 @@ Window {
     }
 
     Component.onCompleted:
-     contentFrame.replace("qrc:/views/CreateClientView.qml")
+     contentFrame.replace("qrc:/views/DashboardView.qml")
 }
