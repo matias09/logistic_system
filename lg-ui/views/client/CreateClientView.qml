@@ -64,6 +64,8 @@ Item {
     }
 
 
+    Text { id: t; anchors.top: countries.bottom }
+
     ComboBox {
       id: countries
       width: 300
@@ -78,18 +80,18 @@ Item {
       model: masterController.ui_countries
 
       // When an item is selected, update the backend.
-      onActivated: t.text = currentValue
+      onActivated: {
+        newClient.ui_name.ui_value = currentValue
+        t.text = currentValue
+      }
       onCurrentIndexChanged:  t2.text = currentIndex
 
       // Set the initial currentIndex to the value stored in the backend.
       Component.onCompleted: {
         currentIndex = indexOfValue(1)
+        newClient.ui_name.ui_value = currentValue
       }
     }
-
-    Text { id: t; anchors.top: countries.bottom }
-    Text { id: t2; anchors.right: parent.right; color: "black"}
-
   }
 
   CommandBar {
