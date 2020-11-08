@@ -93,8 +93,6 @@ MasterController::~MasterController() {}
 QQmlListProperty<models::ComboOption>
 MasterController::countries()
 {
-   std::cout << "called..: "  << std::endl;
-
 //  std::for_each(implementation->cl.constBegin()
 //              , implementation->cl.constEnd()
 //              ,[&](const auto &e)

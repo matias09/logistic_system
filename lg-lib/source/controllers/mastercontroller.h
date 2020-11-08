@@ -64,7 +64,7 @@ class LGLIBSHARED_EXPORT MasterController : public QObject
     READ  travelSearch CONSTANT)
 
   Q_PROPERTY(QQmlListProperty<lg::models::ComboOption>
-      ui_countries READ countries CONSTANT)
+      ui_countries READ countries NOTIFY ui_countriesChanged)
 
 public:
   explicit MasterController(QObject *parent = nullptr);
@@ -90,6 +90,9 @@ public:
   models::TravelSearch* travelSearch();
 
   QQmlListProperty<models::ComboOption> countries();
+
+ signals:
+  void ui_countriesChanged(const QList<models::ComboOption*> &e);
 
 public slots:
   void selectClient( lg::models::Client *client );
