@@ -13,7 +13,7 @@ namespace models {
 class LGLIBSHARED_EXPORT ComboOption : public QObject
 {
   Q_OBJECT
-  Q_PROPERTY( QString ui_value READ value NOTIFY ui_valueChanged )
+  Q_PROPERTY( QString ui_value READ value )
   Q_PROPERTY( QString ui_desc  READ desc   )
 
 public:
@@ -27,8 +27,6 @@ public:
   const QString& value() const;
   const QString& desc() const;
 
- signals:
-  void ui_valueChanged(const QString &e);
 
 private:
   class Implementation;
