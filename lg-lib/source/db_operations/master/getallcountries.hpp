@@ -30,24 +30,19 @@ private:
   {
     QString sqlStm = "SELECT id, name FROM countries";
 
-    //std::map<QString, QVariant> binds;
     QSqlQuery&& query = db.search(sqlStm, {});
 
-    QList<models::ComboOption*> countries{};
+    QList<models::ComboOption*> cl{};
     while ( query.next() ) {
       models::ComboOption* co = new models::ComboOption(
         &parent
        ,query.value(0).toString()
        ,query.value(1).toString() );
 
-      countries.append(co);
+      cl.append(co);
     }
 
-
-    models::ComboOption* co = new models::ComboOption( &parent ,"1" ,"austria");
-    countries.append(co);
-
-    return countries;
+    return cl;
   }
 
   GetAllCountries() = default;

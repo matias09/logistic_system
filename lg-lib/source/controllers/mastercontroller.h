@@ -63,7 +63,7 @@ class LGLIBSHARED_EXPORT MasterController : public QObject
   Q_PROPERTY(lg::models::TravelSearch *ui_travelSearch
     READ  travelSearch CONSTANT)
 
-  Q_PROPERTY(QQmlListProperty<models::ComboOption>
+  Q_PROPERTY(QQmlListProperty<lg::models::ComboOption>
       ui_countries READ countries CONSTANT)
 
 public:
@@ -90,7 +90,6 @@ public:
   models::TravelSearch* travelSearch();
 
   QQmlListProperty<models::ComboOption> countries();
-
 
 public slots:
   void selectClient( lg::models::Client *client );

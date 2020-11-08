@@ -54,6 +54,8 @@ public:
                                                      ,navigationController
                                                      ,newTravel
                                                      ,travelSearch);
+
+      cl =  GetAllCountries::call(*(masterController), *(databaseController));
    }
 
    MasterController        *masterController{nullptr};
@@ -75,6 +77,8 @@ public:
 
    models::Travel       *newTravel{nullptr};
    models::TravelSearch *travelSearch{nullptr};
+
+   QList<models::ComboOption*> cl;
 };
 
 MasterController::MasterController(QObject* parent)
@@ -91,12 +95,18 @@ MasterController::countries()
 {
    std::cout << "called..: "  << std::endl;
 
-   QList<models::ComboOption*> cl = GetAllCountries::call(
-       *( implementation->masterController )
-      ,*( implementation->databaseController ) );
+//  std::for_each(implementation->cl.constBegin()
+//              , implementation->cl.constEnd()
+//              ,[&](const auto &e)
+//  {
+//     std::cout << "value: " << e->value.toStdString() << '\t'
+//               << "desc: " << e->desc.toStdString()
+//               << std::endl;
+//  });
 
-   std::cout << "value: " << cl.first()->value.toStdString() << std::endl;
-   return  QQmlListProperty<models::ComboOption>(this, cl);
+   return  QQmlListProperty<models::ComboOption>(
+       this,
+       implementation->cl);
 }
 
 

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QString>
+#include <QScopedPointer>
 
 #include <lg-lib_global.h>
 
@@ -12,26 +13,23 @@ namespace models {
 class LGLIBSHARED_EXPORT ComboOption : public QObject
 {
   Q_OBJECT
-  Q_PROPERTY( QString ui_value MEMBER value CONSTANT )
-  Q_PROPERTY( QString ui_desc  MEMBER desc  CONSTANT )
+  Q_PROPERTY( QString ui_value READ value CONSTANT )
+  Q_PROPERTY( QString ui_desc  READ desc  CONSTANT )
 
 public:
   explicit ComboOption(
        QObject *parent = nullptr
       ,const QString &_value = ""
-      ,const QString &_desc  = "" )
-  : QObject (parent)
-   ,value(_value)
-   ,desc(_desc) {};
+      ,const QString &_desc  = "" );
 
-  ~ComboOption() {};
+  ~ComboOption();
 
-  QString value;
-  QString desc;
-
-signals:
+  const QString& value() const;
+  const QString& desc() const;
 
 private:
+  class Implementation;
+  QScopedPointer<Implementation> implementation;
 };
 
 } // framework

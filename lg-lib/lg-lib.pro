@@ -35,6 +35,7 @@ SOURCES += \
         source/data/intdecorator.cpp                                        \
         source/data/stringdecorator.cpp                                     \
         source/framework/command.cpp                                        \
+        source/models/combooption.cpp                                       \
         source/models/destination.cpp                                       \
         source/models/address.cpp                                           \
         source/models/client.cpp                                            \
