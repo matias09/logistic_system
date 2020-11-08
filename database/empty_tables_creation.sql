@@ -127,6 +127,13 @@ CREATE TABLE IF NOT EXISTS DRIVERS_VEHICLES (
 --  Inserts
 ----------------------------------------------------------------------
 
+-- Countries
+----------------------------------------------------------------------
+INSERT INTO countries (id, name) VALUES (1, "Germany");
+INSERT INTO countries (id, name) VALUES (2, "Dennmark");
+INSERT INTO countries (id, name) VALUES (3, "England");
+INSERT INTO countries (id, name) VALUES (4, "Norway");
+
 -- Clients
 ----------------------------------------------------------------------
 INSERT INTO clients ( id_town, name,  phone
