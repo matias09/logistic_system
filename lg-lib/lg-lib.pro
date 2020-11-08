@@ -45,6 +45,7 @@ SOURCES += \
         source/models/vehiclesearch.cpp                                     \
         source/models/travel.cpp                                            \
         source/models/travelsearch.cpp                                      \
+        source/db_operations/master/getallcountries.hpp                     \
         source/db_operations/client/findbyname.hpp                          \
         source/db_operations/client/updatebyid.hpp                          \
         source/db_operations/client/insert.hpp                              \
@@ -63,30 +64,31 @@ SOURCES += \
         source/db_operations/travel/deletebyid.hpp
 
 HEADERS += \
-        source/lg-lib_global.h                        \
-        source/controllers/navigationcontroller.h     \
-        source/controllers/mastercontroller.h         \
-        source/controllers/clicommandcontroller.h     \
-        source/controllers/dricommandcontroller.h     \
-        source/controllers/vehcommandcontroller.h     \
-        source/controllers/tracommandcontroller.h     \
-        source/controllers/databasecontroller.h       \
-        source/data/datadecorator.h                   \
-        source/data/datetimedecorator.h               \
-        source/data/entity.h                          \
-        source/data/entitycollection.h                \
-        source/data/intdecorator.h                    \
-        source/data/stringdecorator.h                 \
-        source/framework/command.h                    \
-        source/models/address.h                       \
-        source/models/client.h                        \
-        source/models/clientsearch.h                  \
-        source/models/driver.h                        \
-        source/models/driversearch.h                  \
-        source/models/vehicle.h                       \
-        source/models/vehiclesearch.h                 \
-        source/models/destination.h                   \
-        source/models/travel.h                        \
+        source/lg-lib_global.h                                              \
+        source/controllers/navigationcontroller.h                           \
+        source/controllers/mastercontroller.h                               \
+        source/controllers/clicommandcontroller.h                           \
+        source/controllers/dricommandcontroller.h                           \
+        source/controllers/vehcommandcontroller.h                           \
+        source/controllers/tracommandcontroller.h                           \
+        source/controllers/databasecontroller.h                             \
+        source/data/datadecorator.h                                         \
+        source/data/datetimedecorator.h                                     \
+        source/data/entity.h                                                \
+        source/data/entitycollection.h                                      \
+        source/data/intdecorator.h                                          \
+        source/data/stringdecorator.h                                       \
+        source/framework/command.h                                          \
+        source/models/combooption.h                                         \
+        source/models/address.h                                             \
+        source/models/client.h                                              \
+        source/models/clientsearch.h                                        \
+        source/models/driver.h                                              \
+        source/models/driversearch.h                                        \
+        source/models/vehicle.h                                             \
+        source/models/vehiclesearch.h                                       \
+        source/models/destination.h                                         \
+        source/models/travel.h                                              \
         source/models/travelsearch.h
 
 

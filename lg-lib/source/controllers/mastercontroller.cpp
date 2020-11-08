@@ -1,4 +1,7 @@
 #include "mastercontroller.h"
+#include "db_operations/master/getallcountries.hpp"
+
+#include <iostream>
 
 namespace lg {
 namespace controllers {
@@ -81,6 +84,21 @@ MasterController::MasterController(QObject* parent)
 }
 
 MasterController::~MasterController() {}
+
+
+QQmlListProperty<models::ComboOption>
+MasterController::countries()
+{
+   std::cout << "called..: "  << std::endl;
+
+   QList<models::ComboOption*> cl = GetAllCountries::call(
+       *( implementation->masterController )
+      ,*( implementation->databaseController ) );
+
+   std::cout << "value: " << cl.first()->value.toStdString() << std::endl;
+   return  QQmlListProperty<models::ComboOption>(this, cl);
+}
+
 
 NavigationController* MasterController::navigationController()
 {
