@@ -2,11 +2,11 @@ include(../qmake-target-platform.pri)
 include(../qmake-destination-path.pri)
 
 QT += qml quick quickcontrols2
-CONFIG += c++11
+#CONFIG += c++11
 
 TEMPLATE = app
 
-CONFIG += c++14
+CONFIG += c++14  qml_debug
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings

@@ -7,8 +7,8 @@ import components 1.0
 
 Window {
     visible: true
-    width: 1920
-    height: 1080
+    width:  800
+    height: 600
     title: qsTr("Sistema de Logistica")
 
     Connections {
@@ -53,5 +53,5 @@ Window {
     }
 
     Component.onCompleted:
-      contentFrame.replace("qrc:/views/DashboardView.qml")
+     contentFrame.replace("qrc:/views/CreateClientView.qml")
 }
