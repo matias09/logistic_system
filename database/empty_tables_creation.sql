@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS TOWNS (
 
 CREATE TABLE IF NOT EXISTS CLIENTS (
   id               INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
-  id_town          INTEGER       NULL,
+  id_state         INTEGER       NULL,
   name             CHAR(25)      NULL,
   phone            CHAR(20)      NULL, -- |
   cellphone        CHAR(20)      NULL, -- | - one of this must be set
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS BURDEN_TYPES (
 
 CREATE TABLE IF NOT EXISTS DRIVERS (
   id                    INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
-  id_town               INTEGER       NULL,
+  id_state              INTEGER       NULL,
   name                  CHAR(15)      NULL,
   lic_nro               CHAR(20)      NULL,
   lic_caducity_date     DATE          NULL,
@@ -127,43 +127,62 @@ CREATE TABLE IF NOT EXISTS DRIVERS_VEHICLES (
 --  Inserts
 ----------------------------------------------------------------------
 
--- Countries
+-- States
 ----------------------------------------------------------------------
-INSERT INTO countries (id, name) VALUES (1, "Germany");
-INSERT INTO countries (id, name) VALUES (2, "Dennmark");
-INSERT INTO countries (id, name) VALUES (3, "England");
-INSERT INTO countries (id, name) VALUES (4, "Norway");
+INSERT INTO states (id, name) VALUES (1,  "buenos_aires");
+INSERT INTO states (id, name) VALUES (2,  "catamarca");
+INSERT INTO states (id, name) VALUES (3,  "chaco");
+INSERT INTO states (id, name) VALUES (4,  "chubut");
+INSERT INTO states (id, name) VALUES (5,  "cordoba");
+INSERT INTO states (id, name) VALUES (6,  "corrientes");
+INSERT INTO states (id, name) VALUES (7,  "entre_ríos");
+INSERT INTO states (id, name) VALUES (8,  "formosa");
+INSERT INTO states (id, name) VALUES (9,  "jujuy");
+INSERT INTO states (id, name) VALUES (10, "la_pampa");
+INSERT INTO states (id, name) VALUES (11, "la_rioja");
+INSERT INTO states (id, name) VALUES (12, "mendoza");
+INSERT INTO states (id, name) VALUES (13, "misiones");
+INSERT INTO states (id, name) VALUES (14, "neuquen");
+INSERT INTO states (id, name) VALUES (15, "rio_negro");
+INSERT INTO states (id, name) VALUES (16, "salta");
+INSERT INTO states (id, name) VALUES (17, "san_juan");
+INSERT INTO states (id, name) VALUES (18, "san_luis");
+INSERT INTO states (id, name) VALUES (19, "santa_cruz");
+INSERT INTO states (id, name) VALUES (20, "santa_fe");
+INSERT INTO states (id, name) VALUES (21, "santiago_del_estero");
+INSERT INTO states (id, name) VALUES (22, "tierra_del_fuego");
+INSERT INTO states (id, name) VALUES (23, "tucuman");
 
 -- Clients
 ----------------------------------------------------------------------
-INSERT INTO clients ( id_town, name,  phone
+INSERT INTO clients ( id_state, name,  phone
                      ,cellphone, mail, street, house_nro , post_code)
 VALUES (1, "client_1", "11223344", "11111111111111",
         "client_1@domain.com", "street_1", "0001", "1111");
 
-INSERT INTO clients ( id_town, name,  phone
+INSERT INTO clients ( id_state, name,  phone
                      ,cellphone, mail, street, house_nro , post_code)
 VALUES (1, "client_2", "22334455", "22222222222222",
         "client_2@gmail.com", "street_2", "0002", "2222");
 
-INSERT INTO clients ( id_town, name,  phone
+INSERT INTO clients ( id_state, name,  phone
                      ,cellphone, mail, street, house_nro , post_code)
 VALUES (1, "client_3", "33445566", "33333333333333",
         "client_3@gmail.com", "street_3", "0003", "3333");
 
 -- Drivers
 ----------------------------------------------------------------------
-INSERT INTO drivers ( id_town, name,  lic_nro, lic_caducity_date, phone
+INSERT INTO drivers ( id_state, name,  lic_nro, lic_caducity_date, phone
                      ,cellphone, mail, street, house_nro, post_code)
 VALUES (1, "driver_1", "1", "01/01/2021", "11223344", "11111111111111",
         "driver_1@domain.com", "street_1", "0001", "1111");
 
-INSERT INTO drivers ( id_town, name,  lic_nro, lic_caducity_date, phone
+INSERT INTO drivers ( id_state, name,  lic_nro, lic_caducity_date, phone
                      ,cellphone, mail, street, house_nro, post_code)
 VALUES (1, "driver_2", "2", "01/02/2021", "22334455", "22222222222222",
         "driver_2@gmail.com", "street_2", "0002", "2222");
 
-INSERT INTO drivers ( id_town, name,  lic_nro, lic_caducity_date, phone
+INSERT INTO drivers ( id_state, name,  lic_nro, lic_caducity_date, phone
                      ,cellphone, mail, street, house_nro, post_code)
 VALUES (1, "driver_3", "3", "01/03/2021", "33445566", "33333333333333",
         "driver_3@gmail.com", "street_3", "0003", "3333");
