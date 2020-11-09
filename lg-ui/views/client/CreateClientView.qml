@@ -64,34 +64,32 @@ Item {
     }
 
 
-    Text { id: t; anchors.top: countries.bottom }
+//    Text { id: t; anchors.top: bck_towns }
+//
+//    ComboBox {
+//      id: bck_towns
+//      width: 300
+//      height: 25
+//      anchors {
+//        margins: Style.heightDataControls / 4
+//      }
+//
+//      valueRole: "ui_value"
+//      textRole: "ui_desc"
+//
+//      model: masterController.ui_towns
+//
+//      onActivated: {
+//      newClient.ui_name.ui_value = currentValue
+//        t.text = currentValue
+//      }
+//    onCurrentIndexChanged:  t2.text = currentIndex
+//      Component.onCompleted: {
+//        currentIndex = indexOfValue(1)
+//      newClient.ui_name.ui_value = currentValue
+//      }
+//    }
 
-    ComboBox {
-      id: countries
-      width: 300
-      height: 25
-      anchors {
-        margins: Style.heightDataControls / 4
-      }
-
-      valueRole: "ui_value"
-      textRole: "ui_desc"
-
-      model: masterController.ui_countries
-
-      // When an item is selected, update the backend.
-      onActivated: {
-        newClient.ui_name.ui_value = currentValue
-        t.text = currentValue
-      }
-      onCurrentIndexChanged:  t2.text = currentIndex
-
-      // Set the initial currentIndex to the value stored in the backend.
-      Component.onCompleted: {
-        currentIndex = indexOfValue(1)
-        newClient.ui_name.ui_value = currentValue
-      }
-    }
   }
 
   CommandBar {

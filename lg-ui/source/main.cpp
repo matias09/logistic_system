@@ -14,10 +14,10 @@
 #include <data/datetimedecorator.h>
 #include <data/intdecorator.h>
 #include <data/stringdecorator.h>
+#include <data/combooption.h>
 
 #include <models/address.h>
 #include <models/destination.h>
-#include <models/combooption.h>
 
 #include <models/client.h>
 #include <models/clientsearch.h>
@@ -45,10 +45,10 @@ int main(int argc, char *argv[])
   qmlRegisterType<lg::data::DateTimeDecorator>("LG" , 1, 0, "DateTimeDecorator");
   qmlRegisterType<lg::data::IntDecorator>("LG" , 1, 0, "IntDecorator");
   qmlRegisterType<lg::data::StringDecorator>("LG" , 1, 0, "StringDecorator");
+  qmlRegisterType<lg::data::ComboOption>("LG", 1, 0, "ComboOption");
 
   qmlRegisterType<lg::models::Address>("LG", 1, 0, "Address");
   qmlRegisterType<lg::models::Destination>("LG", 1, 0, "Destination");
-  qmlRegisterType<lg::models::ComboOption>("LG", 1, 0, "ComboOption");
 
   qmlRegisterType<lg::models::Client>("LG", 1, 0, "Client");
   qmlRegisterType<lg::models::ClientSearch>("LG", 1, 0, "ClientSearch");
