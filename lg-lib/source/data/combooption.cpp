@@ -1,7 +1,7 @@
 #include "combooption.h"
 
 namespace lg {
-namespace models {
+namespace data {
 
 class ComboOption::Implementation
 {

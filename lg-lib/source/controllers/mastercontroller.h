@@ -23,7 +23,7 @@
 #include <models/vehicle.h>
 #include <models/vehiclesearch.h>
 
-#include <models/combooption.h>
+#include <data/combooption.h>
 
 namespace lg {
 namespace controllers {
@@ -63,8 +63,8 @@ class LGLIBSHARED_EXPORT MasterController : public QObject
   Q_PROPERTY(lg::models::TravelSearch *ui_travelSearch
     READ  travelSearch CONSTANT)
 
-  Q_PROPERTY(QQmlListProperty<lg::models::ComboOption>
-      ui_countries READ countries)
+  Q_PROPERTY(QQmlListProperty<lg::data::ComboOption>
+      ui_states READ states)
 
 public:
   explicit MasterController(QObject *parent = nullptr);
@@ -89,7 +89,7 @@ public:
   models::Travel*       newTravel();
   models::TravelSearch* travelSearch();
 
-  QQmlListProperty<models::ComboOption> countries();
+  QQmlListProperty<data::ComboOption> states();
 
 public slots:
   void selectClient( lg::models::Client *client );
@@ -101,7 +101,7 @@ private:
   class Implementation;
   QScopedPointer<Implementation> implementation;
 
-  class GetAllCountries;
+  class GetAllStates;
 };
 
 } // controllers

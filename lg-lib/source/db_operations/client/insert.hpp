@@ -28,9 +28,15 @@ private:
     if ( jo.isEmpty() ) return false;
 
     QString sqlStm = "INSERT INTO clients "
-       " (name, phone, cellphone, mail , street, house_nro, post_code) "
-       "  VALUES "
-       " (:name, :phone, :cellphone, :mail, :street, :house_nro, :post_code)";
+     " (id_state, name, phone, cellphone, mail , street, house_nro, post_code) "
+     "  VALUES "
+     " (:id_state, :name, :phone, :cellphone, :mail "
+     " ,:street, :house_nro, :post_code )";
+
+
+    std::cout << "state id: "
+              << jo["address"]["id_state"].toInt()
+              << std::endl;
 
     std::map<QString, QVariant> binds;
     binds.insert(Burden(":name",      QVariant(jo["name"])) );
@@ -40,6 +46,8 @@ private:
     binds.insert(Burden(":street",    QVariant(jo["address"]["street"])) );
     binds.insert(Burden(":house_nro", QVariant(jo["address"]["house_nro"])) );
     binds.insert(Burden(":post_code", QVariant(jo["address"]["postcode"])) );
+    binds.insert(Burden(":id_state",
+                QVariant(jo["address"]["id_state"].toInt() )) );
 
     return  db.create(sqlStm, binds);
   }

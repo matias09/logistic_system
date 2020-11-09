@@ -8,7 +8,7 @@
 #include <lg-lib_global.h>
 
 namespace lg {
-namespace models {
+namespace data {
 
 class LGLIBSHARED_EXPORT ComboOption : public QObject
 {
@@ -33,7 +33,7 @@ private:
   QScopedPointer<Implementation> implementation;
 };
 
-} // framework
+} // data
 } // lg
 
 #endif // COMBOOPTION_H

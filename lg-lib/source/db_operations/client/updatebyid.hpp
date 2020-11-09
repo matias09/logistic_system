@@ -33,7 +33,7 @@ private:
      "  SET "
      "   name = :name, phone = :phone, cellphone = :cellphone "
      " , mail = :mail, street = :street, house_nro = :house_nro "
-     " , post_code = :post_code "
+     " , post_code = :post_code, id_state = :id_state "
      "  WHERE id = :id ";
 
     std::map<QString, QVariant>  binds;
@@ -45,6 +45,8 @@ private:
     binds.insert(Burden(":street",    QVariant(jo["address"]["street"]) ));
     binds.insert(Burden(":house_nro", QVariant(jo["address"]["house_nro"]) ));
     binds.insert(Burden(":post_code", QVariant(jo["address"]["postcode"]) ));
+    binds.insert(Burden(":id_state",
+                 QVariant(jo["address"]["id_state"].toInt() )) );
 
     return db.update(sqlStm, binds);
   }

@@ -34,8 +34,8 @@ SOURCES += \
         source/data/entity.cpp                                              \
         source/data/intdecorator.cpp                                        \
         source/data/stringdecorator.cpp                                     \
+        source/data/combooption.cpp                                         \
         source/framework/command.cpp                                        \
-        source/models/combooption.cpp                                       \
         source/models/destination.cpp                                       \
         source/models/address.cpp                                           \
         source/models/client.cpp                                            \
@@ -46,7 +46,7 @@ SOURCES += \
         source/models/vehiclesearch.cpp                                     \
         source/models/travel.cpp                                            \
         source/models/travelsearch.cpp                                      \
-        source/db_operations/master/getallcountries.hpp                     \
+        source/db_operations/master/getallstates.hpp                        \
         source/db_operations/client/findbyname.hpp                          \
         source/db_operations/client/updatebyid.hpp                          \
         source/db_operations/client/insert.hpp                              \
@@ -79,8 +79,8 @@ HEADERS += \
         source/data/entitycollection.h                                      \
         source/data/intdecorator.h                                          \
         source/data/stringdecorator.h                                       \
+        source/data/combooption.h                                           \
         source/framework/command.h                                          \
-        source/models/combooption.h                                         \
         source/models/address.h                                             \
         source/models/client.h                                              \
         source/models/clientsearch.h                                        \

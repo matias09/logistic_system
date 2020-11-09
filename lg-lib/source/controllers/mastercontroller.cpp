@@ -1,5 +1,5 @@
 #include "mastercontroller.h"
-#include "db_operations/master/getallcountries.hpp"
+#include "db_operations/master/getallstates.hpp"
 
 #include <iostream>
 
@@ -55,7 +55,7 @@ public:
                                                      ,newTravel
                                                      ,travelSearch);
 
-      cl =  GetAllCountries::call(*(masterController), *(databaseController));
+      cl =  GetAllStates::call(*(masterController), *(databaseController));
    }
 
    MasterController        *masterController{nullptr};
@@ -78,7 +78,7 @@ public:
    models::Travel       *newTravel{nullptr};
    models::TravelSearch *travelSearch{nullptr};
 
-   QList<models::ComboOption*> cl;
+   QList<data::ComboOption*> cl;
 };
 
 MasterController::MasterController(QObject* parent)
@@ -89,24 +89,11 @@ MasterController::MasterController(QObject* parent)
 
 MasterController::~MasterController() {}
 
-
-QQmlListProperty<models::ComboOption>
-MasterController::countries()
+QQmlListProperty<data::ComboOption>
+MasterController::states()
 {
-//  std::for_each(implementation->cl.constBegin()
-//              , implementation->cl.constEnd()
-//              ,[&](const auto &e)
-//  {
-//     std::cout << "value: " << e->value.toStdString() << '\t'
-//               << "desc: " << e->desc.toStdString()
-//               << std::endl;
-//  });
-
-   return  QQmlListProperty<models::ComboOption>(
-       this,
-       implementation->cl);
+   return QQmlListProperty<data::ComboOption>(this, implementation->cl);
 }
-
 
 NavigationController* MasterController::navigationController()
 {

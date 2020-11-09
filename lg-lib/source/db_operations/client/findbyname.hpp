@@ -29,10 +29,12 @@ private:
   {
     if ( searchText.isEmpty() ) return false;
 
-    QString sqlStm = "SELECT id, name, phone, cellphone, mail, street, "
-      " house_nro, post_code "
-      "  FROM clients "
-      " WHERE LOWER(name) LIKE :searchText" ;
+    QString sqlStm = " SELECT "
+      "  c.id, c.name, c.phone, c.cellphone, c.mail, c.street "
+      " ,c.house_nro, c.post_code, c.id_state, s.name "
+      "  FROM clients c "
+      "  INNER JOIN  states s ON (c.id_state = s.id) "
+      " WHERE LOWER(c.name) LIKE :searchText" ;
 
     std::map<QString, QVariant> binds;
     binds.insert(std::pair<QString, QVariant>(
@@ -54,6 +56,8 @@ private:
       jsonObjAddress.insert("street",    query.value(5).toString() );
       jsonObjAddress.insert("house_nro", query.value(6).toString() );
       jsonObjAddress.insert("postcode",  query.value(7).toString() );
+      jsonObjAddress.insert("id_state",  query.value(8).toInt() );
+      jsonObjAddress.insert("state",     query.value(9).toString() );
 
       jsonObj.insert("address", jsonObjAddress );
 

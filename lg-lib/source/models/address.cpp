@@ -8,6 +8,14 @@ namespace models {
 Address::Address(QObject *parent)
   : Entity (parent, "address")
 {
+  id_state = static_cast<IntDecorator*>(addDataItem(
+      new IntDecorator(this, "id_state", "Provincia")
+  ) );
+
+  state  = static_cast<StringDecorator*>(addDataItem(
+      new StringDecorator(this, "state", "Provincia")
+  ) );
+
   street  = static_cast<StringDecorator*>(addDataItem(
       new StringDecorator(this, "street", "Calle")
   ) );
