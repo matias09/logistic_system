@@ -107,6 +107,7 @@ CREATE TABLE IF NOT EXISTS VEHICLES (
   id                INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
   id_type_vehicle   INTEGER       NULL,
   id_model          INTEGER       NULL,
+  name              CHAR(25)      NULL,
   max_weight        CHAR(25)      NULL,
   vin               CHAR(25)      NULL, -- vehicule identification number
   vin_cad_date      DATE          NULL, -- vin caducity
@@ -192,14 +193,31 @@ VALUES (1, "driver_3", "3", "01/03/2021", "33445566", "33333333333333",
 INSERT INTO brands (name) VALUES ("ford");
 INSERT INTO brands (name) VALUES ("fiat");
 INSERT INTO brands (name) VALUES ("chevrolet");
-INSERT INTO brands (name) VALUES ("scania");
+INSERT INTO brands (name) VALUES ("renault");
 
 -- Models
 ----------------------------------------------------------------------
 INSERT INTO models (id_brand, name) VALUES (1, "focus");
+INSERT INTO models (id_brand, name) VALUES (1, "mondeo");
+INSERT INTO models (id_brand, name) VALUES (1, "escort");
+INSERT INTO models (id_brand, name) VALUES (1, "mustang");
+INSERT INTO models (id_brand, name) VALUES (1, "falcon");
 INSERT INTO models (id_brand, name) VALUES (2, "uno");
+INSERT INTO models (id_brand, name) VALUES (2, "palio");
+INSERT INTO models (id_brand, name) VALUES (2, "ducato");
+INSERT INTO models (id_brand, name) VALUES (2, "argo");
+INSERT INTO models (id_brand, name) VALUES (2, "doblo");
+INSERT INTO models (id_brand, name) VALUES (2, "toro");
 INSERT INTO models (id_brand, name) VALUES (3, "camaro");
-INSERT INTO models (id_brand, name) VALUES (4, "113");
+INSERT INTO models (id_brand, name) VALUES (3, "corsa");
+INSERT INTO models (id_brand, name) VALUES (3, "onix");
+INSERT INTO models (id_brand, name) VALUES (3, "cruze");
+INSERT INTO models (id_brand, name) VALUES (4, "clio");
+INSERT INTO models (id_brand, name) VALUES (4, "zandero");
+INSERT INTO models (id_brand, name) VALUES (4, "scenic");
+INSERT INTO models (id_brand, name) VALUES (4, "laguna");
+INSERT INTO models (id_brand, name) VALUES (4, "megane");
+INSERT INTO models (id_brand, name) VALUES (4, "logan");
 
 -- Vehicle Types
 ----------------------------------------------------------------------
@@ -214,11 +232,14 @@ INSERT INTO vehicle_types (name) VALUES ("avion");
 
 -- Vehicles
 ----------------------------------------------------------------------
-INSERT INTO vehicles ( id_type_vehicle, id_model, max_weight, vin, vin_cad_date, year)
-VALUES ( 3, 1, 200, 112233, "01/01/2021", "2001");
+INSERT INTO vehicles (
+  id_type_vehicle, id_model, name, max_weight, vin, vin_cad_date, year)
+VALUES ( 3, 1, "auto_1", 200, 112233, "01/01/2021", "2001");
 
-INSERT INTO vehicles ( id_type_vehicle, id_model, max_weight, vin, vin_cad_date, year)
-VALUES ( 4, 2, 300, 223344, "01/02/2021", "2002");
+INSERT INTO vehicles (
+  id_type_vehicle, id_model, name, max_weight, vin, vin_cad_date, year)
+VALUES ( 3, 2, "auto_2", 300, 223344, "01/02/2021", "2002");
 
-INSERT INTO vehicles ( id_type_vehicle, id_model, max_weight, vin, vin_cad_date, year)
-VALUES ( 5, 3, 800, 334455, "01/03/2021", "2003");
+INSERT INTO vehicles (
+  id_type_vehicle, id_model, name, max_weight, vin, vin_cad_date, year)
+VALUES ( 3, 3, "auto_3", 800, 334455, "01/03/2021", "2003");
