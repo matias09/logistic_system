@@ -122,7 +122,7 @@ private:
 
     std::map<QString, QVariant>  binds;
     binds.insert(Burden(":id",        QVariant(jo_["reference"]) ));
-    binds.insert(Burden(":id_client", QVariant(jo_["id_cli"]) ));
+    binds.insert(Burden(":id_client", QVariant(jo_["id_cli"].toInt()) ));
     binds.insert(Burden(":sta_date",  QVariant(jo_["sta_date"]) ));
 
     return db_.update(sqlStm, binds);
