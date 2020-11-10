@@ -9,19 +9,19 @@ Travel::Travel(QObject *parent)
   : Entity(parent, "travels")
 {
   reference = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "reference", "Referencia del Viaje")
-  ) );
+      new StringDecorator(this, "reference", "Referencia del Viaje") ));
 
-  id_cli = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "id_cli", "Referencia del Cliente")
-  ) );
+  id_cli = static_cast<IntDecorator*>(addDataItem(
+      new IntDecorator(this, "id_cli", "Cliente") ));
+
+  cli = static_cast<StringDecorator*>(addDataItem(
+      new StringDecorator(this, "cli", "") ));
 
   sta_date = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "sta_date", "Fecha de Inicio/Salida")
-  ) );
+      new StringDecorator(this, "sta_date", "Fecha de Inicio/Salida") ));
 
   destiny = static_cast<Destination*>(
-      addChild(new Destination(this), "destiny")  );
+      addChild( new Destination(this), "destiny") );
 
   setPrimaryKey(reference);
 }

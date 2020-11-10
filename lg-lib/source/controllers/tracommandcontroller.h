@@ -7,6 +7,8 @@
 #include <lg-lib_global.h>
 #include <framework/command.h>
 
+#include <data/combooption.h>
+
 #include <controllers/databasecontroller.h>
 #include <controllers/navigationcontroller.h>
 
@@ -35,6 +37,14 @@ class LGLIBSHARED_EXPORT  TraCommandController : public QObject
     ui_deleteTravelViewContextCommands READ
     ui_deleteTravelViewContextCommands CONSTANT)
 
+
+  Q_PROPERTY(QQmlListProperty<lg::data::ComboOption>
+    ui_clients READ clients CONSTANT)
+  Q_PROPERTY(QQmlListProperty<lg::data::ComboOption>
+    ui_drivers READ drivers CONSTANT)
+  Q_PROPERTY(QQmlListProperty<lg::data::ComboOption>
+    ui_vehicles READ vehicles CONSTANT)
+
 public:
   explicit TraCommandController(
     QObject              *parent = nullptr
@@ -49,6 +59,10 @@ public:
   QQmlListProperty<framework::Command> ui_findTravelViewContextCommands();
   QQmlListProperty<framework::Command> ui_editTravelViewContextCommands();
   QQmlListProperty<framework::Command> ui_deleteTravelViewContextCommands();
+
+  QQmlListProperty<data::ComboOption> clients();
+  QQmlListProperty<data::ComboOption> drivers();
+  QQmlListProperty<data::ComboOption> vehicles();
 
   void setSelectedTravel(models::Travel *travel);
 

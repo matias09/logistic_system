@@ -32,7 +32,7 @@ private:
     QString sqlStm =
          " SELECT t.id, t.id_client, t.sta_date "
          "    ,d.id ,d.id_driver, d.id_vehicle ,d.arrival_date "
-         "    ,d.street, d.house_nro, d.post_code  "
+         "    ,d.street, d.house_nro, d.post_code, c.name  "
          "  FROM travels t "
          "  INNER JOIN travels_destinations td ON (t.id = td.id_travel) "
          "  INNER JOIN destinations d          ON (td.id_destination = d.id) "
@@ -54,19 +54,20 @@ private:
 
       QJsonObject jsonObjDestination;
       jsonObjDestination.insert("reference",  query.value(3).toString() );
-      jsonObjDestination.insert("id_dri",     query.value(4).toString() );
-      jsonObjDestination.insert("id_veh",     query.value(5).toString() );
+      jsonObjDestination.insert("id_dri",     query.value(4).toInt() );
+      jsonObjDestination.insert("id_veh",     query.value(5).toInt() );
 
-      jsonObjDestination.insert("id_dri_o",     query.value(4).toString() );
-      jsonObjDestination.insert("id_veh_o",     query.value(5).toString() );
+      jsonObjDestination.insert("id_dri_o",     query.value(4).toInt() );
+      jsonObjDestination.insert("id_veh_o",     query.value(5).toInt() );
 
       jsonObjDestination.insert("arr_date",   query.value(6).toString() );
       jsonObjDestination.insert("address", jsonObjAddress );
 
       QJsonObject jsonObj;
       jsonObj.insert("reference", query.value(0).toString() );
-      jsonObj.insert("id_cli",    query.value(1).toString() );
+      jsonObj.insert("id_cli",    query.value(1).toInt() );
       jsonObj.insert("sta_date",  query.value(2).toString() );
+      jsonObj.insert("cli",       query.value(10).toString() );
       jsonObj.insert("destiny", jsonObjDestination );
 
       returnValue.append( jsonObj );

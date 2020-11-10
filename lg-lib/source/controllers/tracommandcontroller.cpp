@@ -1,4 +1,6 @@
 #include "tracommandcontroller.h"
+
+#include "db_operations/getoptionfromtable.hpp"
 #include "db_operations/travel/deletebyid.hpp"
 #include "db_operations/travel/updatebyid.hpp"
 #include "db_operations/travel/insert.hpp"
@@ -73,6 +75,18 @@ public:
        traCommandController, &TraCommandController::onEditTravelDeleteExecuted
      );
      editTravelViewContextCommands.append( editTravelDeleteCommand );
+
+     clients  = GetOptionFromTable::call("clients"
+                                      ,*(traCommandController)
+                                      ,*(databaseController) );
+
+     drivers  = GetOptionFromTable::call("drivers"
+                                      ,*(traCommandController)
+                                      ,*(databaseController) );
+
+     vehicles = GetOptionFromTable::call("vehicles"
+                                      ,*(traCommandController)
+                                      ,*(databaseController) );
   }
 
   TraCommandController *traCommandController{nullptr};
@@ -80,6 +94,10 @@ public:
   QList<Command*> createTravelVIewContextCommands{};
   QList<Command*> findTravelViewContextCommands{};
   QList<Command*> editTravelViewContextCommands{};
+
+  QList<data::ComboOption*> clients{};
+  QList<data::ComboOption*> drivers{};
+  QList<data::ComboOption*> vehicles{};
 
   DatabaseController   *databaseController{nullptr};
   NavigationController *navigationController{nullptr};
@@ -136,13 +154,29 @@ void TraCommandController::onCreateTravelSaveExecuted()
     std::cout << "New Travel Saved!" << std::endl;
 
     implementation->travelSearch->searchText()
-                  ->setValue( implementation->newTravel->reference->value() );
+                  ->setValue( implementation->newTravel->cli->value() );
     implementation->travelSearch->search();
     implementation->navigationController->goFindTravelView();
   } else {
     implementation->navigationController->goDashboardView();
   }
 }
+
+QQmlListProperty<data::ComboOption> TraCommandController::clients()
+{
+  return QQmlListProperty<data::ComboOption>( this, implementation->clients );
+}
+
+QQmlListProperty<data::ComboOption> TraCommandController::drivers()
+{
+  return QQmlListProperty<data::ComboOption>( this, implementation->drivers );
+}
+
+QQmlListProperty<data::ComboOption> TraCommandController::vehicles()
+{
+  return QQmlListProperty<data::ComboOption>( this, implementation->vehicles );
+}
+
 
 QQmlListProperty<Command>
 TraCommandController::ui_findTravelViewContextCommands()

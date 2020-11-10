@@ -4,9 +4,8 @@
 #include <QObject>
 
 #include <lg-lib_global.h>
-#include <data/intdecorator.h>
-#include <data/stringdecorator.h>
 #include <data/entity.h>
+#include <data/intdecorator.h>
 
 namespace lg {
 namespace models {
