@@ -28,7 +28,10 @@ Item {
 
         Text {
           id: textId
-          anchors.left: parent.left
+          anchors {
+            top: travelColumn.bottom
+            left: parent.left
+          }
           text:   travel.ui_reference.ui_label + ": "
                 + travel.ui_reference.ui_value
 
@@ -39,18 +42,16 @@ Item {
         Text {
           id: textClient
           anchors {
-            top:   textType.bottom
+            top:   textId.bottom
             left:  parent.left
 
             rightMargin: Style.heightDataControls / 4
           }
-          text:   travel.ui_cli.ui_label + ": "
+          text:   travel.ui_id_cli.ui_label + ": "
                 + travel.ui_cli.ui_value
           font.pixelSize: Style.pixelSizeDataControls
           color: Style.colourPanelFont
         }
-      }
-
 
         Text {
           id: textFullAddress
