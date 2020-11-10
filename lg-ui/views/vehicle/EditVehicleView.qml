@@ -148,12 +148,14 @@ Item {
 
                   Component.onCompleted: {
                     currentIndex = ( selectedVehicle.ui_id_brand.ui_value  )
-                                    ?  selectedVehicle.ui_id_brand.ui_value - 1
+                                    ?  indexOfValue(selectedVehicle.ui_id_brand.ui_value)
                                     :  indexOfValue(1)
                     selectedVehicle.ui_id_brand.ui_value = currentValue
 
-                 // masterController.ui_vehCommandController.onBrandsChanged(currentValue)
-                 // models.model = masterController.ui_vehCommandController.ui_models
+                    masterController.ui_vehCommandController.onBrandsChanged(currentValue)
+                    models.model = masterController.ui_vehCommandController.ui_models
+
+                    models.currentIndex = models.indexOfValue(selectedVehicle.ui_id_model.ui_value)
                   }
                 }
               }
@@ -198,14 +200,6 @@ Item {
 
                   onActivated: {
                     selectedVehicle.ui_id_model.ui_value = currentValue
-                  }
-
-                  Component.onCompleted: {
-                    masterController.ui_vehCommandController.onBrandsChanged(selectedVehicle.ui_id_brand.ui_value)
-                    model = masterController.ui_vehCommandController.ui_models
-
-                    currentIndex = selectedVehicle.ui_id_model.ui_value - 1
-                    currentValue = selectedVehicle.ui_id_model.ui_value
                   }
                 }
               }
