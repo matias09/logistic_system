@@ -190,7 +190,7 @@ void VehCommandController::onCreateVehicleSaveExecuted()
     std::cout << "New Vehicle Saved!" << std::endl;
 
     implementation->vehicleSearch->searchText()
-                  ->setValue( implementation->newVehicle->brand );
+                  ->setValue( implementation->newVehicle->name->value() );
     implementation->vehicleSearch->search();
     implementation->navigationController->goFindVehicleView();
   } else {

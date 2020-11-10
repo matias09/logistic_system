@@ -30,14 +30,14 @@ private:
     if ( searchText.isEmpty() ) return false;
 
     QString sqlStm = "                                              \
-    SELECT b.id as id_brand, m.id as id_model, vt.id as id_type     \
+    SELECT b.id, m.id, vt.id                                        \
           ,v.id, v.max_weight ,v.vin, v.vin_cad_date, v.year        \
-          ,b.name, m.name, vt.name                                  \
+          ,b.name, m.name, vt.name, v.name                          \
     FROM vehicles v                                                 \
     INNER JOIN vehicle_types vt ON (v.id_type_vehicle = vt.id)      \
     INNER JOIN models m ON (v.id_model = m.id)                      \
     INNER JOIN brands b ON (m.id_brand = b.id)                      \
-    WHERE LOWER(b.name) LIKE :searchText ";
+    WHERE LOWER(v.name) LIKE :searchText ";
 
     std::map<QString, QVariant> binds;
     binds.insert(std::pair<QString, QVariant>(
@@ -62,6 +62,8 @@ private:
       jsonObj.insert("brand",     query.value(8).toString() );
       jsonObj.insert("model",     query.value(9).toString() );
       jsonObj.insert("type",      query.value(10).toString() );
+
+      jsonObj.insert("name",      query.value(11).toString() );
 
       returnValue.append( jsonObj );
     }

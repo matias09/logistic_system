@@ -40,9 +40,21 @@ Vehicle::Vehicle(QObject *parent)
       new StringDecorator(this, "year", "Año")
   ) );
 
-  type  = "";
-  brand = "";
-  model = "";
+  type  = static_cast<StringDecorator*>(addDataItem(
+      new StringDecorator(this, "type", "Tipo")
+  ) );
+
+  brand = static_cast<StringDecorator*>(addDataItem(
+      new StringDecorator(this, "brand", "Marca")
+  ) );
+
+  model = static_cast<StringDecorator*>(addDataItem(
+      new StringDecorator(this, "model", "Modelo")
+  ) );
+
+  name = static_cast<StringDecorator*>(addDataItem(
+      new StringDecorator(this, "name", "Nombre")
+  ) );
 
   setPrimaryKey(reference);
 }
