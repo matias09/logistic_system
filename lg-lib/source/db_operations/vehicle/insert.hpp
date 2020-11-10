@@ -31,11 +31,12 @@ private:
       INSERT INTO vehicles                                                  \
       ( id_type_vehicle, id_model, max_weight, vin, vin_cad_date, year)     \
        VALUES                                                               \
-      ( :type, :model, :max_w, :vin, :vin_cad, :year) ";
+      ( :id_type, :id_model, :max_w, :vin, :vin_cad, :year) ";
 
     std::map<QString, QVariant> binds;
-    binds.insert(Burden(":model",      QVariant(jo["model"])) );
-    binds.insert(Burden(":type",       QVariant(jo["type"])) );
+    binds.insert(Burden(":id_model",  QVariant(jo["id_model"].toInt())) );
+    binds.insert(Burden(":id_type",   QVariant(jo["id_type"].toInt())) );
+
     binds.insert(Burden(":reference",  QVariant(jo["reference"])) );
     binds.insert(Burden(":max_w",      QVariant(jo["max_w"])) );
     binds.insert(Burden(":vin",        QVariant(jo["vin"])) );

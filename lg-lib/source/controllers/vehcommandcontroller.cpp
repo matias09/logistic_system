@@ -1,7 +1,13 @@
 #include "vehcommandcontroller.h"
+
+#include "db_operations/getoptionfromtable.hpp"
+
 #include "db_operations/vehicle/deletebyid.hpp"
 #include "db_operations/vehicle/updatebyid.hpp"
 #include "db_operations/vehicle/insert.hpp"
+#include "db_operations/vehicle/getoptmodelbybrandid.hpp"
+
+#include "data/combooption.h"
 
 #include <QList>
 
@@ -73,6 +79,39 @@ public:
        vehCommandController, &VehCommandController::onEditVehicleDeleteExecuted
      );
      editVehicleViewContextCommands.append( editVehicleDeleteCommand );
+
+
+     updateTypes();
+     updateBrands();
+     updateModels();
+  }
+
+  void updateTypes()
+  {
+    types = GetOptionFromTable::call( "types"
+                                     ,*(vehCommandController)
+                                     ,*(databaseController) );
+  }
+
+  void updateBrands()
+  {
+    brands = GetOptionFromTable::call( "brands"
+                                      ,*(vehCommandController)
+                                      ,*(databaseController) );
+  }
+
+  void updateModels()
+  {
+    models = GetOptionFromTable::call( "models"
+                                      ,*(vehCommandController)
+                                      ,*(databaseController) );
+  }
+
+  void updateModels(const int idbrand)
+  {
+    models = GetOptModelByBrandId::call( idbrand
+                                      ,*(vehCommandController)
+                                      ,*(databaseController) );
   }
 
   VehCommandController *vehCommandController{nullptr};
@@ -80,6 +119,10 @@ public:
   QList<Command*> createVehicleVIewContextCommands{};
   QList<Command*> findVehicleViewContextCommands{};
   QList<Command*> editVehicleViewContextCommands{};
+
+  QList<data::ComboOption*> types{};
+  QList<data::ComboOption*> brands{};
+  QList<data::ComboOption*> models{};
 
   DatabaseController   *databaseController{nullptr};
   NavigationController *navigationController{nullptr};
@@ -111,6 +154,24 @@ void VehCommandController::setSelectedVehicle(models::Vehicle *vehicle)
   implementation->selectedVehicle = vehicle;
 }
 
+QQmlListProperty<data::ComboOption> VehCommandController::types()
+{
+   return QQmlListProperty<data::ComboOption>(
+      this, implementation->types );
+}
+
+QQmlListProperty<data::ComboOption> VehCommandController::brands()
+{
+   return QQmlListProperty<data::ComboOption>(
+      this, implementation->brands );
+}
+
+QQmlListProperty<data::ComboOption> VehCommandController::models()
+{
+   return QQmlListProperty<data::ComboOption>(
+      this, implementation->models );
+}
+
 QQmlListProperty<Command>
 VehCommandController::ui_createVehicleViewContextCommands()
 {
@@ -136,7 +197,7 @@ void VehCommandController::onCreateVehicleSaveExecuted()
     std::cout << "New Vehicle Saved!" << std::endl;
 
     implementation->vehicleSearch->searchText()
-                  ->setValue( implementation->newVehicle->brand->value() );
+                  ->setValue( implementation->newVehicle->brand );
     implementation->vehicleSearch->search();
     implementation->navigationController->goFindVehicleView();
   } else {
@@ -204,6 +265,8 @@ void VehCommandController::onEditVehicleDeleteExecuted()
   implementation->vehicleSearch->search();
   implementation->navigationController->goDashboardView();
 }
+
+// Signals
 
 } // constrollers
 } // lg

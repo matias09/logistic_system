@@ -32,6 +32,7 @@ private:
     QString sqlStm = "                                              \
     SELECT b.id as id_brand, m.id as id_model, vt.id as id_type     \
           ,v.id, v.max_weight ,v.vin, v.vin_cad_date, v.year        \
+          ,b.name, m.name, vt.name                                  \
     FROM vehicles v                                                 \
     INNER JOIN vehicle_types vt ON (v.id_type_vehicle = vt.id)      \
     INNER JOIN models m ON (v.id_model = m.id)                      \
@@ -48,14 +49,19 @@ private:
     while ( query.next() ) {
       QJsonObject jsonObj;
 
-      jsonObj.insert("brand",     query.value(0).toString() );
-      jsonObj.insert("model",     query.value(1).toString() );
-      jsonObj.insert("type",      query.value(2).toString() );
+      jsonObj.insert("id_brand",     query.value(0).toInt() );
+      jsonObj.insert("id_model",     query.value(1).toInt() );
+      jsonObj.insert("id_type",      query.value(2).toInt() );
+
       jsonObj.insert("reference", query.value(3).toString() );
       jsonObj.insert("max_w",     query.value(4).toString() );
       jsonObj.insert("vin",       query.value(5).toString() );
       jsonObj.insert("vin_cad" ,  query.value(6).toString() );
       jsonObj.insert("year",      query.value(7).toString() );
+
+      jsonObj.insert("brand",     query.value(8).toString() );
+      jsonObj.insert("model",     query.value(9).toString() );
+      jsonObj.insert("type",      query.value(10).toString() );
 
       returnValue.append( jsonObj );
     }

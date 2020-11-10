@@ -10,6 +10,8 @@
 #include <controllers/databasecontroller.h>
 #include <controllers/navigationcontroller.h>
 
+#include <data/combooption.h>
+
 #include <models/vehicle.h>
 #include <models/vehiclesearch.h>
 
@@ -35,6 +37,16 @@ class LGLIBSHARED_EXPORT  VehCommandController : public QObject
     ui_deleteVehicleViewContextCommands READ
     ui_deleteVehicleViewContextCommands CONSTANT)
 
+
+  Q_PROPERTY(QQmlListProperty<lg::data::ComboOption>
+    ui_types READ types)
+
+  Q_PROPERTY(QQmlListProperty<lg::data::ComboOption>
+    ui_brands READ brands )
+
+  Q_PROPERTY(QQmlListProperty<lg::data::ComboOption>
+    ui_models READ models)
+
 public:
   explicit VehCommandController(
     QObject              *parent = nullptr
@@ -50,7 +62,12 @@ public:
   QQmlListProperty<framework::Command> ui_editVehicleViewContextCommands();
   QQmlListProperty<framework::Command> ui_deleteVehicleViewContextCommands();
 
+  QQmlListProperty<data::ComboOption> types();
+  QQmlListProperty<data::ComboOption> brands();
+  QQmlListProperty<data::ComboOption> models();
+
   void setSelectedVehicle(models::Vehicle *vehicle);
+
 
 public slots:
   void onCreateVehicleFillExecuted();
@@ -66,6 +83,7 @@ public slots:
   class Insert;
   class UpdateById;
   class DeleteById;
+  class GetOptModelByBrandId;
 };
 
 } // controllers

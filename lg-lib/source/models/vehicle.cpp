@@ -12,16 +12,16 @@ Vehicle::Vehicle(QObject *parent)
       new StringDecorator(this, "reference", "Referencia del Vehiculo")
   ) );
 
-  type = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "type", "Tipo de Vehiculo")
+  id_type = static_cast<IntDecorator*>(addDataItem(
+      new IntDecorator(this, "id_type", "Tipo de Vehiculo")
   ) );
 
-  brand = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "brand", "Marca")
+  id_brand = static_cast<IntDecorator*>(addDataItem(
+      new IntDecorator(this, "id_brand", "Marca")
   ) );
 
-  model = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "model", "Modelo")
+  id_model = static_cast<IntDecorator*>(addDataItem(
+      new IntDecorator(this, "id_model", "Modelo")
   ) );
 
   max_w = static_cast<StringDecorator*>(addDataItem(
@@ -39,6 +39,10 @@ Vehicle::Vehicle(QObject *parent)
   year = static_cast<StringDecorator*>(addDataItem(
       new StringDecorator(this, "year", "Año")
   ) );
+
+  type  = "";
+  brand = "";
+  model = "";
 
   setPrimaryKey(reference);
 }

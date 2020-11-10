@@ -46,6 +46,7 @@ SOURCES += \
         source/models/vehiclesearch.cpp                                     \
         source/models/travel.cpp                                            \
         source/models/travelsearch.cpp                                      \
+        source/db_operations/getoptionfromtable.hpp                         \
         source/db_operations/master/getallstates.hpp                        \
         source/db_operations/client/findbyname.hpp                          \
         source/db_operations/client/updatebyid.hpp                          \
@@ -55,6 +56,7 @@ SOURCES += \
         source/db_operations/driver/updatebyid.hpp                          \
         source/db_operations/driver/insert.hpp                              \
         source/db_operations/driver/deletebyid.hpp                          \
+        source/db_operations/vehicle/getoptmodelbybrandid.hpp               \
         source/db_operations/vehicle/findbybrand.hpp                        \
         source/db_operations/vehicle/updatebyid.hpp                         \
         source/db_operations/vehicle/insert.hpp                             \
