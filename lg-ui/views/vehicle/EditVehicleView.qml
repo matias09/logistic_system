@@ -36,6 +36,7 @@ Item {
             Column {
               spacing: Style.sizeControlSpacing
 
+
               StringEditorSingleLine {
                 stringDecorator: selectedVehicle.ui_reference
                 anchors {
@@ -45,29 +46,170 @@ Item {
                 enabled: false
               }
 
-              StringEditorSingleLine {
-                stringDecorator: selectedVehicle.ui_type
-                anchors {
-                  left: parent.left
-                  right: parent.right
+
+
+
+          Flow {
+            Rectangle {
+              width: Style.widthDataControls
+              height: Style.heightDataControls
+              color: Style.colourBackground
+
+                Text {
+                  id: types_textLabel
+                  anchors {
+                    fill: parent
+                    margins: Style.heightDataControls / 4
+                  }
+                  text: selectedVehicle.ui_id_type.ui_label
+                  color: Style.colourDataControlsFont
+                  font.pixelSize: Style.pixelSizeDataControls
+                  verticalAlignment: Qt.AlignVCenter
                 }
               }
 
-              StringEditorSingleLine {
-                stringDecorator: selectedVehicle.ui_brand
-                anchors {
-                  left: parent.left
-                  right: parent.right
+              Rectangle {
+                id: types_background
+                width: Style.widthDataControls
+                height: Style.heightDataControls
+                border {
+                  width: 1
+                  color: Style.colourDataControlsFont
+                }
+
+                ComboBox {
+                  id: types
+
+                  anchors { fill: parent }
+
+                  valueRole: "ui_value"
+                  textRole: "ui_desc"
+                  model: masterController.ui_vehCommandController.ui_types
+
+                  onActivated: {
+                    selectedVehicle.ui_id_type.ui_value = currentValue
+                  }
+
+                  Component.onCompleted: {
+                    currentIndex = ( selectedVehicle.ui_id_type.ui_value  )
+                                    ?  selectedVehicle.ui_id_type.ui_value - 1
+                                    :  indexOfValue(1)
+                    selectedVehicle.ui_id_type.ui_value = currentValue
+                  }
+                }
+              }
+            }
+
+
+
+
+          Flow {
+            Rectangle {
+              width: Style.widthDataControls
+              height: Style.heightDataControls
+              color: Style.colourBackground
+
+                Text {
+                  id: brands_textLabel
+                  anchors {
+                    fill: parent
+                    margins: Style.heightDataControls / 4
+                  }
+                  text: selectedVehicle.ui_id_brand.ui_label
+                  color: Style.colourDataControlsFont
+                  font.pixelSize: Style.pixelSizeDataControls
+                  verticalAlignment: Qt.AlignVCenter
                 }
               }
 
-              StringEditorSingleLine {
-                stringDecorator: selectedVehicle.ui_model
-                anchors {
-                  left: parent.left
-                  right: parent.right
+              Rectangle {
+                id: brands_background
+                width: Style.widthDataControls
+                height: Style.heightDataControls
+                border {
+                  width: 1
+                  color: Style.colourDataControlsFont
+                }
+
+                ComboBox {
+                  id: brands
+
+                  anchors { fill: parent }
+
+                  valueRole: "ui_value"
+                  textRole: "ui_desc"
+                  model: masterController.ui_vehCommandController.ui_brands
+
+                  onActivated: {
+                    selectedVehicle.ui_brand.ui_value = currentValue
+                  }
+
+                  Component.onCompleted: {
+                    currentIndex = ( selectedVehicle.ui_brand.ui_value  )
+                                    ?  selectedVehicle.ui_brand.ui_value - 1
+                                    :  indexOfValue(1)
+                    selectedVehicle.ui_brand.ui_value = currentValue
+                  }
                 }
               }
+            }
+
+
+          Flow {
+            Rectangle {
+              width: Style.widthDataControls
+              height: Style.heightDataControls
+              color: Style.colourBackground
+
+                Text {
+                  id: models_textLabel
+                  anchors {
+                    fill: parent
+                    margins: Style.heightDataControls / 4
+                  }
+                  text: selectedVehicle.ui_id_model.ui_label
+                  color: Style.colourDataControlsFont
+                  font.pixelSize: Style.pixelSizeDataControls
+                  verticalAlignment: Qt.AlignVCenter
+                }
+              }
+
+              Rectangle {
+                id: models_background
+                width: Style.widthDataControls
+                height: Style.heightDataControls
+                border {
+                  width: 1
+                  color: Style.colourDataControlsFont
+                }
+
+                ComboBox {
+                  id: models
+
+                  anchors { fill: parent }
+
+                  valueRole: "ui_value"
+                  textRole: "ui_desc"
+                  model: masterController.ui_vehCommandController.ui_models
+
+                  onActivated: {
+                    selectedVehicle_ui_model.ui_value = currentValue
+                  }
+
+                  Component.onCompleted: {
+                    currentIndex = ( selectedVehicle_ui_model.ui_value  )
+                                    ?  selectedVehicle_ui_model.ui_value - 1
+                                    :  indexOfValue(1)
+                    selectedVehicle_ui_model.ui_value = currentValue
+                  }
+                }
+              }
+            }
+
+
+
+
+
 
               StringEditorSingleLine {
                 stringDecorator: selectedVehicle.ui_max_w

@@ -88,7 +88,7 @@ public:
 
   void updateTypes()
   {
-    types = GetOptionFromTable::call( "types"
+    types = GetOptionFromTable::call( "vehicle_types"
                                      ,*(vehCommandController)
                                      ,*(databaseController) );
   }
@@ -100,14 +100,7 @@ public:
                                       ,*(databaseController) );
   }
 
-  void updateModels()
-  {
-    models = GetOptionFromTable::call( "models"
-                                      ,*(vehCommandController)
-                                      ,*(databaseController) );
-  }
-
-  void updateModels(const int idbrand)
+  void updateModels(const int idbrand = 1)
   {
     models = GetOptModelByBrandId::call( idbrand
                                       ,*(vehCommandController)
@@ -217,6 +210,14 @@ void VehCommandController::onFindVehicleViewContextCommands()
 {
   std::cout << "You executed the Search Command!" << std::endl;
   implementation->vehicleSearch->search();
+}
+
+void VehCommandController::onBrandsChanged(const int bid)
+{
+  std::cout << "You executed the Brands Changed!" << std::endl;
+
+  implementation->updateModels(bid);
+  models();
 }
 
 

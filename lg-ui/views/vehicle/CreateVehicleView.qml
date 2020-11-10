@@ -22,29 +22,171 @@ Item {
           Column {
             spacing: Style.sizeControlSpacing
 
-            StringEditorSingleLine {
-              stringDecorator: newVehicle.ui_type
-              anchors {
-                left: parent.left
-                right: parent.right
+
+          Flow {
+            Rectangle {
+              width: Style.widthDataControls
+              height: Style.heightDataControls
+              color: Style.colourBackground
+
+                Text {
+                  id: types_textLabel
+                  anchors {
+                    fill: parent
+                    margins: Style.heightDataControls / 4
+                  }
+                  text: newVehicle.ui_id_type.ui_label
+                  color: Style.colourDataControlsFont
+                  font.pixelSize: Style.pixelSizeDataControls
+                  verticalAlignment: Qt.AlignVCenter
+                }
+              }
+
+              Rectangle {
+                id: types_background
+                width: Style.widthDataControls
+                height: Style.heightDataControls
+                border {
+                  width: 1
+                  color: Style.colourDataControlsFont
+                }
+
+                ComboBox {
+                  id: types
+
+                  anchors { fill: parent }
+
+                  valueRole: "ui_value"
+                  textRole: "ui_desc"
+                  model: masterController.ui_vehCommandController.ui_types
+
+                  onActivated: {
+                    newVehicle.ui_id_type.ui_value = currentValue
+                  }
+
+                  Component.onCompleted: {
+                    currentIndex = ( newVehicle.ui_id_type.ui_value  )
+                                    ?  newVehicle.ui_id_type.ui_value - 1
+                                    :  indexOfValue(1)
+                    newVehicle.ui_id_type.ui_value = currentValue
+                  }
+                }
               }
             }
 
-            StringEditorSingleLine {
-              stringDecorator: newVehicle.ui_brand
-              anchors {
-                left: parent.left
-                right: parent.right
+
+
+
+          Flow {
+            Rectangle {
+              width: Style.widthDataControls
+              height: Style.heightDataControls
+              color: Style.colourBackground
+
+                Text {
+                  id: brands_textLabel
+                  anchors {
+                    fill: parent
+                    margins: Style.heightDataControls / 4
+                  }
+                  text: newVehicle.ui_id_brand.ui_label
+                  color: Style.colourDataControlsFont
+                  font.pixelSize: Style.pixelSizeDataControls
+                  verticalAlignment: Qt.AlignVCenter
+                }
+              }
+
+              Rectangle {
+                id: brands_background
+                width: Style.widthDataControls
+                height: Style.heightDataControls
+                border {
+                  width: 1
+                  color: Style.colourDataControlsFont
+                }
+
+                ComboBox {
+                  id: brands
+
+                  anchors { fill: parent }
+
+                  valueRole: "ui_value"
+                  textRole: "ui_desc"
+                  model: masterController.ui_vehCommandController.ui_brands
+
+                  onActivated: {
+                    newVehicle.ui_brand.ui_value = currentValue
+                    masterController.ui_vehCommandController.onBrandsChanged(currentValue)
+                     models.model = masterController.ui_vehCommandController.ui_models
+                  }
+
+                  Component.onCompleted: {
+                    currentIndex = ( newVehicle.ui_brand.ui_value  )
+                                    ?  newVehicle.ui_brand.ui_value - 1
+                                    :  indexOfValue(1)
+                    newVehicle.ui_brand.ui_value = currentValue
+                  }
+                }
               }
             }
 
-            StringEditorSingleLine {
-              stringDecorator: newVehicle.ui_model
-              anchors {
-                left: parent.left
-                right: parent.right
+
+          Flow {
+            Rectangle {
+              width: Style.widthDataControls
+              height: Style.heightDataControls
+              color: Style.colourBackground
+
+                Text {
+                  id: models_textLabel
+                  anchors {
+                    fill: parent
+                    margins: Style.heightDataControls / 4
+                  }
+                  text: newVehicle.ui_id_model.ui_label
+                  color: Style.colourDataControlsFont
+                  font.pixelSize: Style.pixelSizeDataControls
+                  verticalAlignment: Qt.AlignVCenter
+                }
+              }
+
+              Rectangle {
+                id: models_background
+                width: Style.widthDataControls
+                height: Style.heightDataControls
+                border {
+                  width: 1
+                  color: Style.colourDataControlsFont
+                }
+
+                ComboBox {
+                  id: models
+
+                  anchors { fill: parent }
+
+                  valueRole: "ui_value"
+                  textRole: "ui_desc"
+                  model: masterController.ui_vehCommandController.ui_models
+
+                  onActivated: {
+                    newVehicle_ui_model.ui_value = currentValue
+                  }
+
+                  Component.onCompleted: {
+                    currentIndex = ( newVehicle_ui_model.ui_value  )
+                                    ?  newVehicle_ui_model.ui_value - 1
+                                    :  indexOfValue(1)
+                    newVehicle_ui_model.ui_value = currentValue
+                  }
+                }
               }
             }
+
+
+
+
+
+
 
             StringEditorSingleLine {
               stringDecorator: newVehicle.ui_max_w

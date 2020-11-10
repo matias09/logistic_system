@@ -75,6 +75,7 @@ public slots:
   void onFindVehicleViewContextCommands();
   void onEditVehicleSaveExecuted();
   void onEditVehicleDeleteExecuted();
+  void onBrandsChanged(const int bid);
 
  private:
   class  Implementation;
