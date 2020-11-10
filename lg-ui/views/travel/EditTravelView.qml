@@ -45,32 +45,169 @@ Item {
                 enabled: false
               }
 
-              StringEditorSingleLine {
-                stringDecorator: selectedTravel.ui_id_cli
-                anchors {
-                  left: parent.left
-                  right: parent.right
+
+              Flow {
+                Rectangle {
+                  width: Style.widthDataControls
+                  height: Style.heightDataControls
+                  color: Style.colourBackground
+
+                    Text {
+                      id: textLabel
+                      anchors {
+                        fill: parent
+                        margins: Style.heightDataControls / 4
+                      }
+                      text: selectedTravel.ui_id_cli.ui_label
+                      color: Style.colourDataControlsFont
+                      font.pixelSize: Style.pixelSizeDataControls
+                      verticalAlignment: Qt.AlignVCenter
+                    }
+                  }
+
+                  Rectangle {
+                    id: background
+                    width: Style.widthDataControls
+                    height: Style.heightDataControls
+                    border {
+                      width: 1
+                      color: Style.colourDataControlsFont
+                    }
+
+                    ComboBox {
+                      id: client
+
+                      anchors { fill: parent }
+
+                      valueRole: "ui_value"
+                      textRole: "ui_desc"
+                      model: masterController.ui_traCommandController.ui_clients
+
+                      onActivated: {
+                        selectedTravel.ui_id_cli.ui_value = currentValue
+                      }
+
+                      Component.onCompleted: {
+                        currentIndex = ( selectedTravel.ui_id_cli.ui_value  )
+                                        ?  indexOfValue(selectedTravel.ui_id_cli.ui_value)
+                                        :  indexOfValue(1)
+                        selectedTravel.ui_id_cli.ui_value = currentValue
+                      }
+                    }
+                  }
                 }
-              }
+
+
+
+
+              Flow {
+                Rectangle {
+                  width: Style.widthDataControls
+                  height: Style.heightDataControls
+                  color: Style.colourBackground
+
+                    Text {
+                      id: dritextLabel
+                      anchors {
+                        fill: parent
+                        margins: Style.heightDataControls / 4
+                      }
+                      text: selectedTravel.ui_destiny.ui_id_dri.ui_label
+                      color: Style.colourDataControlsFont
+                      font.pixelSize: Style.pixelSizeDataControls
+                      verticalAlignment: Qt.AlignVCenter
+                    }
+                  }
+
+                  Rectangle {
+                    id: dribackground
+                    width: Style.widthDataControls
+                    height: Style.heightDataControls
+                    border {
+                      width: 1
+                      color: Style.colourDataControlsFont
+                    }
+
+                    ComboBox {
+                      id: driver
+
+                      anchors { fill: parent }
+
+                      valueRole: "ui_value"
+                      textRole: "ui_desc"
+                      model: masterController.ui_traCommandController.ui_drivers
+
+                      onActivated: {
+                        selectedTravel.ui_destiny.ui_id_dri.ui_value = currentValue
+                      }
+
+                      Component.onCompleted: {
+                        currentIndex = ( selectedTravel.ui_destiny.ui_id_dri.ui_value  )
+                                        ?  indexOfValue(selectedTravel.ui_destiny.ui_id_dri.ui_value)
+                                        :  indexOfValue(1)
+                        selectedTravel.ui_destiny.ui_id_dri.ui_value = currentValue
+                      }
+                    }
+                  }
+                }
+
+
+
+
+              Flow {
+                Rectangle {
+                  width: Style.widthDataControls
+                  height: Style.heightDataControls
+                  color: Style.colourBackground
+
+                    Text {
+                      id: vehtextLabel
+                      anchors {
+                        fill: parent
+                        margins: Style.heightDataControls / 4
+                      }
+                      text: selectedTravel.ui_destiny.ui_id_veh.ui_label
+                      color: Style.colourDataControlsFont
+                      font.pixelSize: Style.pixelSizeDataControls
+                      verticalAlignment: Qt.AlignVCenter
+                    }
+                  }
+
+                  Rectangle {
+                    id: vehbackground
+                    width: Style.widthDataControls
+                    height: Style.heightDataControls
+                    border {
+                      width: 1
+                      color: Style.colourDataControlsFont
+                    }
+
+                    ComboBox {
+                      id: vehicle
+
+                      anchors { fill: parent }
+
+                      valueRole: "ui_value"
+                      textRole: "ui_desc"
+                      model: masterController.ui_traCommandController.ui_vehicles
+
+                      onActivated: {
+                        selectedTravel.ui_destiny.ui_id_veh.ui_value = currentValue
+                      }
+
+                      Component.onCompleted: {
+                        currentIndex = ( selectedTravel.ui_destiny.ui_id_veh.ui_value  )
+                                        ?  indexOfValue(selectedTravel.ui_destiny.ui_id_veh.ui_value)
+                                        :  indexOfValue(1)
+                        selectedTravel.ui_destiny.ui_id_veh.ui_value = currentValue
+                      }
+                    }
+                  }
+                }
+
 
               StringEditorSingleLine {
                 stringDecorator: selectedTravel.ui_sta_date
-                anchors {
-                  left: parent.left
-                  right: parent.right
-                }
-              }
-
-              StringEditorSingleLine {
-                stringDecorator: selectedTravel.ui_destiny.ui_id_dri
-                anchors {
-                  left: parent.left
-                  right: parent.right
-                }
-              }
-
-              StringEditorSingleLine {
-                stringDecorator: selectedTravel.ui_destiny.ui_id_veh
                 anchors {
                   left: parent.left
                   right: parent.right

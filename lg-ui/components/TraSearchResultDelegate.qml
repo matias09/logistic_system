@@ -37,15 +37,30 @@ Item {
         }
 
         Text {
-          id: textBrand
+          id: textClient
           anchors {
             top:   textType.bottom
             left:  parent.left
 
             rightMargin: Style.heightDataControls / 4
           }
-          text:   travel.ui_destiny.ui_address.ui_fullAddress.ui_label + ": "
-                + travel.ui_destiny.ui_address.ui_fullAddress.ui_value
+          text:   travel.ui_cli.ui_label + ": "
+                + travel.ui_cli.ui_value
+          font.pixelSize: Style.pixelSizeDataControls
+          color: Style.colourPanelFont
+        }
+      }
+
+
+        Text {
+          id: textFullAddress
+          anchors {
+            top:   textClient.bottom
+            left:  parent.left
+
+            rightMargin: Style.heightDataControls / 4
+          }
+          text:  "Direccion Completa: " + travel.ui_destiny.ui_address.ui_fullAddress
           font.pixelSize: Style.pixelSizeDataControls
           color: Style.colourPanelFont
         }
