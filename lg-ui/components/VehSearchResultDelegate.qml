@@ -37,9 +37,22 @@ Item {
       }
 
       Text {
-        id: textType
+        id: textName
         anchors {
           top: textId.bottom
+          left: parent.left
+        }
+        text:   vehicle.ui_name.ui_label + ": "
+              + vehicle.ui_name.ui_value
+
+        font.pixelSize: Style.pixelSizeDataControls
+        color: Style.colourPanelFont
+      }
+
+      Text {
+        id: textType
+        anchors {
+          top: textName.bottom
           left: parent.left
         }
         text:   vehicle.ui_type.ui_label + ": "
@@ -61,7 +74,6 @@ Item {
               + vehicle.ui_brand.ui_value
         font.pixelSize: Style.pixelSizeDataControls
         color: Style.colourPanelFont
-        //horizontalAlignment: Text.AlignRight
       }
 
       Text {
@@ -76,7 +88,6 @@ Item {
               + vehicle.ui_model.ui_value
         font.pixelSize: Style.pixelSizeDataControls
         color: Style.colourPanelFont
-        //horizontalAlignment: Text.AlignRight
       }
 
       Text {

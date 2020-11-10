@@ -141,14 +141,19 @@ Item {
                   model: masterController.ui_vehCommandController.ui_brands
 
                   onActivated: {
-                    selectedVehicle.ui_brand.ui_value = currentValue
+                    selectedVehicle.ui_id_brand.ui_value = currentValue
+                    masterController.ui_vehCommandController.onBrandsChanged(currentValue)
+                    models.model = masterController.ui_vehCommandController.ui_models
                   }
 
                   Component.onCompleted: {
-                    currentIndex = ( selectedVehicle.ui_brand.ui_value  )
-                                    ?  selectedVehicle.ui_brand.ui_value - 1
+                    currentIndex = ( selectedVehicle.ui_id_brand.ui_value  )
+                                    ?  selectedVehicle.ui_id_brand.ui_value - 1
                                     :  indexOfValue(1)
-                    selectedVehicle.ui_brand.ui_value = currentValue
+                    selectedVehicle.ui_id_brand.ui_value = currentValue
+
+                 // masterController.ui_vehCommandController.onBrandsChanged(currentValue)
+                 // models.model = masterController.ui_vehCommandController.ui_models
                   }
                 }
               }
@@ -190,26 +195,30 @@ Item {
 
                   valueRole: "ui_value"
                   textRole: "ui_desc"
-                  model: masterController.ui_vehCommandController.ui_models
 
                   onActivated: {
-                    selectedVehicle_ui_model.ui_value = currentValue
+                    selectedVehicle.ui_id_model.ui_value = currentValue
                   }
 
                   Component.onCompleted: {
-                    currentIndex = ( selectedVehicle_ui_model.ui_value  )
-                                    ?  selectedVehicle_ui_model.ui_value - 1
-                                    :  indexOfValue(1)
-                    selectedVehicle_ui_model.ui_value = currentValue
+                    masterController.ui_vehCommandController.onBrandsChanged(selectedVehicle.ui_id_brand.ui_value)
+                    model = masterController.ui_vehCommandController.ui_models
+
+                    currentIndex = selectedVehicle.ui_id_model.ui_value - 1
+                    currentValue = selectedVehicle.ui_id_model.ui_value
                   }
                 }
               }
             }
 
 
-
-
-
+              StringEditorSingleLine {
+                stringDecorator: selectedVehicle.ui_name
+                anchors {
+                  left: parent.left
+                  right: parent.right
+                }
+              }
 
               StringEditorSingleLine {
                 stringDecorator: selectedVehicle.ui_max_w

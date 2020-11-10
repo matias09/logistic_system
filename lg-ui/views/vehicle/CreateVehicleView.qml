@@ -115,16 +115,19 @@ Item {
                   model: masterController.ui_vehCommandController.ui_brands
 
                   onActivated: {
-                    newVehicle.ui_brand.ui_value = currentValue
+                    newVehicle.ui_id_brand.ui_value = currentValue
                     masterController.ui_vehCommandController.onBrandsChanged(currentValue)
-                     models.model = masterController.ui_vehCommandController.ui_models
+                    models.model = masterController.ui_vehCommandController.ui_models
                   }
 
                   Component.onCompleted: {
-                    currentIndex = ( newVehicle.ui_brand.ui_value  )
-                                    ?  newVehicle.ui_brand.ui_value - 1
+                    currentIndex = ( newVehicle.ui_id_brand.ui_value  )
+                                    ?  newVehicle.ui_id_brand.ui_value - 1
                                     :  indexOfValue(1)
-                    newVehicle.ui_brand.ui_value = currentValue
+                    newVehicle.ui_id_brand.ui_value = currentValue
+
+                    masterController.ui_vehCommandController.onBrandsChanged(currentValue)
+                    models.model = masterController.ui_vehCommandController.ui_models
                   }
                 }
               }
@@ -166,27 +169,28 @@ Item {
 
                   valueRole: "ui_value"
                   textRole: "ui_desc"
-                  model: masterController.ui_vehCommandController.ui_models
 
                   onActivated: {
-                    newVehicle_ui_model.ui_value = currentValue
+                    newVehicle.ui_id_model.ui_value = currentValue
                   }
 
                   Component.onCompleted: {
-                    currentIndex = ( newVehicle_ui_model.ui_value  )
-                                    ?  newVehicle_ui_model.ui_value - 1
+                    currentIndex = ( newVehicle.ui_id_model.ui_value  )
+                                    ?  newVehicle.ui_id_model.ui_value - 1
                                     :  indexOfValue(1)
-                    newVehicle_ui_model.ui_value = currentValue
+                    newVehicle_ui_id_model.ui_value = currentValue
                   }
                 }
               }
             }
 
-
-
-
-
-
+            StringEditorSingleLine {
+              stringDecorator: newVehicle.ui_name
+              anchors {
+                left: parent.left
+                right: parent.right
+              }
+            }
 
             StringEditorSingleLine {
               stringDecorator: newVehicle.ui_max_w
