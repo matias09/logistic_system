@@ -57,7 +57,7 @@ private:
       jsonObjAddress.insert("street",    query.value(7).toString() );
       jsonObjAddress.insert("house_nro", query.value(8).toString() );
       jsonObjAddress.insert("postcode",  query.value(9).toString() );
-      jsonObjAddress.insert("id_state",  query.value(10).toString() );
+      jsonObjAddress.insert("id_state",  query.value(10).toInt() );
 
       jsonObj.insert("address", jsonObjAddress );
 
