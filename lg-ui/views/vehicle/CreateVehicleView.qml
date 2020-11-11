@@ -22,6 +22,8 @@ Item {
       height: 600
       clip: true
 
+      ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+
     Panel {
       headerText: "Detalles del Vehiculo"
       contentComponent:
