@@ -28,18 +28,6 @@ private:
 
     QSqlDatabase::database().transaction();
 
-//  if (     driverIsBlocked()
-//    ||     vehicleIsBlocked()
-//    || not insertTravel()
-//    || not insertDestinations()
-//    || not insertDestinationsAssociation()
-//    || not blockDriver()
-//    || not blockVehicle()
-//  ) {
-//    QSqlDatabase::database().rollback();
-//    return false;
-//  }
-
     if ( not insertTravel()
       || not insertDestinations()
       || not insertDestinationsAssociation()
@@ -53,26 +41,6 @@ private:
     QSqlDatabase::database().commit();
     return true;
   }
-
-//bool driverIsBlocked() const
-//{
-//  QString sqlStm = "SELECT 1 FROM drivers WHERE blocked = 1 AND id = :id ";
-
-//  std::map<QString, QVariant> binds;
-//  binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_dri"].toInt())) );
-
-//  return  db_.search(sqlStm, binds).next();
-//}
-
-//bool vehicleIsBlocked() const
-//{
-//  QString sqlStm = "SELECT 1 FROM vehicles WHERE blocked = 1 AND id = :id ";
-
-//  std::map<QString, QVariant> binds;
-//  binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_veh"].toInt())) );
-
-//  return  db_.search(sqlStm, binds).next();
-//}
 
   bool insertTravel() const
   {
