@@ -1,4 +1,5 @@
 import QtQuick 2.9
+import QtQuick.Controls 1.4
 import QtQuick.Controls 2.2
 import LG 1.0
 import assets 1.0
@@ -208,21 +209,75 @@ Item {
               }
             }
 
-            StringEditorSingleLine {
-              stringDecorator: newVehicle.ui_vin_cad
-              anchors {
-                left: parent.left
-                right: parent.right
-              }
-            }
+            Flow {
+              Rectangle {
+                width: Style.widthDataControls
+                height: Style.heightDataControls
+                color: Style.colourBackground
 
-            StringEditorSingleLine {
-              stringDecorator: newVehicle.ui_year
-              anchors {
-                left: parent.left
-                right: parent.right
+                  Text {
+                    id: vincadDateLabel
+                    anchors {
+                      fill: parent
+                      margins: Style.heightDataControls / 4
+                    }
+                    text: newVehicle.ui_vin_cad.ui_label
+                    color: Style.colourDataControlsFont
+                    font.pixelSize: Style.pixelSizeDataControls
+                    verticalAlignment: Qt.AlignVCenter
+                  }
+                }
+
+                CheckBox {
+                  id: vincadCalEnable
+                  checked: false
+                }
+                Calendar {
+                    visible: vincadCalEnable.checked
+                    minimumDate: new Date(2020, 0, 1)
+                    maximumDate: new Date(2025, 0, 1)
+
+                    onClicked: {
+                      newVehicle.ui_vin_cad.ui_value = selectedDate
+                    }
+                }
               }
-            }
+
+            Flow {
+              Rectangle {
+                width: Style.widthDataControls
+                height: Style.heightDataControls
+                color: Style.colourBackground
+
+                  Text {
+                    id: yearDateLabel
+                    anchors {
+                      fill: parent
+                      margins: Style.heightDataControls / 4
+                    }
+                    text: newVehicle.ui_year.ui_label
+                    color: Style.colourDataControlsFont
+                    font.pixelSize: Style.pixelSizeDataControls
+                    verticalAlignment: Qt.AlignVCenter
+                  }
+                }
+
+                CheckBox {
+                  id: yearCalEnable
+                  checked: false
+                }
+                Calendar {
+                    visible: yearCalEnable.checked
+                    minimumDate: new Date(1980, 0, 1)
+                    maximumDate: new Date(2025, 0, 1)
+
+                    onClicked: {
+                      newVehicle.ui_year.ui_value = selectedDate
+                    }
+                }
+              }
+
+
           }
         }
     }
