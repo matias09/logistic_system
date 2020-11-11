@@ -8,7 +8,7 @@ Item {
   implicitWidth:  parent.width
   implicitHeight: Math.max(
        driverColumn.implicitHeight, textAddress.implicitHeight)
-     + ( Style.heightDataControls / 2 )
+     + ( Style.heightDataControls )
 
   Rectangle {
     id: background
@@ -43,7 +43,6 @@ Item {
         anchors {
           top: textId.bottom
           left: parent.left
-          topMargin: 10
         }
         text:   driver.ui_name.ui_label + ": "
               + driver.ui_name.ui_value

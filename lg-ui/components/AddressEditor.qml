@@ -54,8 +54,8 @@ Panel {
 
               Component.onCompleted: {
                 currentIndex = ( address.ui_id_state.ui_value  )
-                                ?  address.ui_id_state.ui_value - 1
-                                :  indexOfValue(1)
+                                ? indexOfValue(address.ui_id_state.ui_value)
+                                : 0
                 address.ui_id_state.ui_value = currentValue
               }
             }
