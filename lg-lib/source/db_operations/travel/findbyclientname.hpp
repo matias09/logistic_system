@@ -29,17 +29,18 @@ private:
   {
     if ( searchText.isEmpty() ) return false;
 
-    std::cout << "From Find By Client Name " << std::endl;
-
     QString sqlStm =
          " SELECT t.id, t.id_client, t.sta_date "
          "    ,d.id ,d.id_driver, d.id_vehicle, d.arrival_date "
          "    ,d.street, d.house_nro, d.post_code, c.name, d.id_state, s.name "
+         "    ,dr.name, v.name "
          "  FROM travels t "
          "  INNER JOIN travels_destinations td ON (t.id = td.id_travel) "
          "  INNER JOIN destinations d          ON (td.id_destination = d.id) "
          "  INNER JOIN clients c               ON (t.id_client = c.id) "
          "  INNER JOIN states s                ON (d.id_state = s.id) "
+         "  INNER JOIN drivers dr              ON (dr.id = d.id_driver) "
+         "  INNER JOIN vehicles v              ON (v.id = d.id_vehicle) "
          " WHERE LOWER(c.name) LIKE :searchText" ;
 
     std::map<QString, QVariant> binds;
@@ -48,11 +49,6 @@ private:
                   QVariant("%" + searchText.toLower() + "%") ));
 
     QSqlQuery&& query = db.search(sqlStm, binds);
-
-
-      std::cout << "\t Client to Search :  "
-                << searchText.toStdString()
-                << std::endl;
 
     while ( query.next() ) {
       QJsonObject jsonObjAddress;
@@ -66,6 +62,8 @@ private:
       jsonObjDestination.insert("reference",  query.value(3).toString() );
       jsonObjDestination.insert("id_dri",     query.value(4).toInt() );
       jsonObjDestination.insert("id_veh",     query.value(5).toInt() );
+      jsonObjDestination.insert("dri",        query.value(13).toString() );
+      jsonObjDestination.insert("veh",        query.value(14).toString() );
 
       jsonObjDestination.insert("id_dri_o",     query.value(4).toInt() );
       jsonObjDestination.insert("id_veh_o",     query.value(5).toInt() );
@@ -79,11 +77,6 @@ private:
       jsonObj.insert("sta_date",  query.value(2).toString() );
       jsonObj.insert("cli",       query.value(10).toString() );
       jsonObj.insert("destiny", jsonObjDestination );
-
-      std::cout << "\t Client name :  "
-                << jsonObj["cli"].toString().toStdString() << '\n'
-                << jsonObj["cli"].toString().toStdString() << '\n'
-                << std::endl;
 
       returnValue.append( jsonObj );
     }

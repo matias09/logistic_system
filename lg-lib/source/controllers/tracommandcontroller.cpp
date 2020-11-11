@@ -85,6 +85,7 @@ public:
 
   void updateClients()
   {
+    clients.clear();
     clients  = GetOptionFromTable::call("clients"
                                       ,*(traCommandController)
                                       ,*(databaseController) );
@@ -92,6 +93,7 @@ public:
 
   void updateDrivers()
   {
+     drivers.clear();
      drivers  = GetOptUnblocked::call("drivers"
                                     ,*(traCommandController)
                                     ,*(databaseController) );
@@ -99,6 +101,7 @@ public:
 
   void updateVehicles()
   {
+     vehicles.clear();
      vehicles = GetOptUnblocked::call("vehicles"
                                     ,*(traCommandController)
                                     ,*(databaseController) );
@@ -158,9 +161,6 @@ void TraCommandController::onCreateTravelFillExecuted()
 {
   std::cout << "You executed the Create New Travel Command!" << std::endl;
 
-  implementation->updateClients();
-  implementation->updateDrivers();
-  implementation->updateVehicles();
 
   implementation->navigationController->goCreateTravelView();
 }
@@ -191,16 +191,19 @@ void TraCommandController::onCreateTravelSaveExecuted()
 
 QQmlListProperty<data::ComboOption> TraCommandController::clients()
 {
+  implementation->updateClients();
   return QQmlListProperty<data::ComboOption>( this, implementation->clients );
 }
 
 QQmlListProperty<data::ComboOption> TraCommandController::drivers()
 {
+  implementation->updateDrivers();
   return QQmlListProperty<data::ComboOption>( this, implementation->drivers );
 }
 
 QQmlListProperty<data::ComboOption> TraCommandController::vehicles()
 {
+  implementation->updateVehicles();
   return QQmlListProperty<data::ComboOption>( this, implementation->vehicles );
 }
 

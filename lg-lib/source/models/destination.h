@@ -18,13 +18,13 @@ class LGLIBSHARED_EXPORT Destination : public data::Entity
   Q_OBJECT
   Q_PROPERTY(lg::data::StringDecorator* ui_reference MEMBER reference CONSTANT)
 
-  Q_PROPERTY(lg::data::IntDecorator* ui_id_dri MEMBER id_dri  CONSTANT)
-  Q_PROPERTY(lg::data::IntDecorator* ui_id_veh MEMBER id_veh  CONSTANT)
+  Q_PROPERTY(lg::data::IntDecorator* ui_id_dri   MEMBER id_dri    CONSTANT)
+  Q_PROPERTY(lg::data::IntDecorator* ui_id_veh   MEMBER id_veh    CONSTANT)
   Q_PROPERTY(lg::data::IntDecorator* ui_id_dri_o MEMBER id_dri_o  CONSTANT)
   Q_PROPERTY(lg::data::IntDecorator* ui_id_veh_o MEMBER id_veh_o  CONSTANT)
 
-  Q_PROPERTY(lg::data::StringDecorator* ui_dri MEMBER dri  CONSTANT)
-  Q_PROPERTY(lg::data::StringDecorator* ui_veh MEMBER veh  CONSTANT)
+  Q_PROPERTY(lg::data::StringDecorator* ui_dri    MEMBER dri     CONSTANT)
+  Q_PROPERTY(lg::data::StringDecorator* ui_veh    MEMBER veh     CONSTANT)
 
   Q_PROPERTY(lg::data::StringDecorator* ui_arr_date MEMBER arr_date   CONSTANT)
 

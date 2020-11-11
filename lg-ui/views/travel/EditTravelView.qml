@@ -113,6 +113,9 @@ Item {
                         margins: Style.heightDataControls / 4
                       }
                       text: selectedTravel.ui_destiny.ui_id_dri.ui_label
+                            + "   - ( Actual :  "
+                            + selectedTravel.ui_destiny.ui_dri.ui_value
+                            + " )"
                       color: Style.colourDataControlsFont
                       font.pixelSize: Style.pixelSizeDataControls
                       verticalAlignment: Qt.AlignVCenter
@@ -128,8 +131,20 @@ Item {
                       color: Style.colourDataControlsFont
                     }
 
+                    CheckBox {
+                      id: driverComboEnable
+                      checked: false
+
+                      anchors {
+                        right: driver.left
+
+                        margins: 3
+                      }
+                    }
+
                     ComboBox {
                       id: driver
+                      enabled: driverComboEnable.checked
 
                       anchors { fill: parent }
 
@@ -140,12 +155,12 @@ Item {
                       onActivated: {
                         selectedTravel.ui_destiny.ui_id_dri.ui_value = currentValue
                       }
+                      onEnabledChanged: {
+                        selectedTravel.ui_destiny.ui_id_dri.ui_value = currentValue
+                      }
 
                       Component.onCompleted: {
-                        currentIndex = ( selectedTravel.ui_destiny.ui_id_dri.ui_value  )
-                                        ?  indexOfValue(selectedTravel.ui_destiny.ui_id_dri.ui_value)
-                                        :  1
-                        selectedTravel.ui_destiny.ui_id_dri.ui_value = currentValue
+                        currentIndex = 0
                       }
                     }
                   }
@@ -167,6 +182,9 @@ Item {
                         margins: Style.heightDataControls / 4
                       }
                       text: selectedTravel.ui_destiny.ui_id_veh.ui_label
+                            + "   - ( Actual :  "
+                            + selectedTravel.ui_destiny.ui_veh.ui_value
+                            + " )"
                       color: Style.colourDataControlsFont
                       font.pixelSize: Style.pixelSizeDataControls
                       verticalAlignment: Qt.AlignVCenter
@@ -182,8 +200,20 @@ Item {
                       color: Style.colourDataControlsFont
                     }
 
+                    CheckBox {
+                      id: vehicleComboEnable
+                      checked: false
+
+                      anchors {
+                        right: vehicle.left
+
+                        margins: 3
+                      }
+                    }
+
                     ComboBox {
                       id: vehicle
+                      enabled: vehicleComboEnable.checked
 
                       anchors { fill: parent }
 
@@ -194,12 +224,11 @@ Item {
                       onActivated: {
                         selectedTravel.ui_destiny.ui_id_veh.ui_value = currentValue
                       }
-
-                      Component.onCompleted: {
-                        currentIndex = ( selectedTravel.ui_destiny.ui_id_veh.ui_value  )
-                                        ?  indexOfValue(selectedTravel.ui_destiny.ui_id_veh.ui_value)
-                                        :  indexOfValue(1)
+                      onEnabledChanged: {
                         selectedTravel.ui_destiny.ui_id_veh.ui_value = currentValue
+                      }
+                      Component.onCompleted: {
+                        currentIndex = 0
                       }
                     }
                   }
