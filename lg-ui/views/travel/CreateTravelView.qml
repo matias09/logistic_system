@@ -1,5 +1,6 @@
 import QtQuick 2.9
-import QtQuick.Controls 2.2
+import QtQuick.Controls 1.4
+import QtQuick.Controls 2.8
 import LG 1.0
 import assets 1.0
 import components 1.0
@@ -62,20 +63,15 @@ Item {
 
                     onActivated: {
                       newTravel.ui_id_cli.ui_value = currentValue
- //                     newTravel.ui_cli.ui_value = currentText
                     }
 
                     Component.onCompleted: {
                       currentIndex = 0
                       newTravel.ui_id_cli.ui_value = currentValue
-//                      newTravel.ui_cli.ui_value = currentText
                     }
                   }
                 }
               }
-
-
-
 
             Flow {
               Rectangle {
@@ -126,9 +122,6 @@ Item {
                 }
               }
 
-
-
-
             Flow {
               Rectangle {
                 width: Style.widthDataControls
@@ -178,29 +171,74 @@ Item {
                 }
               }
 
+            Flow {
+              Rectangle {
+                width: Style.widthDataControls
+                height: Style.heightDataControls
+                color: Style.colourBackground
 
+                  Text {
+                    id: staDateLabel
+                    anchors {
+                      fill: parent
+                      margins: Style.heightDataControls / 4
+                    }
+                    text: newTravel.ui_sta_date.ui_label
+                    color: Style.colourDataControlsFont
+                    font.pixelSize: Style.pixelSizeDataControls
+                    verticalAlignment: Qt.AlignVCenter
+                  }
+                }
 
+                CheckBox {
+                  id: staCalEnable
+                  checked: false
+                }
+                Calendar {
+                    visible: staCalEnable.checked
+                    minimumDate: new Date(2020, 0, 1)
+                    maximumDate: new Date(2025, 0, 1)
 
-
-
-
-
-
-            StringEditorSingleLine {
-              stringDecorator: newTravel.ui_sta_date
-              anchors {
-                left: parent.left
-                right: parent.right
+                    onClicked: {
+                      newTravel.ui_sta_date.ui_value = selectedDate
+                    }
+                }
               }
-            }
 
-            StringEditorSingleLine {
-              stringDecorator: newTravel.ui_destiny.ui_arr_date
-              anchors {
-                left: parent.left
-                right: parent.right
+
+            Flow {
+              Rectangle {
+                width: Style.widthDataControls
+                height: Style.heightDataControls
+                color: Style.colourBackground
+
+                  Text {
+                    id: arrDateLabel
+                    anchors {
+                      fill: parent
+                      margins: Style.heightDataControls / 4
+                    }
+                    text: newTravel.ui_destiny.ui_arr_date.ui_label
+                    color: Style.colourDataControlsFont
+                    font.pixelSize: Style.pixelSizeDataControls
+                    verticalAlignment: Qt.AlignVCenter
+                  }
+                }
+
+                CheckBox {
+                  id: arrCalEnable
+                  checked: false
+                }
+                Calendar {
+                    visible: arrCalEnable.checked
+                    minimumDate: new Date(2020, 0, 1)
+                    maximumDate: new Date(2025, 0, 1)
+
+                    onClicked: {
+                      newTravel.ui_destiny.ui_arr_date.ui_value = selectedDate
+                    }
+                }
               }
-            }
 
 
             Binding {
