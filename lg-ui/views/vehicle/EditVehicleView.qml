@@ -10,26 +10,19 @@ Item {
   Component.onCompleted:
   masterController.ui_vehCommandController.setSelectedVehicle(selectedVehicle)
 
-  Rectangle {
-    anchors.fill: parent
-    color: Style.colourBackground
-  }
-
-  ScrollView {
-    id: scrollView
+  Column {
+    spacing:  Style.sizeScreenMargin
     anchors {
       left:      parent.left
       right:     parent.right
       top:       parent.top
-      bottom:    commandBar.top
-
       margins:   Style.sizeScreenMargin
     }
-    clip: true
 
-    Column {
-      spacing:  Style.sizeScreenMargin
-      width: scrollView.width
+    ScrollView {
+      width:  900
+      height: 700
+      clip: true
 
       Panel {
         headerText: "Detalles del Vehiculo"

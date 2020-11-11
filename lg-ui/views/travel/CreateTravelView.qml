@@ -8,14 +8,19 @@ import components 1.0
 Item {
     property Travel newTravel: masterController.ui_newTravel
 
-    Column {
-      spacing:  Style.sizeScreenMargin
-      anchors {
-        left:      parent.left
-        right:     parent.right
-        top:       parent.top
-        margins:   Style.sizeScreenMargin
-      }
+  Column {
+    spacing:  Style.sizeScreenMargin
+    anchors {
+      left:      parent.left
+      right:     parent.right
+      top:       parent.top
+      margins:   Style.sizeScreenMargin
+    }
+
+    ScrollView {
+      width:  900
+      height: 300
+      clip: true
 
       Panel {
         headerText: "Detalles del Viaje"
@@ -250,6 +255,7 @@ Item {
 
           }
         }
+      }
 
         AddressEditor {
           address: newTravel.ui_destiny.ui_address

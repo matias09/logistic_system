@@ -10,26 +10,19 @@ Item {
   Component.onCompleted:
   masterController.ui_traCommandController.setSelectedTravel(selectedTravel)
 
-  Rectangle {
-    anchors.fill: parent
-    color: Style.colourBackground
-  }
-
-  ScrollView {
-    id: scrollView
+  Column {
+    spacing:  Style.sizeScreenMargin
     anchors {
       left:      parent.left
       right:     parent.right
       top:       parent.top
-      bottom:    commandBar.top
-
       margins:   Style.sizeScreenMargin
     }
-    clip: true
 
-    Column {
-      spacing:  Style.sizeScreenMargin
-      width: scrollView.width
+    ScrollView {
+      width:  900
+      height: 300
+      clip: true
 
       Panel {
         headerText: "Detalles del Viaje"
@@ -345,8 +338,15 @@ Item {
             }
           }
 
+          Binding {
+            target: selectedTravel.ui_cli
+            property: "ui_value"
+            value: client.currentText
+          }
+
         }
       }
+    }
 
       AddressEditor {
         address: selectedTravel.ui_destiny.ui_address
@@ -354,13 +354,6 @@ Item {
         enabled:  ( !selectedTravel.ui_canceled.ui_value
                  && !selectedTravel.ui_ended.ui_value ) ? true : false
       }
-
-      Binding {
-        target: selectedTravel.ui_cli
-        property: "ui_value"
-        value: client.currentText
-      }
-    }
   }
 
   CommandBar {

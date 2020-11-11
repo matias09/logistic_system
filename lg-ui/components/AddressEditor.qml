@@ -7,6 +7,11 @@ Panel {
   property Address address
 
   contentComponent:
+  ScrollView {
+    width: 900
+    height: 300
+    clip: true
+
     Column {
       id: column
       spacing: Style.sizeControlSpacing
@@ -17,50 +22,50 @@ Panel {
           height: Style.heightDataControls
           color: Style.colourBackground
 
-            Text {
-              id: textLabel
-              anchors {
-                fill: parent
-                margins: Style.heightDataControls / 4
-              }
-              text: address.ui_id_state.ui_label
-              color: Style.colourDataControlsFont
-              font.pixelSize: Style.pixelSizeDataControls
-              verticalAlignment: Qt.AlignVCenter
+          Text {
+            id: textLabel
+            anchors {
+              fill: parent
+              margins: Style.heightDataControls / 4
             }
+            text: address.ui_id_state.ui_label
+            color: Style.colourDataControlsFont
+            font.pixelSize: Style.pixelSizeDataControls
+            verticalAlignment: Qt.AlignVCenter
+          }
+        }
+
+        Rectangle {
+          id: background
+          width: Style.widthDataControls
+          height: Style.heightDataControls
+          border {
+            width: 1
+            color: Style.colourDataControlsFont
           }
 
-          Rectangle {
-            id: background
-            width: Style.widthDataControls
-            height: Style.heightDataControls
-            border {
-              width: 1
-              color: Style.colourDataControlsFont
+          ComboBox {
+            id: state
+
+            anchors { fill: parent }
+
+            valueRole: "ui_value"
+            textRole: "ui_desc"
+            model: masterController.ui_states
+
+            onActivated: {
+              address.ui_id_state.ui_value = currentValue
             }
 
-            ComboBox {
-              id: state
-
-              anchors { fill: parent }
-
-              valueRole: "ui_value"
-              textRole: "ui_desc"
-              model: masterController.ui_states
-
-              onActivated: {
-                address.ui_id_state.ui_value = currentValue
-              }
-
-              Component.onCompleted: {
-                currentIndex = ( address.ui_id_state.ui_value  )
-                                ? indexOfValue(address.ui_id_state.ui_value)
-                                : 0
-                address.ui_id_state.ui_value = currentValue
-              }
+            Component.onCompleted: {
+              currentIndex = ( address.ui_id_state.ui_value  )
+              ? indexOfValue(address.ui_id_state.ui_value)
+              : 0
+              address.ui_id_state.ui_value = currentValue
             }
           }
         }
+      }
 
       StringEditorSingleLine {
         stringDecorator: address.ui_street
@@ -86,4 +91,5 @@ Panel {
         }
       }
     }
+  }
 }

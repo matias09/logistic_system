@@ -17,6 +17,11 @@ Item {
       margins:   Style.sizeScreenMargin
     }
 
+    ScrollView {
+      width:  900
+      height: 600
+      clip: true
+
     Panel {
       headerText: "Detalles del Vehiculo"
       contentComponent:
@@ -265,10 +270,6 @@ Item {
           }
         }
 
-
-
-
-
         StringEditorSingleLine {
           stringDecorator: newVehicle.ui_max_w
           anchors {
@@ -284,6 +285,7 @@ Item {
             right: parent.right
           }
         }
+      }
 
       }
     }
