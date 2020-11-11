@@ -1,4 +1,5 @@
 import QtQuick 2.9
+import QtQuick.Controls 1.4
 import QtQuick.Controls 2.2
 import LG 1.0
 import assets 1.0
@@ -38,13 +39,41 @@ Item {
               }
             }
 
-            StringEditorSingleLine {
-              stringDecorator: newDriver.ui_lic_cad
-              anchors {
-                left: parent.left
-                right: parent.right
+
+              Flow {
+                Rectangle {
+                  width: Style.widthDataControls
+                  height: Style.heightDataControls
+                  color: Style.colourBackground
+
+                  Text {
+                    id: licDateLabel
+                    anchors {
+                      fill: parent
+                      margins: Style.heightDataControls / 4
+                    }
+                    text: newDriver.ui_lic_cad.ui_label
+                    color: Style.colourDataControlsFont
+                    font.pixelSize: Style.pixelSizeDataControls
+                    verticalAlignment: Qt.AlignVCenter
+                  }
+                }
+
+                CheckBox {
+                  id: licCalEnable
+                  checked: false
+                }
+                Calendar {
+                  visible: licCalEnable.checked
+                  minimumDate: new Date(2020, 0, 1)
+                  maximumDate: new Date(2025, 0, 1)
+
+                  onClicked: {
+                    newDriver.ui_lic_cad.ui_value = newDate
+                  }
+                }
               }
-            }
+
 
             StringEditorSingleLine {
               stringDecorator: newDriver.ui_phone
