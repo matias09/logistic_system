@@ -62,13 +62,13 @@ Item {
 
                     onActivated: {
                       newTravel.ui_id_cli.ui_value = currentValue
+ //                     newTravel.ui_cli.ui_value = currentText
                     }
 
                     Component.onCompleted: {
-                      currentIndex = ( newTravel.ui_id_cli.ui_value  )
-                                      ?  indexOfValue(newTravel.ui_id_cli.ui_value)
-                                      :  indexOfValue(1)
+                      currentIndex = 0
                       newTravel.ui_id_cli.ui_value = currentValue
+//                      newTravel.ui_cli.ui_value = currentText
                     }
                   }
                 }
@@ -119,9 +119,7 @@ Item {
                     }
 
                     Component.onCompleted: {
-                      currentIndex = ( newTravel.ui_destiny.ui_id_dri.ui_value  )
-                                      ?  indexOfValue(newTravel.ui_destiny.ui_id_dri.ui_value)
-                                      :  indexOfValue(1)
+                      currentIndex = 0
                       newTravel.ui_destiny.ui_id_dri.ui_value = currentValue
                     }
                   }
@@ -173,9 +171,7 @@ Item {
                     }
 
                     Component.onCompleted: {
-                      currentIndex = ( newTravel.ui_destiny.ui_id_veh.ui_value  )
-                                      ?  indexOfValue(newTravel.ui_destiny.ui_id_veh.ui_value)
-                                      :  indexOfValue(1)
+                      currentIndex = 0
                       newTravel.ui_destiny.ui_id_veh.ui_value = currentValue
                     }
                   }
@@ -205,6 +201,15 @@ Item {
                 right: parent.right
               }
             }
+
+
+            Binding {
+              target: newTravel.ui_cli
+              property: "ui_value"
+              value: client.currentText
+            }
+
+
           }
         }
 

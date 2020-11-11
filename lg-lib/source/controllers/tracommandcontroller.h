@@ -80,6 +80,8 @@ public slots:
   class Insert;
   class UpdateById;
   class DeleteById;
+
+  class GetOptUnblocked;
 };
 
 } // controllers

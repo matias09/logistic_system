@@ -83,10 +83,10 @@ private:
   {
     QString sqlStm =
        " INSERT INTO destinations "
-       " ( id_driver, id_vehicle, arrival_date "
+       " ( id_driver, id_vehicle, id_state, arrival_date "
        " , street, house_nro, post_code) "
        "  VALUES "
-       " ( :id_driver, :id_vehicle, :arrival_date "
+       " ( :id_driver, :id_vehicle, :id_state, :arrival_date "
        " , :street, :house_nro, :post_code) ";
 
     std::map<QString, QVariant> binds;
@@ -95,6 +95,8 @@ private:
     binds.insert(Burden( ":arrival_date",
           QVariant(jo_["destiny"]["arr_date"]) ));
 
+    binds.insert(Burden(":id_state",
+          QVariant(jo_["destiny"]["address"]["id_state"].toInt())) );
     binds.insert(Burden(":street",
           QVariant(jo_["destiny"]["address"]["street"])) );
     binds.insert(Burden(":house_nro",

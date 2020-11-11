@@ -36,9 +36,7 @@ Address::Address(QObject *parent, const QJsonObject &json)
 
 QString Address::fullAddress() const
 {
-  return  street->value() + " "
-          + house_nro->value() + "\n"
-          + postcode->value();
+  return  street->value() + " " + house_nro->value() + " " + postcode->value();
 }
 
 } //  models

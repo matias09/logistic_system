@@ -15,7 +15,7 @@ Travel::Travel(QObject *parent)
       new IntDecorator(this, "id_cli", "Cliente") ));
 
   cli = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "cli", "") ));
+      new StringDecorator(this, "cli", "Cliente") ));
 
   sta_date = static_cast<StringDecorator*>(addDataItem(
       new StringDecorator(this, "sta_date", "Fecha de Inicio/Salida") ));

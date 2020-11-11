@@ -65,6 +65,20 @@ Item {
           font.pixelSize: Style.pixelSizeDataControls
           color: Style.colourPanelFont
         }
+
+        Text {
+          id: textState
+          anchors {
+            top:   textFullAddress.bottom
+            left:  parent.left
+
+            rightMargin: Style.heightDataControls / 4
+          }
+          text:   travel.ui_destiny.ui_address.ui_state.ui_label + ": "
+                + travel.ui_destiny.ui_address.ui_state.ui_value
+          font.pixelSize: Style.pixelSizeDataControls
+          color: Style.colourPanelFont
+        }
       }
 
     Rectangle {

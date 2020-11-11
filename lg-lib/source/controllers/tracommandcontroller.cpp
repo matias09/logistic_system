@@ -1,9 +1,11 @@
 #include "tracommandcontroller.h"
 
 #include "db_operations/getoptionfromtable.hpp"
+
 #include "db_operations/travel/deletebyid.hpp"
 #include "db_operations/travel/updatebyid.hpp"
 #include "db_operations/travel/insert.hpp"
+#include "db_operations/travel/getoptunblocked.hpp"
 
 #include <QList>
 
@@ -76,18 +78,33 @@ public:
      );
      editTravelViewContextCommands.append( editTravelDeleteCommand );
 
-     clients  = GetOptionFromTable::call("clients"
-                                      ,*(traCommandController)
-                                      ,*(databaseController) );
+     updateClients();
+     updateDrivers();
+     updateVehicles();
+  }
 
-     drivers  = GetOptionFromTable::call("drivers"
-                                      ,*(traCommandController)
-                                      ,*(databaseController) );
-
-     vehicles = GetOptionFromTable::call("vehicles"
+  void updateClients()
+  {
+    clients  = GetOptionFromTable::call("clients"
                                       ,*(traCommandController)
                                       ,*(databaseController) );
   }
+
+  void updateDrivers()
+  {
+     drivers  = GetOptUnblocked::call("drivers"
+                                    ,*(traCommandController)
+                                    ,*(databaseController) );
+  }
+
+  void updateVehicles()
+  {
+     vehicles = GetOptUnblocked::call("vehicles"
+                                    ,*(traCommandController)
+                                    ,*(databaseController) );
+  }
+
+
 
   TraCommandController *traCommandController{nullptr};
 
@@ -140,6 +157,11 @@ TraCommandController::ui_createTravelViewContextCommands()
 void TraCommandController::onCreateTravelFillExecuted()
 {
   std::cout << "You executed the Create New Travel Command!" << std::endl;
+
+  implementation->updateClients();
+  implementation->updateDrivers();
+  implementation->updateVehicles();
+
   implementation->navigationController->goCreateTravelView();
 }
 
@@ -153,11 +175,16 @@ void TraCommandController::onCreateTravelSaveExecuted()
   if (r) {
     std::cout << "New Travel Saved!" << std::endl;
 
+    std::cout << "Value to search : "
+              << implementation->newTravel->cli->value().toStdString()
+              << std::endl;
+
     implementation->travelSearch->searchText()
                   ->setValue( implementation->newTravel->cli->value() );
     implementation->travelSearch->search();
     implementation->navigationController->goFindTravelView();
   } else {
+    std::cout << "Error Saving Travel" << std::endl;
     implementation->navigationController->goDashboardView();
   }
 }
@@ -181,9 +208,9 @@ QQmlListProperty<data::ComboOption> TraCommandController::vehicles()
 QQmlListProperty<Command>
 TraCommandController::ui_findTravelViewContextCommands()
 {
-   return QQmlListProperty<Command>(
-            this,
-            implementation->findTravelViewContextCommands );
+  return QQmlListProperty<Command>(
+          this,
+          implementation->findTravelViewContextCommands );
 }
 
 void TraCommandController::onFindTravelViewContextCommands()

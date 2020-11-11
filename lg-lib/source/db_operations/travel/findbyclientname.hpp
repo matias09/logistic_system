@@ -29,14 +29,17 @@ private:
   {
     if ( searchText.isEmpty() ) return false;
 
+    std::cout << "From Find By Client Name " << std::endl;
+
     QString sqlStm =
          " SELECT t.id, t.id_client, t.sta_date "
-         "    ,d.id ,d.id_driver, d.id_vehicle ,d.arrival_date "
-         "    ,d.street, d.house_nro, d.post_code, c.name  "
+         "    ,d.id ,d.id_driver, d.id_vehicle, d.arrival_date "
+         "    ,d.street, d.house_nro, d.post_code, c.name, d.id_state, s.name "
          "  FROM travels t "
          "  INNER JOIN travels_destinations td ON (t.id = td.id_travel) "
          "  INNER JOIN destinations d          ON (td.id_destination = d.id) "
          "  INNER JOIN clients c               ON (t.id_client = c.id) "
+         "  INNER JOIN states s                ON (d.id_state = s.id) "
          " WHERE LOWER(c.name) LIKE :searchText" ;
 
     std::map<QString, QVariant> binds;
@@ -46,11 +49,18 @@ private:
 
     QSqlQuery&& query = db.search(sqlStm, binds);
 
+
+      std::cout << "\t Client to Search :  "
+                << searchText.toStdString()
+                << std::endl;
+
     while ( query.next() ) {
       QJsonObject jsonObjAddress;
       jsonObjAddress.insert("street",    query.value(7).toString() );
       jsonObjAddress.insert("house_nro", query.value(8).toString() );
       jsonObjAddress.insert("postcode",  query.value(9).toString() );
+      jsonObjAddress.insert("id_state",  query.value(11).toInt() );
+      jsonObjAddress.insert("state",     query.value(12).toString() );
 
       QJsonObject jsonObjDestination;
       jsonObjDestination.insert("reference",  query.value(3).toString() );
@@ -69,6 +79,11 @@ private:
       jsonObj.insert("sta_date",  query.value(2).toString() );
       jsonObj.insert("cli",       query.value(10).toString() );
       jsonObj.insert("destiny", jsonObjDestination );
+
+      std::cout << "\t Client name :  "
+                << jsonObj["cli"].toString().toStdString() << '\n'
+                << jsonObj["cli"].toString().toStdString() << '\n'
+                << std::endl;
 
       returnValue.append( jsonObj );
     }

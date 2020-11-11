@@ -87,11 +87,11 @@ private:
   bool updateDestinations()
   {
     QString sqlStm = "UPDATE destinations "
-     "  SET "
-     "    id_driver = :id_driver, id_vehicle = :id_vehicle "
-     "  , arrival_date = :arrival_date, street = :street   "
-     "  , house_nro = :house_nro, post_code = :post_code   "
-     "  WHERE id = :id_destination";
+    "  SET "
+    "  id_driver = :id_driver, id_vehicle = :id_vehicle, id_state = :id_state "
+    " ,arrival_date = :arrival_date, street = :street   "
+    " ,house_nro = :house_nro, post_code = :post_code   "
+    " WHERE id = :id_destination";
 
     std::map<QString, QVariant>  binds;
     binds.insert(Burden(":id_destination",
@@ -103,6 +103,8 @@ private:
     binds.insert(Burden(":arrival_date",
           QVariant(jo_["destiny"]["arr_date"]) ));
 
+    binds.insert(Burden(":id_state",
+          QVariant(jo_["destiny"]["address"]["id_state"].toInt())) );
     binds.insert(Burden(":street",
           QVariant(jo_["destiny"]["address"]["street"]) ));
     binds.insert(Burden(":house_nro",

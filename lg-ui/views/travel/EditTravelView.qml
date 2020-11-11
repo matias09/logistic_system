@@ -144,7 +144,7 @@ Item {
                       Component.onCompleted: {
                         currentIndex = ( selectedTravel.ui_destiny.ui_id_dri.ui_value  )
                                         ?  indexOfValue(selectedTravel.ui_destiny.ui_id_dri.ui_value)
-                                        :  indexOfValue(1)
+                                        :  1
                         selectedTravel.ui_destiny.ui_id_dri.ui_value = currentValue
                       }
                     }
@@ -227,6 +227,12 @@ Item {
         AddressEditor {
           address: selectedTravel.ui_destiny.ui_address
           headerText: "Direccion de Destino"
+        }
+
+        Binding {
+          target: selectedTravel.ui_cli
+          property: "ui_value"
+          value: client.currentText
         }
       }
   }
