@@ -42,7 +42,7 @@ private:
     binds.insert(Burden(":name",      QVariant(jo["name"]) ));
     binds.insert(Burden(":phone",     QVariant(jo["phone"]) ));
     binds.insert(Burden(":lic_nro",   QVariant(jo["lic_nro"]) ));
-    binds.insert(Burden(":lic_cad",   QVariant(jo["lic_cad"]) ));
+    binds.insert(Burden(":lic_cad",   QVariant(jo["lic_cad"].toString()) ));
     binds.insert(Burden(":cellphone", QVariant(jo["cellphone"]) ));
     binds.insert(Burden(":mail",      QVariant(jo["mail"]) ));
     binds.insert(Burden(":street",    QVariant(jo["address"]["street"]) ));
