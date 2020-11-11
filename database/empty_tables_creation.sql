@@ -43,7 +43,10 @@ CREATE TABLE IF NOT EXISTS RECEIPT (
 CREATE TABLE IF NOT EXISTS TRAVELS (
   id           INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
   id_client    INTEGER       NULL,
-  sta_date     DATE          NULL); -- date when the transport begins his journy
+  sta_date     DATE          NULL,  -- date when the transport begins his journy
+  fin_date     DATE          NULL,  -- date where the burden was delivered
+  ended        BOOLEAN       NULL DEFAULT FALSE,
+  canceled     BOOLEAN       NULL DEFAULT FALSE);
 
 CREATE TABLE IF NOT EXISTS TRAVELS_DESTINATIONS (
   id               INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
