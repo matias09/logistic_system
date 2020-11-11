@@ -54,6 +54,7 @@ CREATE TABLE IF NOT EXISTS DESTINATIONS (
   id              INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,
   id_driver       INTEGER       NULL,
   id_vehicle      INTEGER       NULL,
+  id_state        INTEGER       NULL,
   arrival_date    DATE          NULL,
   street          CHAR(50)      NULL,
   house_nro       CHAR(4)       NULL,
