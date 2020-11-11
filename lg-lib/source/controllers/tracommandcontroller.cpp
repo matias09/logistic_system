@@ -70,7 +70,7 @@ public:
 
 
      Command *editTravelDeleteCommand = new Command(
-      traCommandController, QChar(  0xf235 ), "Borrar"
+      traCommandController, QChar(  0xf235 ), "Anular"
      );
      QObject::connect(
        editTravelDeleteCommand, &Command::executed,

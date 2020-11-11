@@ -11,6 +11,12 @@ Travel::Travel(QObject *parent)
   reference = static_cast<StringDecorator*>(addDataItem(
       new StringDecorator(this, "reference", "Referencia del Viaje") ));
 
+  canceled = static_cast<IntDecorator*>(addDataItem(
+      new IntDecorator(this, "canceled", "Viaje anulado") ));
+
+  ended = static_cast<IntDecorator*>(addDataItem(
+      new IntDecorator(this, "ended", "Viaje finalizado ?") ));
+
   id_cli = static_cast<IntDecorator*>(addDataItem(
       new IntDecorator(this, "id_cli", "Cliente") ));
 

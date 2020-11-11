@@ -18,7 +18,9 @@ class LGLIBSHARED_EXPORT Travel : public data::Entity
   Q_OBJECT
   Q_PROPERTY(lg::data::StringDecorator* ui_reference MEMBER reference CONSTANT)
 
-  Q_PROPERTY(lg::data::IntDecorator* ui_id_cli       MEMBER id_cli    CONSTANT)
+  Q_PROPERTY(lg::data::IntDecorator* ui_canceled     MEMBER canceled CONSTANT)
+  Q_PROPERTY(lg::data::IntDecorator* ui_ended        MEMBER ended    CONSTANT)
+  Q_PROPERTY(lg::data::IntDecorator* ui_id_cli       MEMBER id_cli   CONSTANT)
 
   Q_PROPERTY(lg::data::StringDecorator* ui_cli       MEMBER cli       CONSTANT)
   Q_PROPERTY(lg::data::StringDecorator* ui_sta_date  MEMBER sta_date  CONSTANT)
@@ -29,6 +31,8 @@ public:
   explicit Travel(QObject *parent = nullptr);
   Travel(QObject *parent, const QJsonObject &json);
 
+  data::IntDecorator *canceled{nullptr};
+  data::IntDecorator *ended{nullptr};
   data::IntDecorator *id_cli{nullptr};
 
   data::StringDecorator *reference{nullptr};

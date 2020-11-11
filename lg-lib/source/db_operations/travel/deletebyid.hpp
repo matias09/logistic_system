@@ -26,9 +26,7 @@ private:
 
     QSqlDatabase::database().transaction();
 
-    if ( not deleteDestinations(id)
-      || not deleteDestinationsAssociation(id)
-      || not deleteTravel(id)
+    if ( cancelTravel(id)
       || not unblockDriver()
       || not unblockVehicle()
    ) {
@@ -40,59 +38,38 @@ private:
     return true;
   }
 
-  bool deleteTravel(const QString &id) const
+  bool cancelTravel(const QString &id) const
   {
-    QString sqlStm = " DELETE FROM travels WHERE id = :id ";
+    const unsigned int ended = 1;
+    QString sqlStm = "UPDATE travels SET canceled = :canceled WHERE id = :id";
 
     std::map<QString, QVariant> binds;
-    binds.insert(Burden( ":id", QVariant(id).toInt() ));
-
-    return db_.remove(sqlStm, binds);
-  }
-
-  bool deleteDestinationsAssociation(const QString &id) const
-  {
-    QString sqlStm = "   DELETE FROM travels_destinations "
-                      "   WHERE id_travel = :id_t ";
-
-    std::map<QString, QVariant> binds;
-    binds.insert(Burden( ":id_t", QVariant(id).toInt() ));
-
-    return db_.remove(sqlStm, binds);
-  }
-
-  bool deleteDestinations(const QString &id) const
-  {
-    QString sqlStm = "DELETE FROM destinations WHERE id IN ( "
-                      " ( "
-                      "   SELECT id_destination "
-                      "     FROM travels_destinations "
-                      "    WHERE id_travel = :id_t "
-                      " ) "
-                    " ) " ;
-
-    std::map<QString, QVariant> binds;
-    binds.insert(Burden( ":id_t", QVariant(id).toInt() ));
+    binds.insert(Burden( ":id",       QVariant(id).toInt() ));
+    binds.insert(Burden( ":canceled", ended ));
 
     return db_.remove(sqlStm, binds);
   }
 
   bool unblockDriver() const
   {
-    QString sqlStm = "UPDATE drivers SET blocked = 0 WHERE  id = :id ";
+    const unsigned int blocked = 0;
+    QString sqlStm = "UPDATE drivers SET blocked = :blocked WHERE  id = :id ";
 
     std::map<QString, QVariant> binds;
     binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_dri_o"].toInt())) );
+    binds.insert(Burden(":blocked", blocked) );
 
     return  db_.update(sqlStm, binds);
   }
 
   bool unblockVehicle() const
   {
-    QString sqlStm = "UPDATE vehicles SET blocked = 0 WHERE  id = :id ";
+    const unsigned int blocked = 0;
+    QString sqlStm = "UPDATE vehicles SET blocked = :blocked WHERE  id = :id ";
 
     std::map<QString, QVariant> binds;
     binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_veh_o"].toInt())) );
+    binds.insert(Burden(":blocked", blocked) );
 
     return  db_.update(sqlStm, binds);
   }

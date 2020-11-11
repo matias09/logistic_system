@@ -46,6 +46,37 @@ Item {
             enabled: false
           }
 
+            Flow {
+              Rectangle {
+                width: Style.widthDataControls
+                height: Style.heightDataControls
+                color: Style.colourBackground
+
+                  Text {
+                    id: endedLabel
+                    anchors {
+                      fill: parent
+                      margins: Style.heightDataControls / 4
+                    }
+                    text: selectedTravel.ui_ended.ui_label
+                    color: Style.colourDataControlsFont
+                    font.pixelSize: Style.pixelSizeDataControls
+                    verticalAlignment: Qt.AlignVCenter
+                  }
+                }
+
+                CheckBox {
+                  id: endedEnable
+                  checked: selectedTravel.ui_ended.ui_value
+                  enabled: !selectedTravel.ui_canceled.ui_value
+
+                  onClicked: {
+                    selectedTravel.ui_ended.ui_value = !selectedTravel.ui_ended.ui_value
+                  }
+                }
+              }
+
+
           Flow {
             Rectangle {
               width: Style.widthDataControls
@@ -76,6 +107,8 @@ Item {
 
               ComboBox {
                 id: client
+                enabled:  ( !selectedTravel.ui_canceled.ui_value
+                         && !selectedTravel.ui_ended.ui_value ) ? true : false
 
                 anchors { fill: parent }
 
@@ -131,6 +164,8 @@ Item {
               CheckBox {
                 id: driverComboEnable
                 checked: false
+                enabled:  ( !selectedTravel.ui_canceled.ui_value
+                         && !selectedTravel.ui_ended.ui_value ) ? true : false
 
                 anchors {
                   right: driver.left
@@ -198,6 +233,8 @@ Item {
               CheckBox {
                 id: vehicleComboEnable
                 checked: false
+                enabled:  ( !selectedTravel.ui_canceled.ui_value
+                         && !selectedTravel.ui_ended.ui_value ) ? true : false
 
                 anchors {
                   right: vehicle.left
@@ -252,6 +289,8 @@ Item {
             CheckBox {
               id: staCalEnable
               checked: false
+              enabled:  ( !selectedTravel.ui_canceled.ui_value
+                       && !selectedTravel.ui_ended.ui_value ) ? true : false
             }
             Calendar {
               id: staCal
@@ -290,6 +329,8 @@ Item {
             CheckBox {
               id: arrCalEnable
               checked: false
+              enabled:  ( !selectedTravel.ui_canceled.ui_value
+                       && !selectedTravel.ui_ended.ui_value ) ? true : false
             }
             Calendar {
               id: arrCal
@@ -310,6 +351,8 @@ Item {
       AddressEditor {
         address: selectedTravel.ui_destiny.ui_address
         headerText: "Direccion de Destino"
+        enabled:  ( !selectedTravel.ui_canceled.ui_value
+                 && !selectedTravel.ui_ended.ui_value ) ? true : false
       }
 
       Binding {

@@ -91,15 +91,18 @@ private:
 
   bool updateTravel()
   {
+    const unsigned int not_canceled = 0;
     QString sqlStm = "UPDATE travels "
      "  SET "
-     "   id_client = :id_client, sta_date = :sta_date "
-     "  WHERE id = :id";
+     "   id_client = :id_client, sta_date = :sta_date, ended = :ended "
+     "  WHERE id = :id AND canceled = :canceled";
 
     std::map<QString, QVariant>  binds;
     binds.insert(Burden(":id",        QVariant(jo_["reference"]) ));
     binds.insert(Burden(":id_client", QVariant(jo_["id_cli"].toInt()) ));
     binds.insert(Burden(":sta_date",  QVariant(jo_["sta_date"]) ));
+    binds.insert(Burden(":ended",     QVariant(jo_["ended"].toInt()) ));
+    binds.insert(Burden(":canceled",  not_canceled ));
 
     return db_.update(sqlStm, binds);
   }
