@@ -169,7 +169,9 @@ void TraCommandController::onCreateTravelSaveExecuted()
 {
   std::cout << "You executed the Save Command!" << std::endl;
 
-  bool r = Insert::call(implementation->newTravel->toJson()
+  QString err = "";
+  bool r = Insert::call(err
+                     , implementation->newTravel->toJson()
                      ,*(implementation->databaseController) );
 
   if (r) {
@@ -185,7 +187,7 @@ void TraCommandController::onCreateTravelSaveExecuted()
     implementation->navigationController->goFindTravelView();
   } else {
     std::cout << "Error Saving Travel" << std::endl;
-    implementation->navigationController->goDashboardView();
+    implementation->newTravel->destiny->err->setValue(err);
   }
 }
 
@@ -235,14 +237,20 @@ void TraCommandController::onEditTravelSaveExecuted()
 {
   std::cout << "You executed the Edit Command!" << std::endl;
 
-  bool r = UpdateById::call( implementation->selectedTravel->toJson()
-                          ,  implementation->selectedTravel->id()
+  QString err = "";
+  bool r = UpdateById::call( err
+                          ,  implementation->selectedTravel->toJson()
                           ,*(implementation->databaseController) );
 
   if ( r ) {
     std::cout << "Travel Updated"     << std::endl;
+    implementation->travelSearch->searchText()
+                  ->setValue( implementation->selectedTravel->reference->value() );
+    implementation->travelSearch->search();
+    implementation->navigationController->goFindTravelView();
   } else {
     std::cout << "Travel NOT Updated" << std::endl;
+    implementation->selectedTravel->destiny->err->setValue(err);
   }
 }
 

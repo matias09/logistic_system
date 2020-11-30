@@ -171,6 +171,12 @@ void CliCommandController::onEditClientSaveExecuted()
 {
   std::cout << "You executed the Edit Command!" << std::endl;
 
+  implementation->selectedClient->err->setValue("Error 1");
+  implementation->selectedClient->err_color->setValue("#ff0000");
+  implementation->selectedClient->err_visible->setValue("true");
+
+  return;
+
   bool r = UpdateById::call( implementation->selectedClient->toJson()
                           ,  implementation->selectedClient->id()
                           ,*(implementation->databaseController) );

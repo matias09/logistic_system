@@ -347,6 +347,33 @@ Item {
           }
 
         }
+
+        Rectangle {
+          id: recErr
+          visible: (selectedTravel.ui_destiny.ui_err.ui_value !== "")
+                    ? true : false;
+
+          anchors {
+            left: parent.left
+            right: parent.right
+          }
+
+          width: Style.widthDataControls
+          height: Style.heightDataControls
+          color: "#ca4949"
+
+          Text {
+              id: errMessages
+
+              anchors.fill: parent
+              verticalAlignment: Text.AlignVCenter
+
+              text: selectedTravel.ui_destiny.ui_err.ui_value
+              font.bold: true
+              color: "#444444"
+          }
+        }
+
       }
     }
 

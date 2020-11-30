@@ -80,6 +80,28 @@ Item {
             address: selectedClient.ui_clientAddress
             headerText: "Datos de Direccion"
           }
+
+          Rectangle {
+              visible: selectedClient.ui_err_visible.ui_value
+
+              width: Style.widthDataControls
+              height: Style.heightDataControls
+
+                anchors {
+                  left: parent.left
+                  right: parent.right
+                }
+
+              //color: "#eeeeee"
+                color: selectedClient.ui_err_color.ui_value
+
+
+              Text {
+                  id: errMessages
+                  text: selectedClient.ui_err.ui_value
+                  color: "#000000"
+              }
+          }
       }
 
   CommandBar {

@@ -34,6 +34,10 @@ Destination::Destination(QObject *parent)
 
   address = static_cast<Address*>( addChild(new Address(this), "address") );
 
+  err = static_cast<StringDecorator*>(addDataItem(
+      new StringDecorator(this, "err", "")
+  ) );
+
   setPrimaryKey(reference);
 }
 
