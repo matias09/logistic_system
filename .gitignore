@@ -2,6 +2,7 @@
 /database/*.swp
 documentation/*.swp
 /lg-lib/build/
+lg\.pro\.user
 !documentation/
 !database/
 !lg-ui/
