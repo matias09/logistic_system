@@ -16,45 +16,52 @@ Item {
       margins:   Style.sizeScreenMargin
     }
 
-    Panel {
-      headerText: "Detalles del Cliente"
-      contentComponent:
-      Column {
-        spacing: Style.sizeControlSpacing
+    ScrollView {
+      width:  900
+      height: 300
+      clip: true
 
-        StringEditorSingleLine {
-          stringDecorator: newClient.ui_name
-          anchors {
-            left: parent.left
-            right: parent.right
+      ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+
+      Panel {
+        headerText: "Detalles del Cliente"
+        contentComponent:
+        Column {
+          spacing: Style.sizeControlSpacing
+
+          StringEditorSingleLine {
+            stringDecorator: newClient.ui_name
+            anchors {
+              left: parent.left
+              right: parent.right
+            }
+          }
+
+          StringEditorSingleLine {
+            stringDecorator: newClient.ui_phone
+            anchors {
+              left: parent.left
+              right: parent.right
+            }
+          }
+
+          StringEditorSingleLine {
+            stringDecorator: newClient.ui_cellphone
+            anchors {
+              left: parent.left
+              right: parent.right
+            }
+          }
+
+          StringEditorSingleLine {
+            id: mail
+            stringDecorator: newClient.ui_mail
+            anchors {
+              left: parent.left
+              right: parent.right
+            }
           }
         }
-
-        StringEditorSingleLine {
-          stringDecorator: newClient.ui_phone
-          anchors {
-            left: parent.left
-            right: parent.right
-          }
-        }
-
-        StringEditorSingleLine {
-          stringDecorator: newClient.ui_cellphone
-          anchors {
-            left: parent.left
-            right: parent.right
-          }
-        }
-
-        StringEditorSingleLine {
-          id: mail
-          stringDecorator: newClient.ui_mail
-          anchors {
-            left: parent.left
-            right: parent.right
-          }
-        }
-
       }
     }
 
@@ -63,35 +70,7 @@ Item {
       headerText: "Datos de Direccion"
     }
 
-
-//    Text { id: t; anchors.top: bck_towns }
-//
-//    ComboBox {
-//      id: bck_towns
-//      width: 300
-//      height: 25
-//      anchors {
-//        margins: Style.heightDataControls / 4
-//      }
-//
-//      valueRole: "ui_value"
-//      textRole: "ui_desc"
-//
-//      model: masterController.ui_towns
-//
-//      onActivated: {
-//      newClient.ui_name.ui_value = currentValue
-//        t.text = currentValue
-//      }
-//    onCurrentIndexChanged:  t2.text = currentIndex
-//      Component.onCompleted: {
-//        currentIndex = indexOfValue(1)
-//      newClient.ui_name.ui_value = currentValue
-//      }
-//    }
-
   }
-
   CommandBar {
     id: commandList
     commandList:

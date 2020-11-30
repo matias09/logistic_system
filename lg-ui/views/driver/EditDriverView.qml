@@ -10,26 +10,21 @@ Item {
     Component.onCompleted:
       masterController.ui_driCommandController.setSelectedDriver(selectedDriver)
 
-    Rectangle {
-      anchors.fill: parent
-      color: Style.colourBackground
+  Column {
+    spacing:  Style.sizeScreenMargin
+    anchors {
+      left:      parent.left
+      right:     parent.right
+      top:       parent.top
+      margins:   Style.sizeScreenMargin
     }
 
     ScrollView {
-      id: scrollView
-      anchors {
-        left:      parent.left
-        right:     parent.right
-        top:       parent.top
-        bottom:    commandBar.top
-
-        margins:   Style.sizeScreenMargin
-      }
+      width:  900
+      height: 300
       clip: true
 
-      Column {
-        spacing:  Style.sizeScreenMargin
-        width: scrollView.width
+      ScrollBar.vertical.policy: ScrollBar.AlwaysOn
 
         Panel {
         headerText: "Detalles del Chofer"
@@ -124,12 +119,12 @@ Item {
               }
             }
           }
-
-          AddressEditor {
-            address: selectedDriver.ui_driverAddress
-            headerText: "Datos de Direccion"
-          }
       }
+
+    AddressEditor {
+      address: selectedDriver.ui_driverAddress
+      headerText: "Datos de Direccion"
+    }
   }
 
   CommandBar {

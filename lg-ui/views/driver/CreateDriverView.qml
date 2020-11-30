@@ -6,110 +6,118 @@ import assets 1.0
 import components 1.0
 
 Item {
-    property Driver newDriver: masterController.ui_newDriver
+  property Driver newDriver: masterController.ui_newDriver
 
-    Column {
-      spacing:  Style.sizeScreenMargin
-      anchors {
-        left:      parent.left
-        right:     parent.right
-        top:       parent.top
-        margins:   Style.sizeScreenMargin
-      }
+  Column {
+    spacing:  Style.sizeScreenMargin
+    anchors {
+      left:      parent.left
+      right:     parent.right
+      top:       parent.top
+      margins:   Style.sizeScreenMargin
+    }
+
+    ScrollView {
+      width:  900
+      height: 300
+      clip: true
+
+      ScrollBar.vertical.policy: ScrollBar.AlwaysOn
 
       Panel {
         headerText: "Detalles del Chofer"
         contentComponent:
-          Column {
-            spacing: Style.sizeControlSpacing
+        Column {
+          spacing: Style.sizeControlSpacing
 
-            StringEditorSingleLine {
-              stringDecorator: newDriver.ui_name
-              anchors {
-                left: parent.left
-                right: parent.right
-              }
+          StringEditorSingleLine {
+            stringDecorator: newDriver.ui_name
+            anchors {
+              left: parent.left
+              right: parent.right
             }
+          }
 
-            StringEditorSingleLine {
-              stringDecorator: newDriver.ui_lic_nro
-              anchors {
-                left: parent.left
-                right: parent.right
-              }
+          StringEditorSingleLine {
+            stringDecorator: newDriver.ui_lic_nro
+            anchors {
+              left: parent.left
+              right: parent.right
             }
+          }
 
 
-              Flow {
-                Rectangle {
-                  width: Style.widthDataControls
-                  height: Style.heightDataControls
-                  color: Style.colourBackground
+          Flow {
+            Rectangle {
+              width: Style.widthDataControls
+              height: Style.heightDataControls
+              color: Style.colourBackground
 
-                  Text {
-                    id: licDateLabel
-                    anchors {
-                      fill: parent
-                      margins: Style.heightDataControls / 4
-                    }
-                    text: newDriver.ui_lic_cad.ui_label
-                    color: Style.colourDataControlsFont
-                    font.pixelSize: Style.pixelSizeDataControls
-                    verticalAlignment: Qt.AlignVCenter
-                  }
+              Text {
+                id: licDateLabel
+                anchors {
+                  fill: parent
+                  margins: Style.heightDataControls / 4
                 }
-
-                CheckBox {
-                  id: licCalEnable
-                  checked: false
-                }
-                Calendar {
-                  visible: licCalEnable.checked
-                  minimumDate: new Date(2020, 0, 1)
-                  maximumDate: new Date(2025, 0, 1)
-
-                  onClicked: {
-                    newDriver.ui_lic_cad.ui_value = newDate
-                  }
-                }
-              }
-
-
-            StringEditorSingleLine {
-              stringDecorator: newDriver.ui_phone
-              anchors {
-                left: parent.left
-                right: parent.right
+                text: newDriver.ui_lic_cad.ui_label
+                color: Style.colourDataControlsFont
+                font.pixelSize: Style.pixelSizeDataControls
+                verticalAlignment: Qt.AlignVCenter
               }
             }
 
-            StringEditorSingleLine {
-              stringDecorator: newDriver.ui_cellphone
-              anchors {
-                left: parent.left
-                right: parent.right
-              }
+            CheckBox {
+              id: licCalEnable
+              checked: false
             }
+            Calendar {
+              visible: licCalEnable.checked
+              minimumDate: new Date(2020, 0, 1)
+              maximumDate: new Date(2025, 0, 1)
 
-            StringEditorSingleLine {
-              stringDecorator: newDriver.ui_mail
-              anchors {
-                left: parent.left
-                right: parent.right
+              onClicked: {
+                newDriver.ui_lic_cad.ui_value = newDate
               }
             }
           }
-        }
 
-        AddressEditor {
-          address: newDriver.ui_driverAddress
-          headerText: "Datos de Direccion"
+
+          StringEditorSingleLine {
+            stringDecorator: newDriver.ui_phone
+            anchors {
+              left: parent.left
+              right: parent.right
+            }
+          }
+
+          StringEditorSingleLine {
+            stringDecorator: newDriver.ui_cellphone
+            anchors {
+              left: parent.left
+              right: parent.right
+            }
+          }
+
+          StringEditorSingleLine {
+            stringDecorator: newDriver.ui_mail
+            anchors {
+              left: parent.left
+              right: parent.right
+            }
+          }
         }
+      }
     }
 
-    CommandBar {
-      id: commandList
-      commandList:
-        masterController.ui_driCommandController.ui_createDriverViewContextCommands
+    AddressEditor {
+      address: newDriver.ui_driverAddress
+      headerText: "Datos de Direccion"
     }
+  }
+
+  CommandBar {
+    id: commandList
+    commandList:
+    masterController.ui_driCommandController.ui_createDriverViewContextCommands
+  }
 }

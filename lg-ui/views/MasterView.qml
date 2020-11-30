@@ -6,9 +6,10 @@ import assets 1.0
 import components 1.0
 
 Window {
+    id:mainWindow
     visible: true
-    width:  800
-    height: 600
+    width:  1024
+    height: 768
     title: qsTr("Sistema de Logistica")
 
     Connections {
