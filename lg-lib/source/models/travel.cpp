@@ -1,5 +1,7 @@
 #include "travel.h"
 
+#include <QDateTime>
+
 using namespace lg::data;
 
 namespace lg {
@@ -25,6 +27,7 @@ Travel::Travel(QObject *parent)
 
   sta_date = static_cast<StringDecorator*>(addDataItem(
       new StringDecorator(this, "sta_date", "Fecha de Inicio/Salida") ));
+  sta_date->setValue(QDateTime::currentDateTime().toString());
 
   destiny = static_cast<Destination*>(
       addChild( new Destination(this), "destiny") );
@@ -36,6 +39,17 @@ Travel::Travel(QObject *parent, const QJsonObject &json)
   : Travel(parent)
 {
   update(json);
+}
+
+void Travel::reset()
+{
+  reference->setValue(0);
+  canceled->setValue(0);
+  ended->setValue(0);
+  id_cli->setValue(0);
+  sta_date->setValue(QDateTime::currentDateTime().toString());
+
+  destiny->reset();
 }
 
 }

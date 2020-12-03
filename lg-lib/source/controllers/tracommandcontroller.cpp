@@ -221,7 +221,7 @@ void TraCommandController::onCreateTravelSaveExecuted()
     implementation->travelSearch->searchText()
                   ->setValue( implementation->newTravel->cli->value() );
 
-    implementation->selectedTravel = nullptr;
+    implementation->newTravel->reset();
 
     implementation->travelSearch->search();
     implementation->navigationController->goFindTravelView();

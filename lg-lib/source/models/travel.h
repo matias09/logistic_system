@@ -31,6 +31,8 @@ public:
   explicit Travel(QObject *parent = nullptr);
   Travel(QObject *parent, const QJsonObject &json);
 
+  void reset();
+
   data::IntDecorator *canceled{nullptr};
   data::IntDecorator *ended{nullptr};
   data::IntDecorator *id_cli{nullptr};

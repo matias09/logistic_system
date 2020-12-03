@@ -25,6 +25,8 @@ public:
   explicit Address(QObject *parent = nullptr);
   Address(QObject *parent, const QJsonObject &json);
 
+  void reset();
+
   data::IntDecorator*    id_state{nullptr};
   data::StringDecorator* state{nullptr};
   data::StringDecorator* street{nullptr};

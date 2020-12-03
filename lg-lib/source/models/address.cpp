@@ -39,5 +39,15 @@ QString Address::fullAddress() const
   return  street->value() + " " + house_nro->value() + " " + postcode->value();
 }
 
+void Address::reset()
+{
+  id_state->setValue(0);
+
+  state->setValue("");
+  street->setValue("");
+  house_nro->setValue("");
+  postcode->setValue("");
+}
+
 } //  models
 } //  lg

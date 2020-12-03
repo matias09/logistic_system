@@ -36,6 +36,8 @@ public:
   explicit Destination(QObject *parent = nullptr);
   Destination(QObject *parent, const QJsonObject &json);
 
+  void reset();
+
   data::IntDecorator *id_dri  {nullptr};
   data::IntDecorator *id_veh  {nullptr};
   data::IntDecorator *id_dri_o{nullptr};
