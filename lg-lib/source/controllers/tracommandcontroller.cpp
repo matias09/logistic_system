@@ -5,9 +5,11 @@
 #include "db_operations/travel/deletebyid.hpp"
 #include "db_operations/travel/updatebyid.hpp"
 #include "db_operations/travel/insert.hpp"
-#include "db_operations/travel/getoptunblocked.hpp"
+#include "db_operations/travel/getoptdrivers.hpp"
+#include "db_operations/travel/getoptvehicles.hpp"
 
 #include <QList>
+#include <QDateTime>
 
 #include <iostream>
 
@@ -94,19 +96,44 @@ public:
   void updateDrivers()
   {
      drivers.clear();
-     drivers  = GetOptUnblocked::call("drivers"
-                                    ,*(traCommandController)
-                                    ,*(databaseController) );
+     drivers  = GetOptDriver::call(*(traCommandController)
+                                  ,*(databaseController) );
   }
 
   void updateVehicles()
   {
      vehicles.clear();
-     vehicles = GetOptUnblocked::call("vehicles"
-                                    ,*(traCommandController)
-                                    ,*(databaseController) );
+     vehicles = GetOptVehicle::call(*(traCommandController)
+                                   ,*(databaseController) );
   }
 
+  bool validateBusinessRules(QString &err, models::Travel &t) const
+  {
+    if (t.id_cli->value() == 0) {
+      err.append("El Cliente no puede ser vacio");
+      return false;
+    }
+
+    if (t.destiny->id_dri->value() == 0) {
+      err.append("El Conductor no puede ser vacio");
+      return false;
+    }
+
+    if (t.destiny->id_veh->value() == 0) {
+      err.append("El Vehiculo no puede ser vacio");
+      return false;
+    }
+
+    if ( QDateTime::fromString(t.sta_date->value(), Qt::ISODateWithMs)
+         >
+         QDateTime::fromString(t.destiny->arr_date->value(), Qt::ISODateWithMs)
+    ) {
+      err.append("La Fecha de inicio debe ser anterior a la fecha de llegada");
+      return false;
+    }
+
+    return true;
+  }
 
 
   TraCommandController *traCommandController{nullptr};
@@ -170,9 +197,19 @@ void TraCommandController::onCreateTravelSaveExecuted()
   std::cout << "You executed the Save Command!" << std::endl;
 
   QString err = "";
-  bool r = Insert::call(err
-                     , implementation->newTravel->toJson()
-                     ,*(implementation->databaseController) );
+  bool r = implementation->validateBusinessRules(err
+                                                ,*(implementation->newTravel));
+  if (not r) {
+    std::cout << "Error Saving Travel: \n \t" 
+              << "Desc: " << err.toStdString()
+              << std::endl;
+    implementation->newTravel->destiny->err->setValue(err);
+    return;
+  }
+
+  r = Insert::call(err
+                 , implementation->newTravel->toJson()
+                 ,*(implementation->databaseController) );
 
   if (r) {
     std::cout << "New Travel Saved!" << std::endl;
@@ -183,10 +220,15 @@ void TraCommandController::onCreateTravelSaveExecuted()
 
     implementation->travelSearch->searchText()
                   ->setValue( implementation->newTravel->cli->value() );
+
+    implementation->selectedTravel = nullptr;
+
     implementation->travelSearch->search();
     implementation->navigationController->goFindTravelView();
   } else {
-    std::cout << "Error Saving Travel" << std::endl;
+    std::cout << "Error Saving Travel: \n \t" 
+              << "Desc: " << err.toStdString()
+              << std::endl;
     implementation->newTravel->destiny->err->setValue(err);
   }
 }
@@ -238,18 +280,30 @@ void TraCommandController::onEditTravelSaveExecuted()
   std::cout << "You executed the Edit Command!" << std::endl;
 
   QString err = "";
-  bool r = UpdateById::call( err
-                          ,  implementation->selectedTravel->toJson()
-                          ,*(implementation->databaseController) );
+  bool r = implementation->validateBusinessRules(err
+                                          ,*(implementation->selectedTravel));
+  if (not r) {
+    std::cout << "Error Saving Travel: \n \t" 
+              << "Desc: " << err.toStdString()
+              << std::endl;
+    implementation->selectedTravel->destiny->err->setValue(err);
+    return;
+  }
+
+   r = UpdateById::call( err
+                      ,  implementation->selectedTravel->toJson()
+                      ,*(implementation->databaseController) );
 
   if ( r ) {
     std::cout << "Travel Updated"     << std::endl;
     implementation->travelSearch->searchText()
-                  ->setValue( implementation->selectedTravel->reference->value() );
+                  ->setValue( implementation->selectedTravel->cli->value() );
     implementation->travelSearch->search();
     implementation->navigationController->goFindTravelView();
   } else {
-    std::cout << "Travel NOT Updated" << std::endl;
+    std::cout << "Error Updating Travel: \n \t" 
+              << "Desc: " << err.toStdString()
+              << std::endl;
     implementation->selectedTravel->destiny->err->setValue(err);
   }
 }

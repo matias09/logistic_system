@@ -1,40 +1,41 @@
-#ifndef GET_OPT_UNBLOCKED_H
-#define GET_OPT_UNBLOCKED_H
+#ifndef GET_OPT_DRIVER_H
+#define GET_OPT_DRIVER_H
 
 #include <controllers/databasecontroller.h>
 #include <controllers/tracommandcontroller.h>
 #include <data/combooption.h>
 
 #include <QList>
+#include <QDateTime>
 
 #include <lg-lib_global.h>
 
 namespace lg {
 namespace controllers {
 
-class LGLIBSHARED_EXPORT TraCommandController::GetOptUnblocked
+class LGLIBSHARED_EXPORT TraCommandController::GetOptDriver
 {
 public:
   static QList<data::ComboOption*> call(
-      const QString &table
-     ,QObject &parent
+      QObject &parent
      ,const controllers::DatabaseController &db)
-  { return GetOptUnblocked().exec(table, parent, db); }
+  { return GetOptDriver().exec(parent, db); }
 
 private:
   QList<data::ComboOption*> exec(
-      const QString &table
-     ,QObject &parent
+      QObject &parent
      ,const controllers::DatabaseController &db)
   {
     const unsigned int unblock_value = 0;
 
     QString sqlStm = "SELECT id, name             "
-                     "  FROM  " + table +
-                     " WHERE blocked = :blocked ";
+                     "  FROM drivers " 
+                     " WHERE blocked = :blocked "
+                     "   AND lic_caducity_date > :current_date ";
 
     std::map<QString, QVariant> binds {
       std::pair<QString, QVariant>( ":blocked", unblock_value)
+     ,std::pair<QString, QVariant>( ":current_date", QDateTime::currentDateTime())
     };
 
     QSqlQuery&& query = db.search(sqlStm, binds);
@@ -52,12 +53,12 @@ private:
     return cl;
   }
 
-  GetOptUnblocked() = default;
-  GetOptUnblocked(const GetOptUnblocked&) = delete;
-  GetOptUnblocked& operator =(const GetOptUnblocked&) = delete;
+  GetOptDriver() = default;
+  GetOptDriver(const GetOptDriver&) = delete;
+  GetOptDriver& operator =(const GetOptDriver&) = delete;
 
-  GetOptUnblocked(const GetOptUnblocked&&) = delete;
-  ~GetOptUnblocked() = default;
+  GetOptDriver(const GetOptDriver&&) = delete;
+  ~GetOptDriver() = default;
 };
 
 } // controller

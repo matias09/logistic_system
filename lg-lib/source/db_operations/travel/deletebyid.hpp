@@ -26,7 +26,7 @@ private:
 
     QSqlDatabase::database().transaction();
 
-    if ( cancelTravel(id)
+    if ( not cancelTravel(id)
       || not unblockDriver()
       || not unblockVehicle()
    ) {
@@ -56,7 +56,7 @@ private:
     QString sqlStm = "UPDATE drivers SET blocked = :blocked WHERE  id = :id ";
 
     std::map<QString, QVariant> binds;
-    binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_dri_o"].toInt())) );
+    binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_dri"].toInt())) );
     binds.insert(Burden(":blocked", blocked) );
 
     return  db_.update(sqlStm, binds);
@@ -68,7 +68,7 @@ private:
     QString sqlStm = "UPDATE vehicles SET blocked = :blocked WHERE  id = :id ";
 
     std::map<QString, QVariant> binds;
-    binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_veh_o"].toInt())) );
+    binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_veh"].toInt())) );
     binds.insert(Burden(":blocked", blocked) );
 
     return  db_.update(sqlStm, binds);

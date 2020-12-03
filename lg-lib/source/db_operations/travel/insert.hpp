@@ -29,7 +29,9 @@ private:
 
     QSqlDatabase::database().transaction();
 
-    if ( not insertTravel()
+    if ( not blockDriver()
+      || not blockVehicle()
+      || not insertTravel()
       || not insertDestinations()
       || not insertDestinationsAssociation()
     ) {

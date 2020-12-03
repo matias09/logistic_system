@@ -62,6 +62,8 @@ SOURCES += \
         source/db_operations/vehicle/insert.hpp                             \
         source/db_operations/vehicle/deletebyid.hpp                         \
         source/db_operations/travel/findbyclientname.hpp                    \
+        source/db_operations/travel/getoptdrivers.hpp                       \
+        source/db_operations/travel/getoptvehicles.hpp                      \
         source/db_operations/travel/updatebyid.hpp                          \
         source/db_operations/travel/insert.hpp                              \
         source/db_operations/travel/deletebyid.hpp

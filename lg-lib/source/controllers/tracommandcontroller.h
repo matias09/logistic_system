@@ -81,7 +81,8 @@ public slots:
   class UpdateById;
   class DeleteById;
 
-  class GetOptUnblocked;
+  class GetOptDriver;
+  class GetOptVehicle;
 };
 
 } // controllers
