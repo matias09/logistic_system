@@ -180,7 +180,7 @@ VALUES (1, "client_3", "33445566", "33333333333333",
 INSERT INTO drivers ( id_state, name,  lic_nro, lic_caducity_date, phone
                      ,cellphone, mail, street, house_nro, post_code)
 VALUES (1, "driver_1", "1", 
-        date('now', 'start of month', '+1 month'), "11223344", "11111111111111",
+        date('now', 'start of month', '-1 month'), "11223344", "11111111111111",
         "driver_1@domain.com", "street_1", "0001", "1111");
 
 INSERT INTO drivers ( id_state, name,  lic_nro, lic_caducity_date, phone
@@ -242,7 +242,7 @@ INSERT INTO vehicle_types (name) VALUES ("avion");
 INSERT INTO vehicles (
   id_type_vehicle, id_model, name, max_weight, vin, vin_cad_date, year)
 VALUES ( 3, 1, "auto_1", 200, 112233, 
-        date('now', 'start of month', '+1 month'), "2001");
+        date('now', 'start of month', '-1 month'), "2001");
 
 INSERT INTO vehicles (
   id_type_vehicle, id_model, name, max_weight, vin, vin_cad_date, year)
