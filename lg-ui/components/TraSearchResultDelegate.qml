@@ -54,28 +54,15 @@ Item {
         }
 
         Text {
-          id: textFullAddress
+          id: textDriver
           anchors {
             top:   textClient.bottom
             left:  parent.left
 
             rightMargin: Style.heightDataControls / 4
           }
-          text:  "Direccion Completa: " + travel.ui_destiny.ui_address.ui_fullAddress
-          font.pixelSize: Style.pixelSizeDataControls
-          color: Style.colourPanelFont
-        }
-
-        Text {
-          id: textState
-          anchors {
-            top:   textFullAddress.bottom
-            left:  parent.left
-
-            rightMargin: Style.heightDataControls / 4
-          }
-          text:   travel.ui_destiny.ui_address.ui_state.ui_label + ": "
-                + travel.ui_destiny.ui_address.ui_state.ui_value
+          text:   travel.ui_destiny.ui_dri.ui_label + ": "
+                + travel.ui_destiny.ui_dri.ui_value
           font.pixelSize: Style.pixelSizeDataControls
           color: Style.colourPanelFont
         }
@@ -88,28 +75,69 @@ Item {
 
             rightMargin: Style.heightDataControls / 4
           }
-          text:   travel.ui_destiny.ui_id_veh.ui_label + ": "
-                + travel.ui_destiny.ui_id_veh.ui_value
+          text:   travel.ui_destiny.ui_veh.ui_label + ": "
+                + travel.ui_destiny.ui_veh.ui_value
           font.pixelSize: Style.pixelSizeDataControls
           color: Style.colourPanelFont
         }
 
 
-      Text {
-        id: textAddress
-        anchors {
-          top:   textId.top
-          right: parent.right
+        Text {
+          id: textFullAddress
+          anchors {
+            top:   textId.top
+            right: parent.right
 
-          rightMargin: Style.heightDataControls / 4
+            rightMargin: Style.heightDataControls / 4
+          }
+          text: "Direccion completa: "
+                + travel.ui_destiny.ui_address.ui_fullAddress
+          font.pixelSize: Style.pixelSizeDataControls
+          color: Style.colourPanelFont
+          horizontalAlignment: Text.AlignRight
         }
-        text: "Direccion completa: "
-              + travel.ui_destiny.ui_address.ui_fullAddress
-        font.pixelSize: Style.pixelSizeDataControls
-        color: Style.colourPanelFont
-        horizontalAlignment: Text.AlignRight
-      }
 
+        Text {
+          id: textState
+          anchors {
+            top:   textFullAddress.bottom
+            right: parent.right
+
+            rightMargin: Style.heightDataControls / 4
+          }
+          text:   travel.ui_destiny.ui_address.ui_state.ui_label + ": "
+                + travel.ui_destiny.ui_address.ui_state.ui_value
+          font.pixelSize: Style.pixelSizeDataControls
+          color: Style.colourPanelFont
+        }
+
+        Text {
+          id: textStaDate
+          anchors {
+            top:   textState.bottom
+            right: parent.right
+
+            rightMargin: Style.heightDataControls / 4
+          }
+          text:   travel.ui_sta_date.ui_label + ": "
+                + travel.ui_sta_date.ui_value
+          font.pixelSize: Style.pixelSizeDataControls
+          color: Style.colourPanelFont
+        }
+
+        Text {
+          id: textArrDate
+          anchors {
+            top:   textStaDate.bottom
+            right: parent.right
+
+            rightMargin: Style.heightDataControls / 4
+          }
+          text:   travel.ui_destiny.ui_arr_date.ui_label + ": "
+                + travel.ui_destiny.ui_arr_date.ui_value
+          font.pixelSize: Style.pixelSizeDataControls
+          color: Style.colourPanelFont
+        }
 
 
       }
