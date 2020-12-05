@@ -68,6 +68,10 @@ Item {
                   onClicked: {
                     selectedTravel.ui_ended.ui_value = !selectedTravel.ui_ended.ui_value
                   }
+
+                  Component.onCompleted: {
+                    enabled = ! selectedTravel.ui_ended.ui_value
+                  }
                 }
               }
 
