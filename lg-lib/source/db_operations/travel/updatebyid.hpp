@@ -36,23 +36,32 @@ private:
       return false;
     }
 
-    unsigned int cid = jo_["destiny"]["id_dri"].toInt();
-    unsigned int oid = jo_["destiny"]["id_dri_o"].toInt();
+    const unsigned int ended_travel = 1;
 
-    if ( cid != oid ) {
-      if ( not unblockDriver() || not blockDriver() ) {
+    if (jo_["ended"].toInt() == ended_travel) {
+      if ( not unblockDriver() || not unblockVehicle() ) {
         QSqlDatabase::database().rollback();
         return false;
       }
-    }
+    } else {
+      unsigned int cid = jo_["destiny"]["id_dri"].toInt();
+      unsigned int oid = jo_["destiny"]["id_dri_o"].toInt();
 
-    cid = jo_["destiny"]["id_veh"].toInt();
-    oid = jo_["destiny"]["id_veh_o"].toInt();
+      if ( cid != oid ) {
+        if ( not unblockDriver() || not blockDriver() ) {
+          QSqlDatabase::database().rollback();
+          return false;
+        }
+      }
 
-    if ( cid != oid ) {
-      if ( not unblockVehicle() || not blockVehicle() ) {
-        QSqlDatabase::database().rollback();
-        return false;
+      cid = jo_["destiny"]["id_veh"].toInt();
+      oid = jo_["destiny"]["id_veh_o"].toInt();
+
+      if ( cid != oid ) {
+        if ( not unblockVehicle() || not blockVehicle() ) {
+          QSqlDatabase::database().rollback();
+          return false;
+        }
       }
     }
 
