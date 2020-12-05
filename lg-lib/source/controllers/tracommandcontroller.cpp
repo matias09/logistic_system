@@ -200,7 +200,7 @@ void TraCommandController::onCreateTravelSaveExecuted()
   bool r = implementation->validateBusinessRules(err
                                                 ,*(implementation->newTravel));
   if (not r) {
-    std::cout << "Error Saving Travel: \n \t" 
+    std::cout << "Error Saving Travel: \n \t"
               << "Desc: " << err.toStdString()
               << std::endl;
     implementation->newTravel->destiny->err->setValue(err);
@@ -226,7 +226,7 @@ void TraCommandController::onCreateTravelSaveExecuted()
     implementation->travelSearch->search();
     implementation->navigationController->goFindTravelView();
   } else {
-    std::cout << "Error Saving Travel: \n \t" 
+    std::cout << "Error Saving Travel: \n \t"
               << "Desc: " << err.toStdString()
               << std::endl;
     implementation->newTravel->destiny->err->setValue(err);
@@ -283,7 +283,7 @@ void TraCommandController::onEditTravelSaveExecuted()
   bool r = implementation->validateBusinessRules(err
                                           ,*(implementation->selectedTravel));
   if (not r) {
-    std::cout << "Error Saving Travel: \n \t" 
+    std::cout << "Error Saving Travel: \n \t"
               << "Desc: " << err.toStdString()
               << std::endl;
     implementation->selectedTravel->destiny->err->setValue(err);
@@ -301,7 +301,7 @@ void TraCommandController::onEditTravelSaveExecuted()
     implementation->travelSearch->search();
     implementation->navigationController->goFindTravelView();
   } else {
-    std::cout << "Error Updating Travel: \n \t" 
+    std::cout << "Error Updating Travel: \n \t"
               << "Desc: " << err.toStdString()
               << std::endl;
     implementation->selectedTravel->destiny->err->setValue(err);

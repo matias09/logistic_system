@@ -14,10 +14,10 @@ Destination::Destination(QObject *parent)
       new StringDecorator(this, "reference", "Referencia del Destino") ));
 
   id_dri = static_cast<IntDecorator*>(addDataItem(
-      new IntDecorator(this, "id_dri", "Ref. Chofer") ));
+      new IntDecorator(this, "id_dri", "Chofer") ));
 
   id_veh = static_cast<IntDecorator*>(addDataItem(
-      new IntDecorator(this, "id_veh", "Ref. Vehiculo") ));
+      new IntDecorator(this, "id_veh", "Vehiculo") ));
 
   id_dri_o = static_cast<IntDecorator*>(addDataItem(
       new IntDecorator(this, "id_dri_o", "") ));
@@ -59,6 +59,7 @@ void Destination::reset()
 
   dri->setValue("");
   veh->setValue("");
+  err->setValue("");
 
   arr_date->setValue(QDateTime::currentDateTime().toString());
 
