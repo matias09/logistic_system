@@ -27,6 +27,8 @@ private:
   {
     if ( jo_.isEmpty() ) return false;
 
+    if ( clientChooseActiveRepeatedDates() ) return false;
+
     QSqlDatabase::database().transaction();
 
     if ( not blockDriver()
@@ -43,6 +45,50 @@ private:
 
     QSqlDatabase::database().commit();
     return true;
+  }
+
+  bool clientChooseActiveRepeatedDates() const
+  {
+    QString sqlStm =
+      "SELECT 1  "
+      "  FROM travels t "
+      " INNER JOIN travels_destinations td ON (td.id_travel = t.id) "
+      " INNER JOIN destinations d ON (d.id = td.id_destination) "
+      " WHERE t.id_client    = :id_cli "
+      "   AND t.ended        = :ended "
+      "   AND t.canceled     = :canceled "
+      "   AND t.sta_date     = :sta_date "
+      "   AND d.arrival_date = :arr_date "
+      "   AND d.id_state     = :id_state "
+      "   AND d.street       = :street    "
+      "   AND d.house_nro    = :house_nro "
+      "   AND d.post_code    = :post_code ";
+
+    std::map<QString, QVariant> binds;
+    binds.insert(Burden(":id_cli",    QVariant(jo_["id_cli"].toInt())) );
+    binds.insert(Burden(":canceled",  QVariant(jo_["canceled"].toInt())) );
+    binds.insert(Burden(":sta_date",  QVariant(jo_["sta_date"])) );
+    binds.insert(Burden(":ended",     QVariant(jo_["ended"])) );
+    binds.insert(Burden(":arr_date",  QVariant(jo_["destiny"]["arr_date"]) ));
+
+    binds.insert(Burden(":id_state",
+          QVariant(jo_["destiny"]["address"]["id_state"].toInt())) );
+    binds.insert(Burden(":street",
+          QVariant(jo_["destiny"]["address"]["street"])) );
+    binds.insert(Burden(":house_nro",
+          QVariant(jo_["destiny"]["address"]["house_nro"]) ));
+    binds.insert(Burden(":post_code",
+          QVariant(jo_["destiny"]["address"]["postcode"]) ));
+
+    QSqlQuery&& query = db_.search(sqlStm, binds);
+
+    if ( query.next() ) {
+      err_.append("El cliente no puede tener dos viaje en el mismo \
+                    rango de fechas");
+      return true;
+    }
+
+    return false;
   }
 
   bool insertTravel() const
