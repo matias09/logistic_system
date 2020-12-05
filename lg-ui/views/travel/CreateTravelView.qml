@@ -208,6 +208,11 @@ Item {
 
                     onClicked: {
                       newTravel.ui_sta_date.ui_value = selectedDate
+                      staCalEnable.checked = false
+                    }
+
+                    Component.onCompleted: {
+                      newTravel.ui_sta_date.ui_value = selectedDate
                     }
                 }
               }
@@ -238,10 +243,16 @@ Item {
                 }
                 Calendar {
                     visible: arrCalEnable.checked
+
                     minimumDate: new Date(2020, 0, 1)
                     maximumDate: new Date(2025, 0, 1)
 
                     onClicked: {
+                      newTravel.ui_destiny.ui_arr_date.ui_value = selectedDate
+                      arrCalEnable.checked = false
+                    }
+
+                    Component.onCompleted: {
                       newTravel.ui_destiny.ui_arr_date.ui_value = selectedDate
                     }
                 }
@@ -259,35 +270,35 @@ Item {
         }
       }
 
-        AddressEditor {
-          address: newTravel.ui_destiny.ui_address
-          headerText: "Direccion de Destino"
+      AddressEditor {
+        address: newTravel.ui_destiny.ui_address
+        headerText: "Direccion de Destino"
+      }
+
+      Rectangle {
+        id: recErr
+        visible: (newTravel.ui_destiny.ui_err.ui_value !== "")
+                  ? true : false;
+
+        anchors {
+          left: parent.left
+          right: parent.right
         }
 
-        Rectangle {
-          id: recErr
-          visible: (newTravel.ui_destiny.ui_err.ui_value !== "")
-                    ? true : false;
+        width: Style.widthDataControls
+        height: Style.heightDataControls
+        color: "#ca4949"
 
-          anchors {
-            left: parent.left
-            right: parent.right
-          }
+        Text {
+            id: errMessages
 
-          width: Style.widthDataControls
-          height: Style.heightDataControls
-          color: "#ca4949"
+            anchors.fill: parent
+            verticalAlignment: Text.AlignVCenter
 
-          Text {
-              id: errMessages
-
-              anchors.fill: parent
-              verticalAlignment: Text.AlignVCenter
-
-              text: newTravel.ui_destiny.ui_err.ui_value
-              font.bold: true
-              color: "#444444"
-          }
+            text: newTravel.ui_destiny.ui_err.ui_value
+            font.bold: true
+            color: "#444444"
+        }
       }
     }
 

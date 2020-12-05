@@ -293,11 +293,16 @@ Item {
               minimumDate: new Date(2020, 0, 1)
               maximumDate: new Date(2025, 0, 1)
 
+              selectedDate: selectedTravel.ui_sta_date.ui_value
+
               onClicked: {
                 selectedTravel.ui_sta_date.ui_value = selectedDate
+                staCalEnable.checked = false
               }
 
-              selectedDate: selectedTravel.ui_sta_date.ui_value
+              Component.onCompleted: {
+                selectedTravel.ui_sta_date.ui_value = selectedDate
+              }
             }
           }
 
@@ -332,11 +337,16 @@ Item {
               visible: arrCalEnable.checked
               minimumDate: new Date(2020, 0, 1)
               maximumDate: new Date(2025, 0, 1)
+              selectedDate: selectedTravel.ui_destiny.ui_arr_date.ui_value
 
               onClicked: {
                 selectedTravel.ui_destiny.ui_arr_date.ui_value = selectedDate
+                arrCalEnable.checked = false
               }
-              selectedDate: selectedTravel.ui_destiny.ui_arr_date.ui_value
+
+              Component.onCompleted: {
+                selectedTravel.ui_destiny.ui_arr_date.ui_value = selectedDate
+              }
             }
           }
 
@@ -347,42 +357,41 @@ Item {
           }
 
         }
-
-        Rectangle {
-          id: recErr
-          visible: (selectedTravel.ui_destiny.ui_err.ui_value !== "")
-                    ? true : false;
-
-          anchors {
-            left: parent.left
-            right: parent.right
-          }
-
-          width: Style.widthDataControls
-          height: Style.heightDataControls
-          color: "#ca4949"
-
-          Text {
-              id: errMessages
-
-              anchors.fill: parent
-              verticalAlignment: Text.AlignVCenter
-
-              text: selectedTravel.ui_destiny.ui_err.ui_value
-              font.bold: true
-              color: "#444444"
-          }
-        }
-
       }
     }
 
-      AddressEditor {
-        address: selectedTravel.ui_destiny.ui_address
-        headerText: "Direccion de Destino"
-        enabled:  ( !selectedTravel.ui_canceled.ui_value
-                 && !selectedTravel.ui_ended.ui_value ) ? true : false
+    AddressEditor {
+      address: selectedTravel.ui_destiny.ui_address
+      headerText: "Direccion de Destino"
+      enabled:  ( !selectedTravel.ui_canceled.ui_value
+               && !selectedTravel.ui_ended.ui_value ) ? true : false
+    }
+
+    Rectangle {
+      id: recErr
+      visible: (selectedTravel.ui_destiny.ui_err.ui_value !== "")
+                ? true : false;
+
+      anchors {
+        left: parent.left
+        right: parent.right
       }
+
+      width: Style.widthDataControls
+      height: Style.heightDataControls
+      color: "#ca4949"
+
+      Text {
+          id: errMessages
+
+          anchors.fill: parent
+          verticalAlignment: Text.AlignVCenter
+
+          text: selectedTravel.ui_destiny.ui_err.ui_value
+          font.bold: true
+          color: "#444444"
+      }
+    }
   }
 
   CommandBar {
