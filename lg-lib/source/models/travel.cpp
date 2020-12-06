@@ -25,14 +25,15 @@ Travel::Travel(QObject *parent)
   cli = static_cast<StringDecorator*>(addDataItem(
       new StringDecorator(this, "cli", "Cliente") ));
 
-  sta_date = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "sta_date", "Fecha de Inicio/Salida") ));
-  sta_date->setValue(QDateTime::currentDateTime().toString());
+  sta_date = static_cast<DateTimeDecorator*>(addDataItem(
+      new DateTimeDecorator(this, "sta_date", "Fecha de Inicio/Salida") ));
 
   destiny = static_cast<Destination*>(
       addChild( new Destination(this), "destiny") );
 
   setPrimaryKey(reference);
+
+  reset();
 }
 
 Travel::Travel(QObject *parent, const QJsonObject &json)
@@ -47,7 +48,8 @@ void Travel::reset()
   canceled->setValue(0);
   ended->setValue(0);
   id_cli->setValue(0);
-  sta_date->setValue(QDateTime::currentDateTime().toString());
+
+  sta_date->setValue(QDateTime::currentDateTime());
 
   destiny->reset();
 }

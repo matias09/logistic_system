@@ -31,9 +31,8 @@ Destination::Destination(QObject *parent)
   veh = static_cast<StringDecorator*>(addDataItem(
       new StringDecorator(this, "veh", "Vehiculo") ));
 
-  arr_date = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "arr_date", "Fecha de Entrega") ));
-  arr_date->setValue(QDateTime::currentDateTime().toString());
+  arr_date = static_cast<DateTimeDecorator*>(addDataItem(
+      new DateTimeDecorator(this, "arr_date", "Fecha de Entrega") ));
 
   address = static_cast<Address*>( addChild(new Address(this), "address") );
 
@@ -42,6 +41,8 @@ Destination::Destination(QObject *parent)
   ) );
 
   setPrimaryKey(reference);
+
+  reset();
 }
 
 Destination::Destination(QObject *parent, const QJsonObject &json)
@@ -61,7 +62,7 @@ void Destination::reset()
   veh->setValue("");
   err->setValue("");
 
-  arr_date->setValue(QDateTime::currentDateTime().toString());
+  arr_date->setValue(QDateTime::currentDateTime());
 
   address->reset();
 }

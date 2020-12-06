@@ -7,6 +7,7 @@
 
 #include <data/entity.h>
 #include <data/entitycollection.h>
+#include <data/datetimedecorator.h>
 
 #include <models/address.h>
 
@@ -26,7 +27,7 @@ class LGLIBSHARED_EXPORT Destination : public data::Entity
   Q_PROPERTY(lg::data::StringDecorator* ui_dri    MEMBER dri     CONSTANT)
   Q_PROPERTY(lg::data::StringDecorator* ui_veh    MEMBER veh     CONSTANT)
 
-  Q_PROPERTY(lg::data::StringDecorator* ui_arr_date MEMBER arr_date   CONSTANT)
+  Q_PROPERTY(lg::data::DateTimeDecorator* ui_arr_date MEMBER arr_date CONSTANT)
 
   Q_PROPERTY(lg::models::Address* ui_address MEMBER address CONSTANT)
 
@@ -47,7 +48,7 @@ public:
   data::StringDecorator *dri{nullptr};
   data::StringDecorator *veh{nullptr};
 
-  data::StringDecorator *arr_date{nullptr};
+  data::DateTimeDecorator *arr_date{nullptr};
 
   data::StringDecorator *err{nullptr};
 
