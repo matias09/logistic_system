@@ -2,14 +2,14 @@
 /database/*.swp
 documentation/*.swp
 /lg-lib/build/
-lg\.pro\.user
+/lg-lib/*.vim
+/lg-ui/*.vim
 !documentation/
 !database/
 !lg-ui/
 !lg-lib/
 !lg.pro
 !qmake-target-platform.pri
-!lg.pro.user
 !qmake-destination-path.pri
 !.gitignore
 !CMakeLists.txt
