@@ -26,7 +26,6 @@ private:
   bool exec() const
   {
     if ( jo_.isEmpty() ) return false;
-
     if ( clientChooseActiveRepeatedDates() ) return false;
 
     QSqlDatabase::database().transaction();
@@ -69,7 +68,7 @@ private:
     binds.insert(Burden(":canceled",  QVariant(jo_["canceled"].toInt())) );
     binds.insert(Burden(":ended",     QVariant(jo_["ended"].toInt())) );
     binds.insert(Burden(":sta_date",  QVariant(jo_["sta_date"].toString())) );
-    binds.insert(Burden(":arr_date",  
+    binds.insert(Burden(":arr_date",
           QVariant(jo_["destiny"]["arr_date"].toString()) ));
 
     binds.insert(Burden(":id_state",
@@ -84,7 +83,7 @@ private:
     QSqlQuery&& query = db_.search(sqlStm, binds);
 
     if ( query.next() ) {
-      err_.append("El cliente no puede tener dos viaje en el mismo " 
+      err_.append("El cliente no puede tener dos viaje en el mismo "
                   "rango de fechas");
       return true;
     }

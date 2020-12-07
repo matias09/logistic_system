@@ -287,7 +287,6 @@ void TraCommandController::onEditTravelSaveExecuted()
               << "Desc: " << err.toStdString()
               << std::endl;
     implementation->selectedTravel->destiny->err->setValue(err);
-    implementation->travelSearch->search();
     return;
   }
 
