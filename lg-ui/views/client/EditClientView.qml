@@ -76,32 +76,36 @@ Item {
           }
 
 
-          AddressEditor {
-            address: selectedClient.ui_clientAddress
-            headerText: "Datos de Direccion"
+        AddressEditor {
+          address: selectedClient.ui_clientAddress
+          headerText: "Datos de Direccion"
+        }
+
+        Rectangle {
+          id: recErr
+          visible: (selectedClient.ui_err.ui_value !== "")
+                    ? true : false;
+
+          anchors {
+            left: parent.left
+            right: parent.right
           }
 
-          Rectangle {
-              visible: selectedClient.ui_err_visible.ui_value
+          width: Style.widthDataControls
+          height: Style.heightDataControls
+          color: "#ca4949"
 
-              width: Style.widthDataControls
-              height: Style.heightDataControls
+          Text {
+              id: errMessages
 
-                anchors {
-                  left: parent.left
-                  right: parent.right
-                }
+              anchors.fill: parent
+              verticalAlignment: Text.AlignVCenter
 
-              //color: "#eeeeee"
-                color: selectedClient.ui_err_color.ui_value
-
-
-              Text {
-                  id: errMessages
-                  text: selectedClient.ui_err.ui_value
-                  color: "#000000"
-              }
+              text: selectedClient.ui_err.ui_value
+              font.bold: true
+              color: "#444444"
           }
+        }
       }
 
   CommandBar {
