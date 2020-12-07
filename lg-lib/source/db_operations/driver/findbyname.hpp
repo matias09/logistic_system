@@ -29,11 +29,12 @@ private:
   {
     if ( searchText.isEmpty() ) return false;
 
-    QString sqlStm = "SELECT id, name, phone, lic_nro, lic_caducity_date, "
-                           " cellphone, mail, street, "
-                           " house_nro, post_code, id_state "
-                         "  FROM drivers "
-                         " WHERE LOWER(name) LIKE :searchText" ;
+    QString sqlStm =
+      "SELECT id, name, phone, lic_nro, lic_caducity_date "
+      " ,cellphone, mail, street "
+      " ,house_nro, post_code, id_state "
+      "  FROM drivers "
+      " WHERE LOWER(name) LIKE :searchText" ;
 
     std::map<QString, QVariant> binds;
     binds.insert(std::pair<QString, QVariant>(

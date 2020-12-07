@@ -124,7 +124,10 @@ public:
       return false;
     }
 
-    if ( t.sta_date->value() > t.destiny->arr_date->value() ) {
+    if (QDateTime::fromString(t.sta_date->value(), Qt::ISODateWithMs)
+        >
+        QDateTime::fromString(t.destiny->arr_date->value(), Qt::ISODateWithMs) )
+    {
       err.append("La Fecha de inicio debe ser anterior a la fecha de llegada");
       return false;
     }
@@ -284,6 +287,7 @@ void TraCommandController::onEditTravelSaveExecuted()
               << "Desc: " << err.toStdString()
               << std::endl;
     implementation->selectedTravel->destiny->err->setValue(err);
+    implementation->travelSearch->search();
     return;
   }
 

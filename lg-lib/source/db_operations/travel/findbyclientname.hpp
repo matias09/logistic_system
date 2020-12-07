@@ -30,10 +30,8 @@ private:
     if ( searchText.isEmpty() ) return false;
 
     QString sqlStm =
-         " SELECT t.id, t.id_client "
-         "    ,STRFTIME('%Y-%m-%d', t.sta_date) "
-         "    ,d.id ,d.id_driver, d.id_vehicle  "
-         "    ,STRFTIME('%Y-%m-%d', d.arrival_date) "
+         " SELECT t.id, t.id_client, t.sta_date "
+         "    ,d.id ,d.id_driver, d.id_vehicle, d.arrival_date "
          "    ,d.street, d.house_nro, d.post_code, c.name, d.id_state, s.name "
          "    ,dr.name, v.name, t.ended, t.canceled "
          "  FROM travels t "
