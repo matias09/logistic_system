@@ -13,32 +13,22 @@ Client::Client(QObject *parent)
   ) );
 
   name = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "name", "Nombre")
-  ) );
-
+      new StringDecorator(this, "name", "Nombre")) );
 
   phone = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "phone", "Telefono")
-  ) );
-
+      new StringDecorator(this, "phone", "Telefono")) );
 
   cellphone = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "cellphone", "Celular")
-  ) );
-
+      new StringDecorator(this, "cellphone", "Celular")) );
 
   mail = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "mail", "E-Mail")
-  ) );
+      new StringDecorator(this, "mail", "E-Mail")) );
 
-  clientAddress = static_cast<Address*>(addChild(new Address(this), "address")  );
+  clientAddress = static_cast<Address*>(addChild(
+      new Address(this), "address")  );
 
-
-  err = static_cast<StringDecorator*>(addDataItem(new StringDecorator(this, "error", ""))  );
-
-  err_color = static_cast<StringDecorator*>(addDataItem(new StringDecorator(this, "error_color", ""))  );
-
-  err_visible = static_cast<StringDecorator*>(addDataItem(new StringDecorator(this, "error_visible", ""))  );
+  err = static_cast<StringDecorator*>(addDataItem(
+      new StringDecorator(this, "error", ""))  );
 
   setPrimaryKey(reference);
 }
@@ -47,6 +37,19 @@ Client::Client(QObject *parent, const QJsonObject &json)
   : Client(parent)
 {
   update(json);
+}
+
+void Client::reset()
+{
+  reference->setValue(0);
+
+  name->setValue("");
+  phone ->setValue("");
+  cellphone->setValue("");
+  mail->setValue("");
+  err->setValue("");
+
+  clientAddress->reset();
 }
 
 }

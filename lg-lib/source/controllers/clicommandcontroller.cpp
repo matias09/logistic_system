@@ -171,18 +171,19 @@ void CliCommandController::onEditClientSaveExecuted()
 {
   std::cout << "You executed the Edit Command!" << std::endl;
 
-  implementation->selectedClient->err->setValue("Error 1");
-  implementation->selectedClient->err_color->setValue("#ff0000");
-  implementation->selectedClient->err_visible->setValue("true");
-
-  return;
-
   bool r = UpdateById::call( implementation->selectedClient->toJson()
                           ,  implementation->selectedClient->id()
                           ,*(implementation->databaseController) );
 
   if ( r ) {
     std::cout << "Client Updated"     << std::endl;
+    implementation->clientSearch->searchText()
+                  ->setValue( implementation->selectedClient->name->value() );
+
+    implementation->selectedClient->reset();
+
+    implementation->clientSearch->search();
+    implementation->navigationController->goFindClientView();
   } else {
     std::cout << "Client NOT Updated" << std::endl;
   }
@@ -200,15 +201,22 @@ CliCommandController::ui_deleteClientViewContextCommands()
 void CliCommandController::onEditClientDeleteExecuted()
 {
   std::cout << "You executed the Delete Command!" << std::endl;
-  DeleteById::call( implementation->selectedClient->id()
-                   ,*(implementation->databaseController) );
 
-  implementation->selectedClient = nullptr;
+  QString err = "";
+  bool r = DeleteById::call( err
+                          ,  implementation->selectedClient->id()
+                          ,*(implementation->databaseController) );
+  if ( r ) {
+    std::cout << "Client deleted" << std::endl;
 
-  std::cout << "Client deleted" << std::endl;
+    implementation->selectedClient = nullptr;
 
-  implementation->clientSearch->search();
-  implementation->navigationController->goDashboardView();
+    implementation->clientSearch->search();
+    implementation->navigationController->goDashboardView();
+  } else {
+    std::cout << "Client NOT Erased" << std::endl;
+    implementation->selectedClient->err->setValue(err);
+  }
 }
 
 } // constrollers

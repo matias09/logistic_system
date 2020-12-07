@@ -27,9 +27,7 @@ class LGLIBSHARED_EXPORT Client : public data::Entity
 
   Q_PROPERTY(lg::models::Address* ui_clientAddress MEMBER clientAddress CONSTANT)
 
-  Q_PROPERTY(lg::data::StringDecorator* ui_err         MEMBER err         CONSTANT)
-  Q_PROPERTY(lg::data::StringDecorator* ui_err_color   MEMBER err_color   CONSTANT)
-  Q_PROPERTY(lg::data::StringDecorator* ui_err_visible MEMBER err_visible CONSTANT)
+  Q_PROPERTY(lg::data::StringDecorator* ui_err  MEMBER err  CONSTANT)
 
 public:
   explicit Client(QObject *parent = nullptr);
@@ -44,8 +42,8 @@ public:
   Address *clientAddress{nullptr};
 
   data::StringDecorator *err{nullptr};
-  data::StringDecorator *err_color{nullptr};
-  data::StringDecorator *err_visible{nullptr};
+
+  void reset();
 
 signals:
   void appointmentsChanged();
