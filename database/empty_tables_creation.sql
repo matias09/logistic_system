@@ -179,20 +179,23 @@ VALUES (1, "client_3", "33445566", "33333333333333",
 ----------------------------------------------------------------------
 INSERT INTO drivers ( id_state, name,  lic_nro, lic_caducity_date, phone
                      ,cellphone, mail, street, house_nro, post_code)
-VALUES (1, "driver_1", "1", 
-        date('now', 'start of month', '-1 month'), "11223344", "11111111111111",
+VALUES (1, "driver_1", "1" 
+        , strftime('%Y-%m-%dT12:%M:%f', 'now', 'start of month', '-1 month')
+        , "11223344", "11111111111111",
         "driver_1@domain.com", "street_1", "0001", "1111");
 
 INSERT INTO drivers ( id_state, name,  lic_nro, lic_caducity_date, phone
                      ,cellphone, mail, street, house_nro, post_code)
-VALUES (1, "driver_2", "2", 
-        date('now', 'start of month', '+2 month'), "22334455", "22222222222222",
+VALUES (1, "driver_2", "2" 
+        , strftime('%Y-%m-%dT12:%M:%f', 'now', 'start of month')
+        , "22334455", "22222222222222",
         "driver_2@gmail.com", "street_2", "0002", "2222");
 
 INSERT INTO drivers ( id_state, name,  lic_nro, lic_caducity_date, phone
                      ,cellphone, mail, street, house_nro, post_code)
-VALUES (1, "driver_3", "3", 
-        date('now', 'start of month', '+3 month'), "33445566", "33333333333333",
+VALUES (1, "driver_3", "3" 
+        , strftime('%Y-%m-%dT12:%M:%f', 'now', 'start of month', '+1 month')
+        , "33445566", "33333333333333",
         "driver_3@gmail.com", "street_3", "0003", "3333");
 
 -- Brands
@@ -241,15 +244,18 @@ INSERT INTO vehicle_types (name) VALUES ("avion");
 ----------------------------------------------------------------------
 INSERT INTO vehicles (
   id_type_vehicle, id_model, name, max_weight, vin, vin_cad_date, year)
-VALUES ( 3, 1, "auto_1", 200, 112233, 
-        date('now', 'start of month', '-1 month'), "2001");
+VALUES ( 3, 1, "auto_1", 200, 112233 
+        , strftime('%Y-%m-%dT12:%M:%f', 'now', 'start of month', '+1 month')
+        , "2001");
 
 INSERT INTO vehicles (
   id_type_vehicle, id_model, name, max_weight, vin, vin_cad_date, year)
-VALUES ( 3, 2, "auto_2", 300, 223344, 
-         date('now', 'start of month', '+2 month'), "2002");
+VALUES ( 3, 2, "auto_2", 300, 223344 
+        , strftime('%Y-%m-%dT12:%M:%f', 'now', 'start of month', '+2 month')
+        , "2002");
 
 INSERT INTO vehicles (
   id_type_vehicle, id_model, name, max_weight, vin, vin_cad_date, year)
-VALUES ( 3, 3, "auto_3", 800, 334455, 
-        date('now', 'start of month', '+3 month'), "2003");
+VALUES ( 3, 3, "auto_3", 800, 334455 
+        , strftime('%Y-%m-%dT12:%M:%f', 'now', 'start of month', '+3 month')
+        , "2003");
