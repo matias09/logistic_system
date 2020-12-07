@@ -7,8 +7,10 @@ import components 1.0
 
 Item {
   property Travel selectedTravel
-  Component.onCompleted:
-  masterController.ui_traCommandController.setSelectedTravel(selectedTravel)
+  Component.onCompleted: {
+    selectedTravel.ui_destiny.ui_err.ui_value = ""
+    masterController.ui_traCommandController.setSelectedTravel(selectedTravel)
+}
 
   Column {
     spacing:  Style.sizeScreenMargin

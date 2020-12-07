@@ -129,7 +129,7 @@ Item {
           rightMargin: Style.heightDataControls / 4
         }
         text:   vehicle.ui_vin_cad.ui_label + ": "
-              + vehicle.ui_vin_cad.ui_value
+              + Qt.formatDate(vehicle.ui_vin_cad.ui_value, "yyyy-MM-dd")
         font.pixelSize: Style.pixelSizeDataControls
         color: Style.colourPanelFont
         horizontalAlignment: Text.AlignRight

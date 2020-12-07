@@ -120,7 +120,7 @@ Item {
             rightMargin: Style.heightDataControls / 4
           }
           text:   travel.ui_sta_date.ui_label + ": "
-                + travel.ui_sta_date.ui_value
+                + Qt.formatDate(travel.ui_sta_date.ui_value, "yyyy-MM-dd")
           font.pixelSize: Style.pixelSizeDataControls
           color: Style.colourPanelFont
         }
@@ -134,7 +134,8 @@ Item {
             rightMargin: Style.heightDataControls / 4
           }
           text:   travel.ui_destiny.ui_arr_date.ui_label + ": "
-                + travel.ui_destiny.ui_arr_date.ui_value
+                + Qt.formatDate(travel.ui_destiny.ui_arr_date.ui_value
+                              , "yyyy-MM-dd")
           font.pixelSize: Style.pixelSizeDataControls
           color: Style.colourPanelFont
         }

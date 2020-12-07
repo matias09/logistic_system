@@ -64,6 +64,36 @@ Item {
         color: Style.colourPanelFont
         horizontalAlignment: Text.AlignRight
       }
+
+      Text {
+        id: textLicNro
+        anchors {
+          top:   textAddress.bottom
+          right: parent.right
+
+          rightMargin: Style.heightDataControls / 4
+        }
+        text: driver.ui_lic_nro.ui_label + ": "
+            + driver.ui_lic_nro.ui_value
+        font.pixelSize: Style.pixelSizeDataControls
+        color: Style.colourPanelFont
+        horizontalAlignment: Text.AlignRight
+      }
+
+      Text {
+        id: textLicCad
+        anchors {
+          top:   textLicNro.bottom
+          right: parent.right
+
+          rightMargin: Style.heightDataControls / 4
+        }
+        text:  driver.ui_lic_cad.ui_label + ": "
+             + Qt.formatDate(driver.ui_lic_cad.ui_value, "yyyy-MM-dd")
+        font.pixelSize: Style.pixelSizeDataControls
+        color: Style.colourPanelFont
+        horizontalAlignment: Text.AlignRight
+      }
     }
 
     Rectangle {
