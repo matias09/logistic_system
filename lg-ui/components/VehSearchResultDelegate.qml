@@ -144,7 +144,7 @@ Item {
           rightMargin: Style.heightDataControls / 4
         }
         text:   vehicle.ui_year.ui_label + ": "
-              + vehicle.ui_year.ui_value
+              + Qt.formatDate(vehicle.ui_year.ui_value, "yyyy")
         font.pixelSize: Style.pixelSizeDataControls
         color: Style.colourPanelFont
         horizontalAlignment: Text.AlignRight

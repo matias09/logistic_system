@@ -179,7 +179,10 @@ Item {
               }
 
             Flow {
+              id: staDateFlow
+
               Rectangle {
+                id: staDateLabelBackground
                 width: Style.widthDataControls
                 height: Style.heightDataControls
                 color: Style.colourBackground
@@ -195,31 +198,70 @@ Item {
                     font.pixelSize: Style.pixelSizeDataControls
                     verticalAlignment: Qt.AlignVCenter
                   }
-                }
 
-                CheckBox {
-                  id: staCalEnable
-                  checked: false
-                }
-                Calendar {
-                    visible: staCalEnable.checked
-                    minimumDate: new Date(2020, 0, 1)
-                    maximumDate: new Date(2025, 0, 1)
+                  CheckBox {
+                    id: staCalEnable
+                    checked: false
 
-                    onClicked: {
-                      newTravel.ui_sta_date.ui_value = selectedDate
-                      staCalEnable.checked = false
+                    anchors {
+                      right: staDateLabelBackground.right
+                      margins: Style.heightDataControls / 4
                     }
-
-                    Component.onCompleted: {
-                      newTravel.ui_sta_date.ui_value = selectedDate
-                    }
+                  }
                 }
+
+                Rectangle {
+                  id: licValueBackground
+                  width: Style.widthDataControls
+                  height: Style.heightDataControls
+                  color: Style.colourDataControlsBackground
+                  border {
+                    width: 1
+                    color: Style.colourDataControlsFont
+                  }
+
+                  TextInput {
+                    id: statextValue
+                    enabled: false
+                    anchors {
+                      fill:parent
+                      margins: Style.heightDataControls / 4
+                    }
+                    text: Qt.formatDate(newTravel.ui_sta_date.ui_value
+                                      , "yyyy-MM-dd")
+                    color: Style.colourDataControlsFont
+                    font.pixelSize: Style.pixelSizeDataControls
+                    verticalAlignment: Qt.AlignVCenter
+                  }
+                }
+              }
+
+              Calendar {
+                  visible: staCalEnable.checked
+                  minimumDate: new Date(2020, 0, 1)
+                  maximumDate: new Date(2025, 0, 1)
+
+                  anchors {
+                    horizontalCenter: staDateFlow.horizontalCenter
+                    margins: Style.heightDataControls / 4
+                  }
+
+                  onClicked: {
+                    newTravel.ui_sta_date.ui_value = selectedDate
+                    staCalEnable.checked = false
+                  }
+
+                  Component.onCompleted: {
+                    newTravel.ui_sta_date.ui_value = selectedDate
+                  }
               }
 
 
             Flow {
+              id: arrFlow
+
               Rectangle {
+                id: arrLabelBackground
                 width: Style.widthDataControls
                 height: Style.heightDataControls
                 color: Style.colourBackground
@@ -235,27 +277,63 @@ Item {
                     font.pixelSize: Style.pixelSizeDataControls
                     verticalAlignment: Qt.AlignVCenter
                   }
-                }
 
-                CheckBox {
-                  id: arrCalEnable
-                  checked: false
-                }
-                Calendar {
-                    visible: arrCalEnable.checked
+                  CheckBox {
+                    id: arrCalEnable
+                    checked: false
 
-                    minimumDate: new Date(2020, 0, 1)
-                    maximumDate: new Date(2025, 0, 1)
-
-                    onClicked: {
-                      newTravel.ui_destiny.ui_arr_date.ui_value = selectedDate
-                      arrCalEnable.checked = false
+                    anchors {
+                      right: arrLabelBackground.right
+                      margins: Style.heightDataControls / 4
                     }
-
-                    Component.onCompleted: {
-                      newTravel.ui_destiny.ui_arr_date.ui_value = selectedDate
-                    }
+                  }
                 }
+
+                Rectangle {
+                  id: arrValueBackground
+                  width: Style.widthDataControls
+                  height: Style.heightDataControls
+                  color: Style.colourDataControlsBackground
+                  border {
+                    width: 1
+                    color: Style.colourDataControlsFont
+                  }
+
+                  TextInput {
+                    id: arrtextValue
+                    enabled: false
+                    anchors {
+                      fill:parent
+                      margins: Style.heightDataControls / 4
+                    }
+                    text: Qt.formatDate(newTravel.ui_destiny.ui_arr_date.ui_value
+                                      , "yyyy-MM-dd")
+                    color: Style.colourDataControlsFont
+                    font.pixelSize: Style.pixelSizeDataControls
+                    verticalAlignment: Qt.AlignVCenter
+                  }
+                }
+              }
+
+              Calendar {
+                  visible: arrCalEnable.checked
+
+                  minimumDate: new Date(2020, 0, 1)
+                  maximumDate: new Date(2025, 0, 1)
+
+                  anchors {
+                    horizontalCenter: arrFlow.horizontalCenter
+                    margins: Style.heightDataControls / 4
+                  }
+
+                  onClicked: {
+                    newTravel.ui_destiny.ui_arr_date.ui_value = selectedDate
+                    arrCalEnable.checked = false
+                  }
+
+                  Component.onCompleted: {
+                    newTravel.ui_destiny.ui_arr_date.ui_value = selectedDate
+                  }
               }
 
 

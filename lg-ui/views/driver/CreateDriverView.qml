@@ -48,7 +48,10 @@ Item {
 
 
           Flow {
+            id: licFlow
+
             Rectangle {
+              id: licLabelBackground
               width: Style.widthDataControls
               height: Style.heightDataControls
               color: Style.colourBackground
@@ -64,23 +67,63 @@ Item {
                 font.pixelSize: Style.pixelSizeDataControls
                 verticalAlignment: Qt.AlignVCenter
               }
+
+              CheckBox {
+                id: licCalEnable
+                checked: false
+
+                anchors {
+                  right: licLabelBackground.right
+                  margins: Style.heightDataControls / 4
+                }
+              }
             }
 
-            CheckBox {
-              id: licCalEnable
-              checked: false
-            }
-            Calendar {
-              visible: licCalEnable.checked
-              minimumDate: new Date(2020, 0, 1)
-              maximumDate: new Date(2025, 0, 1)
+            Rectangle {
+              id: licValueBackground
+              width: Style.widthDataControls
+              height: Style.heightDataControls
+              color: Style.colourDataControlsBackground
+              border {
+                width: 1
+                color: Style.colourDataControlsFont
+              }
 
-              onClicked: {
-                newDriver.ui_lic_cad.ui_value = newDate
+              TextInput {
+                id: textValue
+                enabled: false
+                anchors {
+                  fill:parent
+                  margins: Style.heightDataControls / 4
+                }
+                text: Qt.formatDate(newDriver.ui_lic_cad.ui_value
+                                  , "yyyy-MM-dd")
+                color: Style.colourDataControlsFont
+                font.pixelSize: Style.pixelSizeDataControls
+                verticalAlignment: Qt.AlignVCenter
               }
             }
           }
 
+          Calendar {
+            visible: licCalEnable.checked
+            minimumDate: new Date(2020, 0, 1)
+            maximumDate: new Date(2025, 0, 1)
+
+            anchors {
+              horizontalCenter: licFlow.horizontalCenter
+              margins: Style.heightDataControls / 4
+            }
+
+            onClicked: {
+              newDriver.ui_lic_cad.ui_value = selectedDate
+              licCalEnable.checked = false
+            }
+
+            Component.onCompleted: {
+              newDriver.ui_lic_cad.ui_value = selectedDate
+            }
+          }
 
           StringEditorSingleLine {
             stringDecorator: newDriver.ui_phone

@@ -200,12 +200,11 @@ Item {
           }
         }
 
-
-
-
-
         Flow {
+          id: vincadFlow
+
           Rectangle {
+            id: vincadLabelBackground
             width: Style.widthDataControls
             height: Style.heightDataControls
             color: Style.colourBackground
@@ -221,25 +220,69 @@ Item {
               font.pixelSize: Style.pixelSizeDataControls
               verticalAlignment: Qt.AlignVCenter
             }
+
+            CheckBox {
+              id: vincadCalEnable
+              checked: false
+
+              anchors {
+                right: vincadLabelBackground.right
+                margins: Style.heightDataControls / 4
+              }
+            }
           }
 
-          CheckBox {
-            id: vincadCalEnable
-            checked: false
-          }
-          Calendar {
-            visible: vincadCalEnable.checked
-            minimumDate: new Date(2020, 0, 1)
-            maximumDate: new Date(2025, 0, 1)
+          Rectangle {
+            id: vincadValueBackground
+            width: Style.widthDataControls
+            height: Style.heightDataControls
+            color: Style.colourDataControlsBackground
+            border {
+              width: 1
+              color: Style.colourDataControlsFont
+            }
 
-            onClicked: {
-              newVehicle.ui_vin_cad.ui_value = selectedDate
+            TextInput {
+              id: vincadtextValue
+              enabled: false
+              anchors {
+                fill:parent
+                margins: Style.heightDataControls / 4
+              }
+              text: Qt.formatDate(newVehicle.ui_vin_cad.ui_value
+                                , "yyyy-MM-dd")
+              color: Style.colourDataControlsFont
+              font.pixelSize: Style.pixelSizeDataControls
+              verticalAlignment: Qt.AlignVCenter
             }
           }
         }
 
+        Calendar {
+          visible: vincadCalEnable.checked
+          minimumDate: new Date(2020, 0, 1)
+          maximumDate: new Date(2025, 0, 1)
+
+          anchors {
+            horizontalCenter: vincadFlow.horizontalCenter
+            margins: Style.heightDataControls / 4
+          }
+
+          onClicked: {
+            newVehicle.ui_vin_cad.ui_value = selectedDate
+            vincadCalEnable.checked = false
+          }
+
+          Component.onCompleted: {
+            newVehicle.ui_vin_cad.ui_value = selectedDate
+          }
+        }
+
         Flow {
+          id: yearFlow
+
           Rectangle {
+            id: yearLabelBackground
             width: Style.widthDataControls
             height: Style.heightDataControls
             color: Style.colourBackground
@@ -255,20 +298,61 @@ Item {
               font.pixelSize: Style.pixelSizeDataControls
               verticalAlignment: Qt.AlignVCenter
             }
-          }
 
-          CheckBox {
-            id: yearCalEnable
-            checked: false
-          }
-          Calendar {
-            visible: yearCalEnable.checked
-            minimumDate: new Date(1980, 0, 1)
-            maximumDate: new Date(2025, 0, 1)
+            CheckBox {
+              id: yearCalEnable
+              checked: false
 
-            onClicked: {
-              newVehicle.ui_year.ui_value = selectedDate
+              anchors {
+                right: yearLabelBackground.right
+                margins: Style.heightDataControls / 4
+              }
             }
+          }
+
+          Rectangle {
+            id: yearValueBackground
+            width: Style.widthDataControls
+            height: Style.heightDataControls
+            color: Style.colourDataControlsBackground
+            border {
+              width: 1
+              color: Style.colourDataControlsFont
+            }
+
+            TextInput {
+              id: yeartextValue
+              enabled: false
+              anchors {
+                fill:parent
+                margins: Style.heightDataControls / 4
+              }
+              text: Qt.formatDate(newVehicle.ui_year.ui_value
+                                , "yyyy-MM-dd")
+              color: Style.colourDataControlsFont
+              font.pixelSize: Style.pixelSizeDataControls
+              verticalAlignment: Qt.AlignVCenter
+            }
+          }
+        }
+
+        Calendar {
+          visible: yearCalEnable.checked
+          minimumDate: new Date(1980, 0, 1)
+          maximumDate: new Date(2025, 0, 1)
+
+          anchors {
+            horizontalCenter: yearFlow.horizontalCenter
+            margins: Style.heightDataControls / 4
+          }
+
+          onClicked: {
+            newVehicle.ui_year.ui_value = selectedDate
+            yearCalEnable.checked = false
+          }
+
+          Component.onCompleted: {
+            newVehicle.ui_year.ui_value = selectedDate
           }
         }
 

@@ -269,7 +269,10 @@ Item {
 
 
           Flow {
+            id: staDateFlow
+
             Rectangle {
+              id: staDateLabelBackground
               width: Style.widthDataControls
               height: Style.heightDataControls
               color: Style.colourBackground
@@ -285,36 +288,75 @@ Item {
                 font.pixelSize: Style.pixelSizeDataControls
                 verticalAlignment: Qt.AlignVCenter
               }
+
+              CheckBox {
+                id: staCalEnable
+                checked: false
+                enabled:  ( !selectedTravel.ui_canceled.ui_value
+                         && !selectedTravel.ui_ended.ui_value ) ? true : false
+
+                anchors {
+                  right: staDateLabelBackground.right
+                  margins: Style.heightDataControls / 4
+                }
+              }
             }
 
-            CheckBox {
-              id: staCalEnable
-              checked: false
-              enabled:  ( !selectedTravel.ui_canceled.ui_value
-                       && !selectedTravel.ui_ended.ui_value ) ? true : false
+            Rectangle {
+              id: licValueBackground
+              width: Style.widthDataControls
+              height: Style.heightDataControls
+              color: Style.colourDataControlsBackground
+              border {
+                width: 1
+                color: Style.colourDataControlsFont
+              }
+
+              TextInput {
+                id: statextValue
+                enabled: false
+                anchors {
+                  fill:parent
+                  margins: Style.heightDataControls / 4
+                }
+                text: Qt.formatDate(selectedTravel.ui_sta_date.ui_value
+                                  , "yyyy-MM-dd")
+                color: Style.colourDataControlsFont
+                font.pixelSize: Style.pixelSizeDataControls
+                verticalAlignment: Qt.AlignVCenter
+              }
             }
-            Calendar {
-              id: staCal
-              visible: staCalEnable.checked
-              minimumDate: new Date(2020, 0, 1)
-              maximumDate: new Date(2025, 0, 1)
+          }
 
-              selectedDate: selectedTravel.ui_sta_date.ui_value
+          Calendar {
+            id: staCal
+            visible: staCalEnable.checked
+            minimumDate: new Date(2020, 0, 1)
+            maximumDate: new Date(2025, 0, 1)
 
-              onClicked: {
-                selectedTravel.ui_sta_date.ui_value = selectedDate
-                staCalEnable.checked = false
-              }
+            anchors {
+              horizontalCenter: staDateFlow.horizontalCenter
+              margins: Style.heightDataControls / 4
+            }
 
-              Component.onCompleted: {
-                selectedTravel.ui_sta_date.ui_value = selectedDate
-              }
+            selectedDate: selectedTravel.ui_sta_date.ui_value
+
+            onClicked: {
+              selectedTravel.ui_sta_date.ui_value = selectedDate
+              staCalEnable.checked = false
+            }
+
+            Component.onCompleted: {
+              selectedTravel.ui_sta_date.ui_value = selectedDate
             }
           }
 
 
           Flow {
+            id: arrFlow
+
             Rectangle {
+              id: arrLabelBackground
               width: Style.widthDataControls
               height: Style.heightDataControls
               color: Style.colourBackground
@@ -330,29 +372,66 @@ Item {
                 font.pixelSize: Style.pixelSizeDataControls
                 verticalAlignment: Qt.AlignVCenter
               }
+
+              CheckBox {
+                id: arrCalEnable
+                checked: false
+                enabled:  ( !selectedTravel.ui_canceled.ui_value
+                         && !selectedTravel.ui_ended.ui_value ) ? true : false
+
+                anchors {
+                  right: arrLabelBackground.right
+                  margins: Style.heightDataControls / 4
+                }
+              }
             }
 
-            CheckBox {
-              id: arrCalEnable
-              checked: false
-              enabled:  ( !selectedTravel.ui_canceled.ui_value
-                       && !selectedTravel.ui_ended.ui_value ) ? true : false
+            Rectangle {
+              id: arrValueBackground
+              width: Style.widthDataControls
+              height: Style.heightDataControls
+              color: Style.colourDataControlsBackground
+              border {
+                width: 1
+                color: Style.colourDataControlsFont
+              }
+
+              TextInput {
+                id: arrtextValue
+                enabled: false
+                anchors {
+                  fill:parent
+                  margins: Style.heightDataControls / 4
+                }
+                text: Qt.formatDate(selectedTravel.ui_destiny.ui_arr_date.ui_value
+                                  , "yyyy-MM-dd")
+                color: Style.colourDataControlsFont
+                font.pixelSize: Style.pixelSizeDataControls
+                verticalAlignment: Qt.AlignVCenter
+              }
             }
-            Calendar {
-              id: arrCal
-              visible: arrCalEnable.checked
-              minimumDate: new Date(2020, 0, 1)
-              maximumDate: new Date(2025, 0, 1)
-              selectedDate: selectedTravel.ui_destiny.ui_arr_date.ui_value
+          }
 
-              onClicked: {
-                selectedTravel.ui_destiny.ui_arr_date.ui_value = selectedDate
-                arrCalEnable.checked = false
-              }
+          Calendar {
+            id: arrCal
+            visible: arrCalEnable.checked
+            minimumDate: new Date(2020, 0, 1)
+            maximumDate: new Date(2025, 0, 1)
 
-              Component.onCompleted: {
-                selectedTravel.ui_destiny.ui_arr_date.ui_value = selectedDate
-              }
+            anchors {
+              horizontalCenter: arrFlow.horizontalCenter
+              margins: Style.heightDataControls / 4
+            }
+
+            selectedDate: selectedTravel.ui_destiny.ui_arr_date.ui_value
+
+            onClicked: {
+              selectedTravel.ui_destiny.ui_arr_date.ui_value = selectedDate
+              arrCalEnable.checked = false
+            }
+
+            Component.onCompleted: {
+              selectedTravel.ui_destiny.ui_arr_date.ui_value = selectedDate
             }
           }
 
