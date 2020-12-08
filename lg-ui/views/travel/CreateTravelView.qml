@@ -198,15 +198,15 @@ Item {
                     font.pixelSize: Style.pixelSizeDataControls
                     verticalAlignment: Qt.AlignVCenter
                   }
-                }
 
-                CheckBox {
-                  id: staCalEnable
-                  checked: false
+                  CheckBox {
+                    id: staCalEnable
+                    checked: false
 
-                  anchors {
-                    right: staDateLabelBackground.right
-                    margins: Style.heightDataControls / 4
+                    anchors {
+                      right: staDateLabelBackground.right
+                      margins: Style.heightDataControls / 4
+                    }
                   }
                 }
 
@@ -221,7 +221,8 @@ Item {
                   }
 
                   TextInput {
-                    id: textValue
+                    id: statextValue
+                    enabled: false
                     anchors {
                       fill:parent
                       margins: Style.heightDataControls / 4
@@ -276,15 +277,15 @@ Item {
                     font.pixelSize: Style.pixelSizeDataControls
                     verticalAlignment: Qt.AlignVCenter
                   }
-                }
 
-                CheckBox {
-                  id: arrCalEnable
-                  checked: false
+                  CheckBox {
+                    id: arrCalEnable
+                    checked: false
 
-                  anchors {
-                    right: arrLabelBackground.right
-                    margins: Style.heightDataControls / 4
+                    anchors {
+                      right: arrLabelBackground.right
+                      margins: Style.heightDataControls / 4
+                    }
                   }
                 }
 
@@ -299,7 +300,8 @@ Item {
                   }
 
                   TextInput {
-                    id: textValue
+                    id: arrtextValue
+                    enabled: false
                     anchors {
                       fill:parent
                       margins: Style.heightDataControls / 4

@@ -67,15 +67,15 @@ Item {
                 font.pixelSize: Style.pixelSizeDataControls
                 verticalAlignment: Qt.AlignVCenter
               }
-            }
 
-            CheckBox {
-              id: licCalEnable
-              checked: false
+              CheckBox {
+                id: licCalEnable
+                checked: false
 
-              anchors {
-                right: licLabelBackground.right
-                margins: Style.heightDataControls / 4
+                anchors {
+                  right: licLabelBackground.right
+                  margins: Style.heightDataControls / 4
+                }
               }
             }
 
@@ -91,6 +91,7 @@ Item {
 
               TextInput {
                 id: textValue
+                enabled: false
                 anchors {
                   fill:parent
                   margins: Style.heightDataControls / 4

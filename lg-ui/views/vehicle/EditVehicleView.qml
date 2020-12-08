@@ -228,15 +228,15 @@ Item {
                 font.pixelSize: Style.pixelSizeDataControls
                 verticalAlignment: Qt.AlignVCenter
               }
-            }
 
-            CheckBox {
-              id: vincadCalEnable
-              checked: false
+              CheckBox {
+                id: vincadCalEnable
+                checked: false
 
-              anchors {
-                right: vincadLabelBackground.right
-                margins: Style.heightDataControls / 4
+                anchors {
+                  right: vincadLabelBackground.right
+                  margins: Style.heightDataControls / 4
+                }
               }
             }
 
@@ -251,7 +251,8 @@ Item {
               }
 
               TextInput {
-                id: textValue
+                id: vincadtextValue
+                enabled: false
                 anchors {
                   fill:parent
                   margins: Style.heightDataControls / 4
@@ -307,15 +308,15 @@ Item {
                 font.pixelSize: Style.pixelSizeDataControls
                 verticalAlignment: Qt.AlignVCenter
               }
-            }
 
-            CheckBox {
-              id: yearCalEnable
-              checked: false
+              CheckBox {
+                id: yearCalEnable
+                checked: false
 
-              anchors {
-                right: yearLabelBackground.right
-                margins: Style.heightDataControls / 4
+                anchors {
+                  right: yearLabelBackground.right
+                  margins: Style.heightDataControls / 4
+                }
               }
             }
 
@@ -330,7 +331,8 @@ Item {
               }
 
               TextInput {
-                id: textValue
+                id: yeartextValue
+                enabled: false
                 anchors {
                   fill:parent
                   margins: Style.heightDataControls / 4

@@ -102,6 +102,7 @@ Item {
 
               TextInput {
                 id: textValue
+                enabled: false
                 anchors {
                   fill:parent
                   margins: Style.heightDataControls / 4
