@@ -10,6 +10,3 @@ The basic idea is create a system to handle all the:
 3. Accounting
 4. Vehicles
 5. Drivers
-
-
-
