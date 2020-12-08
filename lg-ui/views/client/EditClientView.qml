@@ -96,14 +96,14 @@ Item {
           color: "#ca4949"
 
           Text {
-              id: errMessages
+            id: errMessages
 
-              anchors.fill: parent
-              verticalAlignment: Text.AlignVCenter
+            anchors.fill: parent
+            verticalAlignment: Text.AlignVCenter
 
-              text: selectedClient.ui_err.ui_value
-              font.bold: true
-              color: "#444444"
+            text: selectedClient.ui_err.ui_value
+            font.bold: true
+            color: "#444444"
           }
         }
       }

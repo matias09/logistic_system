@@ -121,10 +121,36 @@ Item {
           }
       }
 
-    AddressEditor {
-      address: selectedDriver.ui_driverAddress
-      headerText: "Datos de Direccion"
-    }
+      AddressEditor {
+        address: selectedDriver.ui_driverAddress
+        headerText: "Datos de Direccion"
+      }
+
+      Rectangle {
+        id: recErr
+        visible: (selectedDriver.ui_err.ui_value !== "")
+                  ? true : false;
+
+        anchors {
+          left: parent.left
+          right: parent.right
+        }
+
+        width: Style.widthDataControls
+        height: Style.heightDataControls
+        color: "#ca4949"
+
+        Text {
+          id: errMessages
+
+          anchors.fill: parent
+          verticalAlignment: Text.AlignVCenter
+
+          text: selectedDriver.ui_err.ui_value
+          font.bold: true
+          color: "#444444"
+        }
+      }
   }
 
   CommandBar {
