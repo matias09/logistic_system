@@ -239,6 +239,11 @@ void VehCommandController::onEditVehicleSaveExecuted()
 
   if ( r ) {
     std::cout << "Vehicle Updated"     << std::endl;
+
+    implementation->selectedVehicle->reset();
+
+    implementation->vehicleSearch->search();
+    implementation->navigationController->goFindVehicleView();
   } else {
     std::cout << "Vehicle NOT Updated" << std::endl;
   }
@@ -256,15 +261,23 @@ VehCommandController::ui_deleteVehicleViewContextCommands()
 void VehCommandController::onEditVehicleDeleteExecuted()
 {
   std::cout << "You executed the Delete Command!" << std::endl;
-  DeleteById::call( implementation->selectedVehicle->id()
-                   ,*(implementation->databaseController) );
 
-  implementation->selectedVehicle = nullptr;
+  QString err = "";
+  bool r = DeleteById::call( err
+                          ,  implementation->selectedVehicle->id()
+                          ,*(implementation->databaseController) );
+  if ( r ) {
+    std::cout << "Vehicle deleted" << std::endl;
 
-  std::cout << "Vehicle deleted" << std::endl;
+    implementation->selectedVehicle = nullptr;
 
-  implementation->vehicleSearch->search();
-  implementation->navigationController->goDashboardView();
+    implementation->vehicleSearch->search();
+    implementation->navigationController->goDashboardView();
+  } else {
+    std::cout << "Vehicle NOT Erased" << std::endl;
+    implementation->selectedVehicle->err->setValue(err);
+  }
+
 }
 
 // Signals

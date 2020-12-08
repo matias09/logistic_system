@@ -177,6 +177,11 @@ void DriCommandController::onEditDriverSaveExecuted()
 
   if ( r ) {
     std::cout << "Driver Updated"     << std::endl;
+
+    implementation->selectedDriver->reset();
+
+    implementation->driverSearch->search();
+    implementation->navigationController->goFindDriverView();
   } else {
     std::cout << "Driver NOT Updated" << std::endl;
   }
@@ -195,15 +200,21 @@ void DriCommandController::onEditDriverDeleteExecuted()
 {
   std::cout << "You executed the Delete Command!" << std::endl;
 
-  DeleteById::call( implementation->selectedDriver->id()
-                   ,*(implementation->databaseController) );
+  QString err = "";
+  bool r = DeleteById::call( err
+                          ,  implementation->selectedDriver->id()
+                          ,*(implementation->databaseController) );
+  if ( r ) {
+    std::cout << "Driver deleted" << std::endl;
 
-  implementation->selectedDriver = nullptr;
+    implementation->selectedDriver = nullptr;
 
-  std::cout << "Driver deleted" << std::endl;
-
-  implementation->driverSearch->search();
-  implementation->navigationController->goDashboardView();
+    implementation->driverSearch->search();
+    implementation->navigationController->goDashboardView();
+  } else {
+    std::cout << "Driver NOT Erased" << std::endl;
+    implementation->selectedDriver->err->setValue(err);
+  }
 }
 
 } // constrollers

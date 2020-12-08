@@ -33,9 +33,13 @@ class LGLIBSHARED_EXPORT Vehicle : public data::Entity
   Q_PROPERTY(lg::data::StringDecorator* ui_vin_cad   MEMBER vin_cad   CONSTANT)
   Q_PROPERTY(lg::data::StringDecorator* ui_year      MEMBER year      CONSTANT)
 
+  Q_PROPERTY(lg::data::StringDecorator* ui_err MEMBER err CONSTANT)
+
 public:
   explicit Vehicle(QObject *parent = nullptr);
   Vehicle(QObject *parent, const QJsonObject &json);
+
+  void reset();
 
   data::StringDecorator *reference {nullptr};
 
@@ -52,6 +56,8 @@ public:
   data::StringDecorator *vin_cad {nullptr};
   data::StringDecorator *year    {nullptr};
   data::StringDecorator *name    {nullptr};
+
+  data::StringDecorator *err    {nullptr};
 
 signals:
 };

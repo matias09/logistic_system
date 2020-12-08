@@ -44,6 +44,9 @@ Vehicle::Vehicle(QObject *parent)
   name = static_cast<StringDecorator*>(addDataItem(
       new StringDecorator(this, "name", "Nombre") ));
 
+  err = static_cast<StringDecorator*>(addDataItem(
+      new StringDecorator(this, "err", "") ));
+
   setPrimaryKey(reference);
 }
 
@@ -51,6 +54,25 @@ Vehicle::Vehicle(QObject *parent, const QJsonObject &json)
   : Vehicle(parent)
 {
   update(json);
+}
+
+void Vehicle::reset()
+{
+  reference->setValue(0);
+  id_type->setValue(0);
+  id_brand->setValue(0);
+  id_model->setValue(0);
+
+  type->setValue("");
+  brand->setValue("");
+  model->setValue("");
+  max_w->setValue("");
+  vin->setValue("");
+  vin_cad->setValue("");
+  year->setValue("");
+  name->setValue("");
+
+  err->setValue("");
 }
 
 }

@@ -28,11 +28,15 @@ class LGLIBSHARED_EXPORT Driver : public data::Entity
   Q_PROPERTY(lg::data::StringDecorator* ui_cellphone MEMBER cellphone CONSTANT)
   Q_PROPERTY(lg::data::StringDecorator* ui_mail      MEMBER mail      CONSTANT)
 
+  Q_PROPERTY(lg::data::StringDecorator* ui_err      MEMBER err      CONSTANT)
+
   Q_PROPERTY(lg::models::Address* ui_driverAddress MEMBER address CONSTANT)
 
 public:
   explicit Driver(QObject *parent = nullptr);
   Driver(QObject *parent, const QJsonObject &json);
+
+  void reset();
 
   data::StringDecorator *reference{nullptr};
   data::StringDecorator *name{nullptr};
@@ -41,6 +45,7 @@ public:
   data::StringDecorator *phone{nullptr};
   data::StringDecorator *cellphone{nullptr};
   data::StringDecorator *mail{nullptr};
+  data::StringDecorator *err{nullptr};
 
   Address *address{nullptr};
 
