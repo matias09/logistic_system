@@ -9,7 +9,7 @@ Panel {
   contentComponent:
   ScrollView {
     width: 900
-    height: 300
+    height: 200
     clip: true
 
     Column {

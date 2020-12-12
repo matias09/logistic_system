@@ -21,7 +21,7 @@ Item {
 
     ScrollView {
       width:  900
-      height: 700
+      height: 500
       clip: true
 
       ScrollBar.vertical.policy: ScrollBar.AlwaysOn
