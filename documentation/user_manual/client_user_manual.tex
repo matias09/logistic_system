@@ -1,0 +1,105 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+
+\usepackage{graphicx}
+\usepackage{tikz-er2}
+\usepackage[colorlinks, urlcolor=blue, linkcolor=black]{hyperref}
+
+\title{Manual de Usuario - Sistema de Logistica}
+\author{Matias M. Marceca}
+\date{}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\pagebreak
+
+\section{Modulo Clientes}
+\subsection{Vista de Busqueda}
+
+ \begin{flushleft}
+     \includegraphics[width=14cm, keepaspectratio]{clients_search_view_with_results_with_pic.jpg}
+ \end{flushleft}
+
+ \begin{quotation}
+   En esta vista se listan los detalles de/los cliente/s buscados por "Nombre".
+ \end{quotation}
+ \begin{enumerated}
+   \item  Elemento de insercion de caracteres alfanumericos
+     ( letras y numeros ) para encontrar Clientes.
+   \item  Seccion que muestra el listado de Cliente/s encontrados
+      o Vacio en caso de no encontrar ninguno.
+
+   \begin{enumerated}
+     \item Se muestra el ID de Referencia del Cliente registrado.
+     \item Se muestra el Nombre del Cliente registrado.
+     \item Se muestra la Direccion Completa del Cliente registrado.
+    \end{enumerated}
+
+   \item Se Utiliza el Boton "Buscar" para ejecutar la Busqueda de Clientes.
+   \item Se Utiliza el Boton "Nuevo" para ejecutar la Creacion de un Cliente.
+  \end{enumerated}
+
+\pagebreak
+
+ \begin{flushleft}
+     \includegraphics[width=10cm, keepaspectratio]{clients_new_view_with_pic.jpg}
+ \end{flushleft}
+
+ \begin{quotation}
+    En esta vista se administra la Insercion de un Nuevo Cliente al sistema.
+    Se cargan los detalles del cliente mas los datos de direccion seleccionando
+    la casilla blanca a la derecha de cada propiedad del Cliente.
+ \end{quotation}
+
+ \begin{enumerated}
+   \item  Elemento de insercion del Nombre.
+   \item  Elemento de insercion del Telefono.
+   \item  Elemento de insercion del Celular.
+   \item  Elemento de insercion del E-Mail.
+   \item  Elemento de insercion de la Provincia seleccionando
+      del Menu a la derecha.
+   \item  Elemento de insercion de la Calle.
+   \item  Elemento de insercion de la Numeracion de la calle donde esta registrado.
+   \item  Elemento de insercion del Codigo Postal.
+   \item  Area de Notificacion en caso de Errores por validacion de Datos.
+   \item  Boton que ejecuta el guardado persistente del Cliente.
+  \end{enumerated}
+
+\pagebreak
+
+ \begin{flushleft}
+     \includegraphics[width=10cm, keepaspectratio]{clients_edit_view_with_pic.jpg}
+ \end{flushleft}
+
+ \begin{quotation}
+    En esta vista se administra la Modificacion de un Cliente ya existente
+    en el sistema. Permite la modificacion de los detalles del cliente mas los
+    datos de direccion seleccionando la casilla blanca a la derecha de cada
+    propiedad del Cliente.
+    Al mismo tiempo da la posibilidad de eliminar un Cliente "Siempre y cuando
+    no tenga Viajes en Curso".
+ \end{quotation}
+
+ \begin{enumerated}
+   \item  Elemento de insercion del Nombre.
+   \item  Elemento de insercion del Telefono.
+   \item  Elemento de insercion del Celular.
+   \item  Elemento de insercion del E-Mail.
+   \item  Elemento de insercion de la Provincia seleccionando
+      del Menu a la derecha.
+   \item  Elemento de insercion de la Calle.
+   \item  Elemento de insercion de la Numeracion de la calle donde esta registrado.
+   \item  Elemento de insercion del Codigo Postal.
+   \item  Area de Notificacion en caso de Errores por validacion de Datos.
+   \item  Boton que ejecuta el guardado persistente del Cliente.
+  \end{enumerated}
+
+\end{document}
