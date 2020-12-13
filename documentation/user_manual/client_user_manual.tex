@@ -11,7 +11,8 @@ BCOR5mm, % Binding correction
 \usepackage{tikz-er2}
 \usepackage[colorlinks, urlcolor=blue, linkcolor=black]{hyperref}
 
-\title{Manual de Usuario - Sistema de Logistica}
+\title{Sistema de Logistica}
+\subtitle{Manual de Usuario}
 \author{Matias M. Marceca}
 \date{}
 
@@ -29,28 +30,32 @@ BCOR5mm, % Binding correction
  \end{flushleft}
 
  \begin{quotation}
-   En esta vista se listan los detalles de/los cliente/s buscados por "Nombre".
+   En esta vista se listan los detalles de/los cliente/s buscados por \newline
+   "Nombre".
  \end{quotation}
- \begin{enumerated}
+
+\pagebreak
+
+ \emph{Detalle de Items:}
+ \begin{enumerate}
    \item  Elemento de insercion de caracteres alfanumericos
      ( letras y numeros ) para encontrar Clientes.
    \item  Seccion que muestra el listado de Cliente/s encontrados
       o Vacio en caso de no encontrar ninguno.
 
-   \begin{enumerated}
-     \item Se muestra el ID de Referencia del Cliente registrado.
-     \item Se muestra el Nombre del Cliente registrado.
-     \item Se muestra la Direccion Completa del Cliente registrado.
-    \end{enumerated}
+   \begin{enumerate}
+     \item[2.1] Se muestra el ID de Referencia del Cliente registrado.
+     \item[2.2] Se muestra el Nombre del Cliente registrado.
+     \item[2.3] Se muestra la Direccion Completa del Cliente registrado.
+    \end{enumerate}
 
    \item Se Utiliza el Boton "Buscar" para ejecutar la Busqueda de Clientes.
    \item Se Utiliza el Boton "Nuevo" para ejecutar la Creacion de un Cliente.
-  \end{enumerated}
+  \end{enumerate}
 
-\pagebreak
-
+\subsection{Vista de Creacion}
  \begin{flushleft}
-     \includegraphics[width=10cm, keepaspectratio]{clients_new_view_with_pic.jpg}
+     \includegraphics[width=14cm, keepaspectratio]{clients_new_view_with_pic.jpg}
  \end{flushleft}
 
  \begin{quotation}
@@ -59,7 +64,10 @@ BCOR5mm, % Binding correction
     la casilla blanca a la derecha de cada propiedad del Cliente.
  \end{quotation}
 
- \begin{enumerated}
+\pagebreak
+
+ \emph{Detalle de Items:}
+ \begin{enumerate}
    \item  Elemento de insercion del Nombre.
    \item  Elemento de insercion del Telefono.
    \item  Elemento de insercion del Celular.
@@ -71,12 +79,11 @@ BCOR5mm, % Binding correction
    \item  Elemento de insercion del Codigo Postal.
    \item  Area de Notificacion en caso de Errores por validacion de Datos.
    \item  Boton que ejecuta el guardado persistente del Cliente.
-  \end{enumerated}
+  \end{enumerate}
 
-\pagebreak
-
+\subsection{Vista de Edicion}
  \begin{flushleft}
-     \includegraphics[width=10cm, keepaspectratio]{clients_edit_view_with_pic.jpg}
+     \includegraphics[width=14cm, keepaspectratio]{clients_edit_view_with_pic.jpg}
  \end{flushleft}
 
  \begin{quotation}
@@ -88,18 +95,26 @@ BCOR5mm, % Binding correction
     no tenga Viajes en Curso".
  \end{quotation}
 
- \begin{enumerated}
-   \item  Elemento de insercion del Nombre.
-   \item  Elemento de insercion del Telefono.
-   \item  Elemento de insercion del Celular.
-   \item  Elemento de insercion del E-Mail.
-   \item  Elemento de insercion de la Provincia seleccionando
+\pagebreak
+
+ \emph{Detalle de Items:}
+ \begin{enumerate}
+   \item  Elemento que muestra la Referencia (Identificador unico) del cliente,
+      sin poder modificarlo.
+   \item  Elemento de edicion del Nombre.
+   \item  Elemento de edicion del Telefono.
+   \item  Elemento de edicion del Celular.
+   \item  Elemento de edicion del E-Mail.
+   \item  Elemento de edicion de la Provincia seleccionando
       del Menu a la derecha.
-   \item  Elemento de insercion de la Calle.
-   \item  Elemento de insercion de la Numeracion de la calle donde esta registrado.
-   \item  Elemento de insercion del Codigo Postal.
+   \item  Elemento de edicion de la Calle.
+   \item  Elemento de edicion de la Numeracion de la calle donde esta registrado.
+   \item  Elemento de edicion del Codigo Postal.
    \item  Area de Notificacion en caso de Errores por validacion de Datos.
-   \item  Boton que ejecuta el guardado persistente del Cliente.
-  \end{enumerated}
+   \item  Boton que ejecuta el guardado de la modificaciones realizadas a las
+     propiedades del Cliente.
+   \item  Boton que ejecuta la eliminacion del Cliente mientras
+    no tenga viajes en curso.
+  \end{enumerate}
 
 \end{document}
