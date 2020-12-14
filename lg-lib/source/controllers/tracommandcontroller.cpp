@@ -270,9 +270,14 @@ void TraCommandController::onFindTravelViewContextCommands()
 QQmlListProperty<Command>
 TraCommandController::ui_editTravelViewContextCommands()
 {
-   return QQmlListProperty<Command>(
-            this,
-            implementation->editTravelViewContextCommands );
+    if (   implementation->selectedTravel->ended->value()    == 0
+        && implementation->selectedTravel->canceled->value() == 0) {
+     return QQmlListProperty<Command>(
+              this,
+              implementation->editTravelViewContextCommands );
+    }
+
+   return {};
 }
 
 void TraCommandController::onEditTravelSaveExecuted()
