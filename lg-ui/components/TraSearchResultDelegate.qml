@@ -12,7 +12,21 @@ Item {
     id: background
     width:  parent.width
     height: parent.height
+
     color: Style.colourPanelBackground
+
+    Component.onCompleted: {
+        color = Qt.binding( function() {
+        if (travel.ui_ended.ui_value === 1) {
+          return "lightgreen"
+        } else if (travel.ui_canceled.ui_value === 1) {
+          return "indianred"
+        } else {
+          return Style.colourPanelBackground
+        }
+      });
+    }
+
 
       Column {
         id: travelColumn
