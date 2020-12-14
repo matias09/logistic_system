@@ -7,11 +7,12 @@ headinclude,footinclude, % Extra spacing for the header and footer
 BCOR5mm, % Binding correction
 ]{scrartcl}
 
+\usepackage[spanish]{babel}
 \usepackage{graphicx}
 \usepackage{tikz-er2}
 \usepackage[colorlinks, urlcolor=blue, linkcolor=black]{hyperref}
 
-\title{Sistema de Logistica}
+\title{Sistema de Log\'istica}
 \subtitle{Manual de Usuario}
 \author{Matias M. Marceca}
 \date{}
@@ -22,98 +23,99 @@ BCOR5mm, % Binding correction
 \tableofcontents
 \pagebreak
 
-\section{Modulo Clientes}
-\subsection{Vista de Busqueda}
+\section{M\'odulo Clientes}
+\subsection{Vista de B\'usqueda}
 
  \begin{flushleft}
      \includegraphics[width=14cm, keepaspectratio]{clients_search_view_with_results_with_pic.jpg}
  \end{flushleft}
 
  \begin{quotation}
-   En esta vista se listan los detalles de/los cliente/s buscados por \newline
-   "Nombre".
+   En esta vista se listan los detalles de los Clientes buscados por \newline
+   'Nombre'.
  \end{quotation}
 
 \pagebreak
 
- \emph{Detalle de Items:}
+ \textbf{ \emph{Detalle de \'Items:} }
  \begin{enumerate}
-   \item  Elemento de insercion de caracteres alfanumericos
+   \item  Elemento de inserci\'on de caracteres alfanum\'ericos
      ( letras y numeros ) para encontrar Clientes.
-   \item  Seccion que muestra el listado de Cliente/s encontrados
-      o Vacio en caso de no encontrar ninguno.
+   \item  Secci\'on que muestra el listado de los Clientes encontrados
+      o Vacio en caso de no encontrar ning\'uno.
 
    \begin{enumerate}
      \item[2.1] Se muestra el ID de Referencia del Cliente registrado.
      \item[2.2] Se muestra el Nombre del Cliente registrado.
-     \item[2.3] Se muestra la Direccion Completa del Cliente registrado.
+     \item[2.3] Se muestra la Direcci\'on Completa del Cliente registrado.
     \end{enumerate}
 
-   \item Se Utiliza el Boton "Buscar" para ejecutar la Busqueda de Clientes.
-   \item Se Utiliza el Boton "Nuevo" para ejecutar la Creacion de un Cliente.
+   \item Se utiliza el Bot\'on 'Buscar' para ejecutar la B\'usqueda de Clientes.
+   \item Se utiliza el Bot\'on 'Nuevo' para ejecutar la Creaci\'on de un Cliente.
   \end{enumerate}
 
-\subsection{Vista de Creacion}
+\subsection{Vista de Creaci\'on}
  \begin{flushleft}
      \includegraphics[width=14cm, keepaspectratio]{clients_new_view_with_pic.jpg}
  \end{flushleft}
 
  \begin{quotation}
-    En esta vista se administra la Insercion de un Nuevo Cliente al sistema.
-    Se cargan los detalles del cliente mas los datos de direccion seleccionando
+    En esta vista se administra la Inserci\'on de un Nuevo Cliente al sistema.
+    Se cargan los detalles del Cliente mas los datos de direcci\'on seleccionando
     la casilla blanca a la derecha de cada propiedad del Cliente.
  \end{quotation}
 
 \pagebreak
 
- \emph{Detalle de Items:}
+ \textbf{ \emph{Detalle de \'Items:} }
  \begin{enumerate}
-   \item  Elemento de insercion del Nombre.
-   \item  Elemento de insercion del Telefono.
-   \item  Elemento de insercion del Celular.
-   \item  Elemento de insercion del E-Mail.
-   \item  Elemento de insercion de la Provincia seleccionando
-      del Menu a la derecha.
-   \item  Elemento de insercion de la Calle.
-   \item  Elemento de insercion de la Numeracion de la calle donde esta registrado.
-   \item  Elemento de insercion del Codigo Postal.
-   \item  Area de Notificacion en caso de Errores por validacion de Datos.
-   \item  Boton que ejecuta el guardado persistente del Cliente.
+   \item  Elemento de inserci\'on del Nombre.
+   \item  Elemento de inserci\'on del Tel\'efono.
+   \item  Elemento de inserci\'on del Celular.
+   \item  Elemento de inserci\'on del E-Mail.
+   \item  Elemento de inserci\'on de la Provincia seleccionando
+      del Men\'u a la derecha.
+   \item  Elemento de inserci\'on de la Calle.
+   \item  Elemento de inserci\'on de la Numeraci\'on de la calle donde esta registrado.
+   \item  Elemento de inserci\'on del C\'odigo Postal.
+   \item  \'Area de Notificaci\'on en caso de Errores por validaci\'on de Datos.
+   \item  Bot\'on que ejecuta el guardado persistente del Cliente.
   \end{enumerate}
 
-\subsection{Vista de Edicion}
+\subsection{Vista de Edici\'on}
  \begin{flushleft}
      \includegraphics[width=14cm, keepaspectratio]{clients_edit_view_with_pic.jpg}
  \end{flushleft}
 
  \begin{quotation}
-    En esta vista se administra la Modificacion de un Cliente ya existente
-    en el sistema. Permite la modificacion de los detalles del cliente mas los
-    datos de direccion seleccionando la casilla blanca a la derecha de cada
+    En esta vista se administra la Modificaci\'on de un Cliente ya existente
+    en el sistema. Permite modificar los detalles del Cliente mas los
+    datos de direcci\'on seleccionando la casilla blanca a la derecha de cada
     propiedad del Cliente.
-    Al mismo tiempo da la posibilidad de eliminar un Cliente "Siempre y cuando
-    no tenga Viajes en Curso".
+    Al mismo tiempo da la posibilidad de eliminar un Cliente 'Siempre y cuando
+    no tenga Viajes en Curso'.
  \end{quotation}
 
 \pagebreak
 
- \emph{Detalle de Items:}
+ \textbf{ \emph{Detalle de \'Items:} }
  \begin{enumerate}
-   \item  Elemento que muestra la Referencia (Identificador unico) del cliente,
-      sin poder modificarlo.
-   \item  Elemento de edicion del Nombre.
-   \item  Elemento de edicion del Telefono.
-   \item  Elemento de edicion del Celular.
-   \item  Elemento de edicion del E-Mail.
-   \item  Elemento de edicion de la Provincia seleccionando
-      del Menu a la derecha.
-   \item  Elemento de edicion de la Calle.
-   \item  Elemento de edicion de la Numeracion de la calle donde esta registrado.
-   \item  Elemento de edicion del Codigo Postal.
-   \item  Area de Notificacion en caso de Errores por validacion de Datos.
-   \item  Boton que ejecuta el guardado de la modificaciones realizadas a las
+   \item  Elemento que muestra la Referencia (Identificador \'unico) del
+     Cliente, sin poder modificarlo.
+   \item  Elemento de edici\'on del Nombre.
+   \item  Elemento de edici\'on del Tel\'efono.
+   \item  Elemento de edici\'on del Celular.
+   \item  Elemento de edici\'on del E-Mail.
+   \item  Elemento de edici\'on de la Provincia seleccionando
+      del Men\'u a la derecha.
+   \item  Elemento de edici\'on de la Calle.
+   \item  Elemento de edici\'on de la Numeraci\'on de la calle donde est\'a
+     registrado.
+   \item  Elemento de edici\'on del C\'odigo Postal.
+   \item  \'Area de Notificaci\'on en caso de Errores por validaci\'on de Datos.
+   \item  Bot\'on que ejecuta el guardado de la modificaciones realizadas a las
      propiedades del Cliente.
-   \item  Boton que ejecuta la eliminacion del Cliente mientras
+   \item  Bot\'on que ejecuta la eliminaci\'on del Cliente mientras
     no tenga viajes en curso.
   \end{enumerate}
 
