@@ -19,7 +19,7 @@ Item {
 
     ScrollView {
       width:  900
-      height: 600
+      height: 500
       clip: true
 
       ScrollBar.vertical.policy: ScrollBar.AlwaysOn
@@ -186,7 +186,7 @@ Item {
                 currentIndex = ( newVehicle.ui_id_model.ui_value  )
                 ?  newVehicle.ui_id_model.ui_value - 1
                 :  indexOfValue(1)
-                newVehicle_ui_id_model.ui_value = currentValue
+                newVehicle.ui_id_model.ui_value = currentValue
               }
             }
           }
@@ -373,6 +373,32 @@ Item {
         }
       }
 
+      }
+    }
+
+    Rectangle {
+      id: recErr
+      visible: (newVehicle.ui_err.ui_value !== "")
+      ? true : false;
+
+      anchors {
+        left: parent.left
+        right: parent.right
+      }
+
+      width: Style.widthDataControls
+      height: Style.heightDataControls
+      color: "#ca4949"
+
+      Text {
+        id: errMessages
+
+        anchors.fill: parent
+        verticalAlignment: Text.AlignVCenter
+
+        text: newVehicle.ui_err.ui_value
+        font.bold: true
+        color: "#444444"
       }
     }
   }
