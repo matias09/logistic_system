@@ -1,3 +1,5 @@
+*.jpg
+*.swp
 /*
 /database/*.swp
 documentation/*.swp
@@ -14,4 +16,3 @@ documentation/*.swp
 !.gitignore
 !CMakeLists.txt
 !README.md
-*.jpg
