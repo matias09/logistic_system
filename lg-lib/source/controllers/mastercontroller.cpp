@@ -1,8 +1,6 @@
 #include "mastercontroller.h"
 #include "db_operations/master/getallstates.hpp"
 
-#include <iostream>
-
 namespace lg {
 namespace controllers {
 
