@@ -10,6 +10,7 @@
 #include "data/combooption.h"
 
 #include <QList>
+#include <QDateTime>
 
 #include <iostream>
 
@@ -107,6 +108,20 @@ public:
                                       ,*(databaseController) );
   }
 
+  bool validateBusinessRules(QString &err, models::Vehicle &v) const
+  {
+    if (QDateTime::currentDateTime()
+        >
+        QDateTime::fromString(v.vin_cad->value(), Qt::ISODateWithMs) )
+    {
+      err.append("La Caducidad de la Matricula debe ser mayor "
+                 "a la fecha actual.");
+      return false;
+    }
+
+    return true;
+  }
+
   VehCommandController *vehCommandController{nullptr};
 
   QList<Command*> createVehicleVIewContextCommands{};
@@ -183,7 +198,18 @@ void VehCommandController::onCreateVehicleSaveExecuted()
 {
   std::cout << "You executed the Save Command!" << std::endl;
 
-  bool r = Insert::call(implementation->newVehicle->toJson()
+  QString err = "";
+  bool r = implementation->validateBusinessRules(err
+                                                ,*(implementation->newVehicle));
+  if (not r) {
+    std::cout << "Error Saving Vehicle: \n \t"
+              << "Desc: " << err.toStdString()
+              << std::endl;
+    implementation->newVehicle->err->setValue(err);
+    return;
+  }
+
+  r = Insert::call(implementation->newVehicle->toJson()
                      ,*(implementation->databaseController) );
 
   if (r) {
@@ -233,9 +259,20 @@ void VehCommandController::onEditVehicleSaveExecuted()
 {
   std::cout << "You executed the Edit Command!" << std::endl;
 
-  bool r = UpdateById::call( implementation->selectedVehicle->toJson()
-                          ,  implementation->selectedVehicle->id()
-                          ,*(implementation->databaseController) );
+  QString err = "";
+  bool r = implementation->validateBusinessRules(err
+                                          ,*(implementation->selectedVehicle));
+  if (not r) {
+    std::cout << "Error Saving Vehicle: \n \t"
+              << "Desc: " << err.toStdString()
+              << std::endl;
+    implementation->selectedVehicle->err->setValue(err);
+    return;
+  }
+
+  r = UpdateById::call( implementation->selectedVehicle->toJson()
+                     ,  implementation->selectedVehicle->id()
+                     ,*(implementation->databaseController) );
 
   if ( r ) {
     std::cout << "Vehicle Updated"     << std::endl;
