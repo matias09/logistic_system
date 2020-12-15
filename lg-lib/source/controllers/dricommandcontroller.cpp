@@ -4,6 +4,7 @@
 #include "db_operations/driver/insert.hpp"
 
 #include <QList>
+#include <QDateTime>
 
 #include <iostream>
 
@@ -75,6 +76,20 @@ public:
      editDriverViewContextCommands.append( editDriverDeleteCommand );
   }
 
+  bool validateBusinessRules(QString &err, models::Driver &d) const
+  {
+    if (QDateTime::currentDateTime()
+        >
+        QDateTime::fromString(d.lic_cad->value(), Qt::ISODateWithMs) )
+    {
+      err.append("La Fecha de la Licencia del Conductor debe ser mayor "
+                 "a la fecha actual.");
+      return false;
+    }
+
+    return true;
+  }
+
   DriCommandController *driCommandController{nullptr};
 
   QList<Command*> createDriverVIewContextCommands{};
@@ -129,7 +144,18 @@ void DriCommandController::onCreateDriverSaveExecuted()
 {
   std::cout << "You executed the Save Command!" << std::endl;
 
-  bool r = Insert::call(implementation->newDriver->toJson()
+  QString err = "";
+  bool r = implementation->validateBusinessRules(err
+                                                ,*(implementation->newDriver));
+  if (not r) {
+    std::cout << "Error Saving Driver: \n \t"
+              << "Desc: " << err.toStdString()
+              << std::endl;
+    implementation->newDriver->err->setValue(err);
+    return;
+  }
+
+  r = Insert::call(implementation->newDriver->toJson()
                      ,*(implementation->databaseController) );
 
   if (r) {
@@ -171,7 +197,18 @@ void DriCommandController::onEditDriverSaveExecuted()
 {
   std::cout << "You executed the Edit Command!" << std::endl;
 
-  bool r = UpdateById::call( implementation->selectedDriver->toJson()
+  QString err = "";
+  bool r = implementation->validateBusinessRules(err
+                                            ,*(implementation->selectedDriver));
+  if (not r) {
+    std::cout << "Error Saving Driver: \n \t"
+              << "Desc: " << err.toStdString()
+              << std::endl;
+    implementation->selectedDriver->err->setValue(err);
+    return;
+  }
+
+  r = UpdateById::call( implementation->selectedDriver->toJson()
                           ,  implementation->selectedDriver->id()
                           ,*(implementation->databaseController) );
 
