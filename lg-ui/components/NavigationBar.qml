@@ -35,7 +35,7 @@ Item {
       }
 
       NavigationButton {
-        iconCharacter: "\uf0f2"
+        iconCharacter: "\uf007"
         description: "Clientes"
         hoverColour: "#8aef63"
         onNavigationButtonClicked:
@@ -43,7 +43,7 @@ Item {
       }
 
       NavigationButton {
-        iconCharacter: "\uf0c0"
+        iconCharacter: "\uf2bb"
         description: "Choferes"
         hoverColour: "#f55a63"
         onNavigationButtonClicked:
@@ -64,6 +64,13 @@ Item {
         hoverColour: "#7ac0f8"
         onNavigationButtonClicked:
             masterController.ui_navigationController.goFindTravelView();
+      }
+
+      NavigationButton {
+        iconCharacter: "\uf2f5"
+        description: "Exit"
+        hoverColour: "#44403f"
+        onNavigationButtonClicked: Qt.quit();
       }
     }
   }
