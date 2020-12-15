@@ -126,6 +126,8 @@ Item {
                 newVehicle.ui_id_brand.ui_value = currentValue
                 masterController.ui_vehCommandController.onBrandsChanged(currentValue)
                 models.model = masterController.ui_vehCommandController.ui_models
+
+                newVehicle.ui_id_model.ui_value = models.model[0]["ui_value"]
               }
 
               Component.onCompleted: {
@@ -136,6 +138,8 @@ Item {
 
                 masterController.ui_vehCommandController.onBrandsChanged(currentValue)
                 models.model = masterController.ui_vehCommandController.ui_models
+
+                newVehicle.ui_id_model.ui_value = models.model[0]["ui_value"]
               }
             }
           }
@@ -179,13 +183,6 @@ Item {
               textRole: "ui_desc"
 
               onActivated: {
-                newVehicle.ui_id_model.ui_value = currentValue
-              }
-
-              Component.onCompleted: {
-                currentIndex = ( newVehicle.ui_id_model.ui_value  )
-                ?  newVehicle.ui_id_model.ui_value - 1
-                :  indexOfValue(1)
                 newVehicle.ui_id_model.ui_value = currentValue
               }
             }
