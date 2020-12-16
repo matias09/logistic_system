@@ -78,10 +78,11 @@ public:
 
   bool validateBusinessRules(QString &err, models::Driver &d) const
   {
-    if (QDateTime::currentDateTime()
+    if (QDateTime::currentDateTime().toSecsSinceEpoch() + 1
         >
-        QDateTime::fromString(d.lic_cad->value(), Qt::ISODateWithMs) )
-    {
+        QDateTime::fromString(d.lic_cad->value()
+                            , Qt::ISODate).toSecsSinceEpoch() 
+  ) {
       err.append("La Fecha de la Licencia del Conductor debe ser mayor "
                  "a la fecha actual.");
       return false;

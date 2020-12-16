@@ -124,10 +124,12 @@ public:
       return false;
     }
 
-    if (QDateTime::fromString(t.sta_date->value(), Qt::ISODateWithMs)
+    if (QDateTime::fromString(t.sta_date->value()
+                            , Qt::ISODate).toSecsSinceEpoch() + 1
         >
-        QDateTime::fromString(t.destiny->arr_date->value(), Qt::ISODateWithMs) )
-    {
+        QDateTime::fromString(t.destiny->arr_date->value()
+                            , Qt::ISODate).toSecsSinceEpoch() 
+   ) {
       err.append("La Fecha de inicio debe ser anterior a la fecha de llegada");
       return false;
     }
