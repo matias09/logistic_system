@@ -42,6 +42,15 @@ Item {
           }
 
           StringEditorSingleLine {
+            stringDecorator: selectedDriver.ui_nro_tra
+            anchors {
+              left: parent.left
+              right: parent.right
+            }
+            enabled: false
+          }
+
+          StringEditorSingleLine {
             stringDecorator: selectedDriver.ui_name
             anchors {
               left: parent.left

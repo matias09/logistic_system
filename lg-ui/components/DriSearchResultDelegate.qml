@@ -52,6 +52,19 @@ Item {
       }
 
       Text {
+        id: textNroTra
+        anchors {
+          top: textName.bottom
+          left: parent.left
+        }
+        text:   driver.ui_nro_tra.ui_label + ": "
+              + driver.ui_nro_tra.ui_value
+
+        font.pixelSize: Style.pixelSizeDataControls
+        color: Style.colourPanelFont
+      }
+
+      Text {
         id: textAddress
         anchors {
           top:   textId.top
