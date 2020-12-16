@@ -110,9 +110,14 @@ public:
 
   bool validateBusinessRules(QString &err, models::Vehicle &v) const
   {
-    if (QDateTime::currentDateTime()
+    // TODO: [Revise] We thing this is not necessary, because the entity
+    //                should by modifiable without a date higher that today.
+    return true;
+
+    if (QDateTime::currentDateTime().toSecsSinceEpoch() + 1
         >
-        QDateTime::fromString(v.vin_cad->value(), Qt::ISODateWithMs) )
+        QDateTime::fromString(v.vin_cad->value()
+                            , Qt::ISODate).toSecsSinceEpoch() )
     {
       err.append("La Caducidad de la Matricula debe ser mayor "
                  "a la fecha actual.");

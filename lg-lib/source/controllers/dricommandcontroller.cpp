@@ -78,6 +78,10 @@ public:
 
   bool validateBusinessRules(QString &err, models::Driver &d) const
   {
+    // TODO: [Revise] We thing this is not necessary, because the entity
+    //                should by modifiable without a date higher that today.
+    return true;
+
     if (QDateTime::currentDateTime().toSecsSinceEpoch() + 1
         >
         QDateTime::fromString(d.lic_cad->value()
