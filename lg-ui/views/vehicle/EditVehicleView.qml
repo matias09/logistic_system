@@ -138,6 +138,8 @@ Item {
                   selectedVehicle.ui_id_brand.ui_value = currentValue
                   masterController.ui_vehCommandController.onBrandsChanged(currentValue)
                   models.model = masterController.ui_vehCommandController.ui_models
+
+                  selectedVehicle.ui_id_model.ui_value = models.model[0]["ui_value"]
                 }
 
                 Component.onCompleted: {
