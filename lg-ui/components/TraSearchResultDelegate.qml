@@ -170,7 +170,6 @@ Item {
           color: Style.colourPanelFont
         }
 
-
       }
 
     Rectangle {
