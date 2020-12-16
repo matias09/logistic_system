@@ -33,7 +33,7 @@ private:
          " SELECT t.id, t.id_client, t.sta_date "
          "    ,d.id ,d.id_driver, d.id_vehicle, d.arrival_date "
          "    ,d.street, d.house_nro, d.post_code, c.name, d.id_state, s.name "
-         "    ,dr.name, v.name, t.ended, t.canceled "
+         "    ,dr.name, v.name, t.ended, t.canceled, t.fin_date "
          "  FROM travels t "
          "  INNER JOIN travels_destinations td ON (t.id = td.id_travel) "
          "  INNER JOIN destinations d          ON (td.id_destination = d.id) "
@@ -77,6 +77,7 @@ private:
       jsonObj.insert("canceled",  query.value(16).toInt() );
       jsonObj.insert("id_cli",    query.value(1).toInt() );
       jsonObj.insert("sta_date",  query.value(2).toString() );
+      jsonObj.insert("fin_date",  query.value(17).toString() );
       jsonObj.insert("cli",       query.value(10).toString() );
       jsonObj.insert("destiny", jsonObjDestination );
 

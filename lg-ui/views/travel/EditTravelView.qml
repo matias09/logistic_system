@@ -65,7 +65,8 @@ Item {
                 CheckBox {
                   id: endedEnable
                   checked: selectedTravel.ui_ended.ui_value
-                  enabled: !selectedTravel.ui_canceled.ui_value
+                  enabled:  ( !selectedTravel.ui_canceled.ui_value
+                           && !selectedTravel.ui_ended.ui_value ) ? true : false
 
                   onClicked: {
                     selectedTravel.ui_ended.ui_value = !selectedTravel.ui_ended.ui_value
@@ -427,11 +428,95 @@ Item {
 
             onClicked: {
               selectedTravel.ui_destiny.ui_arr_date.ui_value = selectedDate
+              selectedTravel.ui_fin_date.ui_value = selectedDate
               arrCalEnable.checked = false
             }
 
             Component.onCompleted: {
               selectedTravel.ui_destiny.ui_arr_date.ui_value = selectedDate
+            }
+          }
+
+          Flow {
+            id: finFlow
+
+            Rectangle {
+              id: finLabelBackground
+              width: Style.widthDataControls
+              height: Style.heightDataControls
+              color: Style.colourBackground
+
+              Text {
+                id: finDateLabel
+                anchors {
+                  fill: parent
+                  margins: Style.heightDataControls / 4
+                }
+                text: selectedTravel.ui_fin_date.ui_label
+                color: Style.colourDataControlsFont
+                font.pixelSize: Style.pixelSizeDataControls
+                verticalAlignment: Qt.AlignVCenter
+              }
+
+              CheckBox {
+                id: finCalEnable
+                checked: false
+                enabled:  (  endedEnable.enabled 
+                          && endedEnable.checked ) ? true : false
+
+                anchors {
+                  right: finLabelBackground.right
+                  margins: Style.heightDataControls / 4
+                }
+              }
+            }
+
+            Rectangle {
+              id: finValueBackground
+              width: Style.widthDataControls
+              height: Style.heightDataControls
+              color: Style.colourDataControlsBackground
+              border {
+                width: 1
+                color: Style.colourDataControlsFont
+              }
+
+              TextInput {
+                id: fintextValue
+                enabled: false
+                anchors {
+                  fill:parent
+                  margins: Style.heightDataControls / 4
+                }
+                text: Qt.formatDate(selectedTravel.ui_fin_date.ui_value
+                                  , "yyyy-MM-dd")
+                color: Style.colourDataControlsFont
+                font.pixelSize: Style.pixelSizeDataControls
+                verticalAlignment: Qt.AlignVCenter
+              }
+            }
+          }
+
+          Calendar {
+            id: finCal
+            visible: finCalEnable.checked
+            minimumDate: new Date(2020, 0, 1)
+            maximumDate: new Date(2025, 0, 1)
+
+            anchors {
+              horizontalCenter: finFlow.horizontalCenter
+              margins: Style.heightDataControls / 4
+            }
+
+            selectedDate: selectedTravel.ui_fin_date.ui_value
+
+            onClicked: {
+              selectedTravel.ui_fin_date.ui_value = selectedDate
+              finCalEnable.checked = false
+            }
+
+            Component.onCompleted: {
+              selectedTravel.ui_fin_date.ui_value = selectedDate
             }
           }
 

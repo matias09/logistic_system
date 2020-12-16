@@ -154,6 +154,22 @@ Item {
           color: Style.colourPanelFont
         }
 
+        Text {
+          id: textFinDate
+          visible: travel.ui_ended.ui_value
+          anchors {
+            top:   textArrDate.bottom
+            right: parent.right
+
+            rightMargin: Style.heightDataControls / 4
+          }
+          text:   travel.ui_fin_date.ui_label + ": "
+                + Qt.formatDate(travel.ui_fin_date.ui_value
+                              , "yyyy-MM-dd")
+          font.pixelSize: Style.pixelSizeDataControls
+          color: Style.colourPanelFont
+        }
+
 
       }
 

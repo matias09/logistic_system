@@ -25,6 +25,7 @@ class LGLIBSHARED_EXPORT Travel : public data::Entity
   Q_PROPERTY(lg::data::StringDecorator* ui_cli       MEMBER cli       CONSTANT)
 
   Q_PROPERTY(lg::data::StringDecorator* ui_sta_date MEMBER sta_date CONSTANT)
+  Q_PROPERTY(lg::data::StringDecorator* ui_fin_date MEMBER fin_date CONSTANT)
 
   Q_PROPERTY(lg::models::Destination* ui_destiny     MEMBER destiny   CONSTANT)
 
@@ -42,6 +43,7 @@ public:
   data::StringDecorator *cli      {nullptr};
 
   data::StringDecorator *sta_date {nullptr};
+  data::StringDecorator *fin_date {nullptr};
 
   Destination *destiny{nullptr};
 

@@ -128,10 +128,23 @@ public:
                             , Qt::ISODate).toSecsSinceEpoch() + 1
         >
         QDateTime::fromString(t.destiny->arr_date->value()
-                            , Qt::ISODate).toSecsSinceEpoch() 
+                            , Qt::ISODate).toSecsSinceEpoch()
    ) {
       err.append("La Fecha de inicio debe ser anterior a la fecha de llegada");
       return false;
+    }
+
+    if (t.ended->value() == 1) {
+      if (QDateTime::fromString(t.destiny->arr_date->value()
+                              , Qt::ISODate).toSecsSinceEpoch()
+          >
+          QDateTime::fromString(t.fin_date->value()
+                              , Qt::ISODate).toSecsSinceEpoch()
+     ) {
+        err.append("La Fecha del ultimo destino debe ser igual o anterior "
+                   "a la fecha de finalizacion del viaje");
+        return false;
+      }
     }
 
     return true;

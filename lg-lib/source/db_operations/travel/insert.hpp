@@ -91,13 +91,15 @@ private:
   {
     QString sqlStm =
       "INSERT INTO travels "
-      " ( id_client, sta_date ) "
+      " ( id_client, sta_date, fin_date ) "
       " VALUES "
-      " ( :id_client, :sta_date )";
+      " ( :id_client, :sta_date, :fin_date )";
 
     std::map<QString, QVariant> binds;
     binds.insert(Burden(":id_client", QVariant(jo_["id_cli"].toInt())) );
     binds.insert(Burden(":sta_date",  QVariant(jo_["sta_date"])) );
+    binds.insert(Burden(":fin_date",
+          QVariant(jo_["destiny"]["arr_date"]) ));
 
     return  db_.create(sqlStm, binds);
   }

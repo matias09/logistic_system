@@ -28,6 +28,9 @@ Travel::Travel(QObject *parent)
   sta_date = static_cast<StringDecorator*>(addDataItem(
       new StringDecorator(this, "sta_date", "Fecha de Inicio/Salida") ));
 
+  fin_date = static_cast<StringDecorator*>(addDataItem(
+      new StringDecorator(this, "fin_date", "Fecha final de Entrega") ));
+
   destiny = static_cast<Destination*>(
       addChild( new Destination(this), "destiny") );
 
@@ -50,6 +53,7 @@ void Travel::reset()
   id_cli->setValue(0);
 
   sta_date->setValue(QDateTime::currentDateTime().toString(Qt::ISODate));
+  fin_date->setValue("");
 
   destiny->reset();
 }
