@@ -32,7 +32,7 @@ private:
     QString sqlStm =
       "SELECT id, name, phone, lic_nro, lic_caducity_date "
       " ,cellphone, mail, street "
-      " ,house_nro, post_code, id_state "
+      " ,house_nro, post_code, id_state, nro_travels "
       "  FROM drivers "
       " WHERE LOWER(name) LIKE :searchText" ;
 
@@ -53,6 +53,7 @@ private:
       jsonObj.insert("lic_cad",   query.value(4).toString() );
       jsonObj.insert("cellphone", query.value(5).toString() );
       jsonObj.insert("mail",      query.value(6).toString() );
+      jsonObj.insert("nro_tra",   query.value(11).toString() );
 
       QJsonObject jsonObjAddress;
       jsonObjAddress.insert("street",    query.value(7).toString() );

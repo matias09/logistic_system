@@ -39,7 +39,10 @@ private:
     const unsigned int ended_travel = 1;
 
     if (jo_["ended"].toInt() == ended_travel) {
-      if ( not unblockDriver() || not unblockVehicle() ) {
+      if (not incrementDriverTravel()
+       || not unblockDriver()
+       || not unblockVehicle()
+    ) {
         QSqlDatabase::database().rollback();
         return false;
       }
@@ -118,6 +121,18 @@ private:
     binds.insert(Burden(":canceled",  not_canceled ));
 
     return db_.update(sqlStm, binds);
+  }
+
+  bool incrementDriverTravel() const
+  {
+    QString sqlStm = "UPDATE drivers "
+                     " SET nro_travels = (nro_travels + 1) "
+                     " WHERE  id = :id ";
+
+    std::map<QString, QVariant> binds;
+    binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_dri_o"].toInt())) );
+
+    return  db_.update(sqlStm, binds);
   }
 
   bool unblockDriver() const

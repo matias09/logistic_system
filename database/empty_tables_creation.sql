@@ -89,7 +89,8 @@ CREATE TABLE IF NOT EXISTS DRIVERS (
   street                CHAR(50)      NULL,
   house_nro             CHAR(4)       NULL,
   post_code             CHAR(4)       NULL,
-  blocked               BOOLEAN       NULL DEFAULT FALSE);
+  blocked               BOOLEAN       NULL DEFAULT FALSE,
+  nro_travels           INTEGER       NULL DEFAULT 0);
 
 CREATE TABLE IF NOT EXISTS PAYED_COMMISSIONS (
   id           INTEGER       NULL  PRIMARY KEY AUTOINCREMENT,

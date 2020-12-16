@@ -30,6 +30,9 @@ Driver::Driver(QObject *parent)
   mail = static_cast<StringDecorator*>(addDataItem(
       new StringDecorator(this, "mail", "E-Mail")) );
 
+  nro_tra = static_cast<StringDecorator*>(addDataItem(
+      new StringDecorator(this, "nro_tra", "Nro de Viajes Realizados")) );
+
   err = static_cast<StringDecorator*>(addDataItem(
       new StringDecorator(this, "err", "")) );
 

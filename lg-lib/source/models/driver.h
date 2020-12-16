@@ -28,6 +28,8 @@ class LGLIBSHARED_EXPORT Driver : public data::Entity
   Q_PROPERTY(lg::data::StringDecorator* ui_cellphone MEMBER cellphone CONSTANT)
   Q_PROPERTY(lg::data::StringDecorator* ui_mail      MEMBER mail      CONSTANT)
 
+  Q_PROPERTY(lg::data::StringDecorator* ui_nro_tra   MEMBER nro_tra   CONSTANT)
+
   Q_PROPERTY(lg::data::StringDecorator* ui_err      MEMBER err      CONSTANT)
 
   Q_PROPERTY(lg::models::Address* ui_driverAddress MEMBER address CONSTANT)
@@ -45,6 +47,7 @@ public:
   data::StringDecorator *phone{nullptr};
   data::StringDecorator *cellphone{nullptr};
   data::StringDecorator *mail{nullptr};
+  data::StringDecorator *nro_tra{nullptr};
   data::StringDecorator *err{nullptr};
 
   Address *address{nullptr};
