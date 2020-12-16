@@ -26,15 +26,16 @@ private:
   bool exec(QJsonArray &returnValue
            ,const QString &searchText
            ,const controllers::DatabaseController &db)
-  {
-    if ( searchText.isEmpty() ) return false;
-
+ {
     QString sqlStm =
       "SELECT id, name, phone, lic_nro, lic_caducity_date "
       " ,cellphone, mail, street "
       " ,house_nro, post_code, id_state, nro_travels "
-      "  FROM drivers "
-      " WHERE LOWER(name) LIKE :searchText" ;
+      "  FROM drivers ";
+
+    if ( not searchText.isEmpty() ) {
+      sqlStm.append(" WHERE LOWER(name) LIKE :searchText ");
+    }
 
     std::map<QString, QVariant> binds;
     binds.insert(std::pair<QString, QVariant>(

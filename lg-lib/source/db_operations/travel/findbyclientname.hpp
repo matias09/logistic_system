@@ -27,8 +27,6 @@ private:
            ,const QString &searchText
            ,const controllers::DatabaseController &db)
   {
-    if ( searchText.isEmpty() ) return false;
-
     QString sqlStm =
          " SELECT t.id, t.id_client, t.sta_date "
          "    ,d.id ,d.id_driver, d.id_vehicle, d.arrival_date "
@@ -40,8 +38,11 @@ private:
          "  INNER JOIN clients c               ON (t.id_client = c.id) "
          "  INNER JOIN states s                ON (d.id_state = s.id) "
          "  INNER JOIN drivers dr              ON (dr.id = d.id_driver) "
-         "  INNER JOIN vehicles v              ON (v.id = d.id_vehicle) "
-         " WHERE LOWER(c.name) LIKE :searchText" ;
+         "  INNER JOIN vehicles v              ON (v.id = d.id_vehicle) ";
+
+    if ( not searchText.isEmpty() ) {
+       sqlStm.append(" WHERE LOWER(c.name) LIKE :searchText ") ;
+    }
 
     std::map<QString, QVariant> binds;
     binds.insert(std::pair<QString, QVariant>(
