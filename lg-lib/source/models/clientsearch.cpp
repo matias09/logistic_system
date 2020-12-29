@@ -1,8 +1,6 @@
 #include "clientsearch.h"
 #include "db_operations/client/findbyname.hpp"
 
-#include <iostream>
-
 using namespace lg::controllers;
 using namespace lg::data;
 
@@ -57,10 +55,6 @@ QQmlListProperty<Client> ClientSearch::ui_searchResults()
 
 void ClientSearch::search()
 {
-  std::cout << "Search for "
-            <<  implementation->searchText->value().toStdString()
-            << "..." << std::endl;
-
   QJsonArray resultsArray;
   FindByName::call(resultsArray
                   ,implementation->searchText->value()
@@ -69,10 +63,6 @@ void ClientSearch::search()
   implementation->searchResults->update( resultsArray );
 
   emit searchResultsChanged();
-
-  std::cout << "Found  "
-            <<  implementation->searchResults->baseEntities().size()
-            << " matches." << std::endl;
 }
 
 } // models

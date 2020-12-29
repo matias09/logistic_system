@@ -9,29 +9,29 @@ Driver::Driver(QObject *parent)
   : Entity(parent, "drivers")
 {
   reference = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "reference", "Referencia del Chofer")) );
+      new StringDecorator(this, "reference", "Driver ID")) );
 
   name = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "name", "Nombre")) );
+      new StringDecorator(this, "name", "Name")) );
 
   lic_nro = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "lic_nro", "Nro de Licencia")) );
+      new StringDecorator(this, "lic_nro", "License Number")) );
 
   lic_cad = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "lic_cad", "Fecha de Cad. de Licencia")) );
+      new StringDecorator(this, "lic_cad", "Caducity License Date")) );
 
   phone = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "phone", "Telefono")) );
+      new StringDecorator(this, "phone", "Phone")) );
 
 
   cellphone = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "cellphone", "Celular")) );
+      new StringDecorator(this, "cellphone", "Cellphone")) );
 
   mail = static_cast<StringDecorator*>(addDataItem(
       new StringDecorator(this, "mail", "E-Mail")) );
 
   nro_tra = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "nro_tra", "Nro de Viajes Realizados")) );
+      new StringDecorator(this, "nro_tra", "Number of Travel Realized")) );
 
   err = static_cast<StringDecorator*>(addDataItem(
       new StringDecorator(this, "err", "")) );

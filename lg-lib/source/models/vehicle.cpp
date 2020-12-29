@@ -9,40 +9,40 @@ Vehicle::Vehicle(QObject *parent)
   : Entity(parent, "vehicles")
 {
   reference = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "reference", "Referencia del Vehiculo") ));
+      new StringDecorator(this, "reference", "Vehicle ID") ));
 
   id_type = static_cast<IntDecorator*>(addDataItem(
-      new IntDecorator(this, "id_type", "Tipo de Vehiculo") ));
+      new IntDecorator(this, "id_type", "Type") ));
 
   id_brand = static_cast<IntDecorator*>(addDataItem(
-      new IntDecorator(this, "id_brand", "Marca") ));
+      new IntDecorator(this, "id_brand", "Brand") ));
 
   id_model = static_cast<IntDecorator*>(addDataItem(
-      new IntDecorator(this, "id_model", "Modelo") ));
+      new IntDecorator(this, "id_model", "Model") ));
 
   max_w = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "max_w", "Max Capacidad de Carga Kg") ));
+      new StringDecorator(this, "max_w", "Max Weight Capacity Kg") ));
 
   vin = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "vin", "Matricula") ));
+      new StringDecorator(this, "vin", "VIN") ));
 
   vin_cad = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "vin_cad", "Caducidad de la Matricula") ));
+      new StringDecorator(this, "vin_cad", "VIN Caducity") ));
 
   year = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "year", "Año") ));
+      new StringDecorator(this, "year", "Year") ));
 
   type  = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "type", "Tipo") ));
+      new StringDecorator(this, "type", "Type") ));
 
   brand = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "brand", "Marca") ));
+      new StringDecorator(this, "brand", "Brand") ));
 
   model = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "model", "Modelo") ));
+      new StringDecorator(this, "model", "Model") ));
 
   name = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "name", "Nombre") ));
+      new StringDecorator(this, "name", "Name") ));
 
   err = static_cast<StringDecorator*>(addDataItem(
       new StringDecorator(this, "err", "") ));

@@ -9,23 +9,23 @@ Address::Address(QObject *parent)
   : Entity (parent, "address")
 {
   id_state = static_cast<IntDecorator*>(addDataItem(
-      new IntDecorator(this, "id_state", "Provincia")
+      new IntDecorator(this, "id_state", "State")
   ) );
 
   state  = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "state", "Provincia")
+      new StringDecorator(this, "state", "State")
   ) );
 
   street  = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "street", "Calle")
+      new StringDecorator(this, "street", "Street")
   ) );
 
   house_nro = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "house_nro", "Numeracion")
+      new StringDecorator(this, "house_nro", "House Number")
   ) );
 
   postcode = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "postcode", "Codigo Postal")
+      new StringDecorator(this, "postcode", "Postal Code")
   ) );
 }
 Address::Address(QObject *parent, const QJsonObject &json)

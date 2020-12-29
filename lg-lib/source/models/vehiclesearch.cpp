@@ -1,8 +1,6 @@
 #include "vehiclesearch.h"
 #include "db_operations/vehicle/findbybrand.hpp"
 
-#include <iostream>
-
 using namespace lg::controllers;
 using namespace lg::data;
 
@@ -57,10 +55,6 @@ QQmlListProperty<Vehicle> VehicleSearch::ui_searchResults()
 
 void VehicleSearch::search()
 {
-  std::cout << "Search for "
-            <<  implementation->searchText->value().toStdString()
-            << "..." << std::endl;
-
   QJsonArray resultsArray;
   FindByBrand::call(resultsArray
                   ,implementation->searchText->value()
@@ -69,10 +63,6 @@ void VehicleSearch::search()
   implementation->searchResults->update( resultsArray );
 
   emit searchResultsChanged();
-
-  std::cout << "Found  "
-            <<  implementation->searchResults->baseEntities().size()
-            << " matches." << std::endl;
 }
 
 } // models

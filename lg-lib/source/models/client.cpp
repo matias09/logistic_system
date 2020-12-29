@@ -9,17 +9,17 @@ Client::Client(QObject *parent)
   : Entity(parent, "clients")
 {
   reference = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "reference", "Referencia del Cliente")
+      new StringDecorator(this, "reference", "Client ID")
   ) );
 
   name = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "name", "Nombre")) );
+      new StringDecorator(this, "name", "Name")) );
 
   phone = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "phone", "Telefono")) );
+      new StringDecorator(this, "phone", "Phone")) );
 
   cellphone = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "cellphone", "Celular")) );
+      new StringDecorator(this, "cellphone", "Cellphone")) );
 
   mail = static_cast<StringDecorator*>(addDataItem(
       new StringDecorator(this, "mail", "E-Mail")) );

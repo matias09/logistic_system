@@ -11,25 +11,25 @@ Travel::Travel(QObject *parent)
   : Entity(parent, "travels")
 {
   reference = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "reference", "Referencia del Viaje") ));
+      new StringDecorator(this, "reference", "Travel ID") ));
 
   canceled = static_cast<IntDecorator*>(addDataItem(
-      new IntDecorator(this, "canceled", "Viaje anulado") ));
+      new IntDecorator(this, "canceled", "Travel Cancelled ?") ));
 
   ended = static_cast<IntDecorator*>(addDataItem(
-      new IntDecorator(this, "ended", "Viaje finalizado ?") ));
+      new IntDecorator(this, "ended", "Travel Ended ?") ));
 
   id_cli = static_cast<IntDecorator*>(addDataItem(
-      new IntDecorator(this, "id_cli", "Cliente") ));
+      new IntDecorator(this, "id_cli", "Client") ));
 
   cli = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "cli", "Cliente") ));
+      new StringDecorator(this, "cli", "Client") ));
 
   sta_date = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "sta_date", "Fecha de Inicio/Salida") ));
+      new StringDecorator(this, "sta_date", "Start Date") ));
 
   fin_date = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "fin_date", "Fecha final de Entrega") ));
+      new StringDecorator(this, "fin_date", "End Date") ));
 
   destiny = static_cast<Destination*>(
       addChild( new Destination(this), "destiny") );

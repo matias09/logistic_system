@@ -1,8 +1,6 @@
 #include "travelsearch.h"
 #include "db_operations/travel/findbyclientname.hpp"
 
-#include <iostream>
-
 using namespace lg::controllers;
 using namespace lg::data;
 
@@ -57,10 +55,6 @@ QQmlListProperty<Travel> TravelSearch::ui_searchResults()
 
 void TravelSearch::search()
 {
-  std::cout << "Search for "
-            <<  implementation->searchText->value().toStdString()
-            << "..." << std::endl;
-
   QJsonArray resultsArray;
   FindByClientName::call(resultsArray
                         ,implementation->searchText->value()
@@ -69,10 +63,6 @@ void TravelSearch::search()
   implementation->searchResults->update( resultsArray );
 
   emit searchResultsChanged();
-
-  std::cout << "Found  "
-            <<  implementation->searchResults->baseEntities().size()
-            << " matches." << std::endl;
 }
 
 } // models

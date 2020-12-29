@@ -11,13 +11,13 @@ Destination::Destination(QObject *parent)
   : Entity(parent, "destinations")
 {
   reference = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "reference", "Referencia del Destino") ));
+      new StringDecorator(this, "reference", "Destination ID") ));
 
   id_dri = static_cast<IntDecorator*>(addDataItem(
-      new IntDecorator(this, "id_dri", "Chofer") ));
+      new IntDecorator(this, "id_dri", "Driver") ));
 
   id_veh = static_cast<IntDecorator*>(addDataItem(
-      new IntDecorator(this, "id_veh", "Vehiculo") ));
+      new IntDecorator(this, "id_veh", "Vehicle") ));
 
   id_dri_o = static_cast<IntDecorator*>(addDataItem(
       new IntDecorator(this, "id_dri_o", "") ));
@@ -26,13 +26,13 @@ Destination::Destination(QObject *parent)
       new IntDecorator(this, "id_veh_o", "") ));
 
   dri = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "dri", "Chofer") ));
+      new StringDecorator(this, "dri", "Driver") ));
 
   veh = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "veh", "Vehiculo") ));
+      new StringDecorator(this, "veh", "Vehicle") ));
 
   arr_date = static_cast<StringDecorator*>(addDataItem(
-      new StringDecorator(this, "arr_date", "Fecha de Entrega") ));
+      new StringDecorator(this, "arr_date", "Deliver Date") ));
 
   address = static_cast<Address*>( addChild(new Address(this), "address") );
 
