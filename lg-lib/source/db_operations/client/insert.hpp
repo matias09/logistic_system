@@ -8,8 +8,6 @@
 
 #include <lg-lib_global.h>
 
-#include <iostream>
-
 namespace lg {
 namespace controllers {
 
@@ -32,11 +30,6 @@ private:
      "  VALUES "
      " (:id_state, :name, :phone, :cellphone, :mail "
      " ,:street, :house_nro, :post_code )";
-
-
-    std::cout << "state id: "
-              << jo["address"]["id_state"].toInt()
-              << std::endl;
 
     std::map<QString, QVariant> binds;
     binds.insert(Burden(":name",      QVariant(jo["name"])) );

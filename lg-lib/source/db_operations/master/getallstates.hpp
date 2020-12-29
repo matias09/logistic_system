@@ -10,8 +10,6 @@
 
 #include <lg-lib_global.h>
 
-#include <iostream>
-
 namespace lg {
 namespace controllers {
 

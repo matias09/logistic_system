@@ -29,15 +29,15 @@ private:
     const unsigned int id = qsid.toInt();
 
     if ( checkForActiveTravels(id) ) {
-      err.append("El cliente no puede ser eliminado, "
-                  "actualmente tiene viajes en proceso.");
+      err.append("The Client can't be erased, because "
+                  "currently has Travels in progress.");
       return false;
     }
 
     QSqlDatabase::database().transaction();
 
     if ( not deleteById(id) ) {
-      err.append("El cliente no ha podido ser borrado");
+      err.append("The Client couldn't be erased.");
 
       QSqlDatabase::database().rollback();
       return false;

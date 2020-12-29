@@ -8,8 +8,6 @@
 
 #include <lg-lib_global.h>
 
-#include <iostream>
-
 namespace lg {
 namespace controllers {
 
@@ -30,7 +28,7 @@ private:
     QSqlDatabase::database().transaction();
 
     if ( not updateDestinations() || not updateTravel() ) {
-      err_.append("Los datos cargados no son validos");
+      err_.append("The values loaded aren't valid.");
 
       QSqlDatabase::database().rollback();
       return false;
@@ -163,7 +161,7 @@ private:
     binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_dri"].toInt())) );
 
     if ( db_.update(sqlStm, binds) == false ) {
-      err_.append("El Conductor seleccionado No Existe");
+      err_.append("The selected Driver, doesn't exists.");
       return false;
     }
 
@@ -178,7 +176,7 @@ private:
     binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_veh"].toInt())) );
 
     if ( db_.update(sqlStm, binds) == 0) {
-      err_.append("El Vehiculo seleccionado No Existe");
+      err_.append("The selected Vehicle, doesn't exists.");
       return false;
     }
 

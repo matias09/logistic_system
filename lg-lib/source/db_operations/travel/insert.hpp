@@ -8,8 +8,6 @@
 
 #include <lg-lib_global.h>
 
-#include <iostream>
-
 namespace lg {
 namespace controllers {
 
@@ -36,7 +34,7 @@ private:
       || not insertDestinations()
       || not insertDestinationsAssociation()
     ) {
-      err_.append("Los valores cargados no son validos");
+      err_.append("The values loaded aren't valid.");
 
       QSqlDatabase::database().rollback();
       return false;
@@ -79,8 +77,8 @@ private:
     QSqlQuery&& query = db_.search(sqlStm, binds);
 
     if ( query.next() ) {
-      err_.append("El cliente no puede tener dos viajes al mismo destino "
-                  "en el mismo rango de fechas");
+      err_.append("The Client can't have two Travels to the same Destination "
+                  "at the same Dates range.");
       return true;
     }
 
@@ -159,7 +157,7 @@ private:
     binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_dri"].toInt())) );
 
     if ( not  db_.update(sqlStm, binds) ) {
-      err_.append("El Conductor seleccionado No Existe");
+      err_.append("The selected Driver, doesn't exists.");
       return false;
     }
 
@@ -174,7 +172,7 @@ private:
     binds.insert(Burden(":id", QVariant(jo_["destiny"]["id_veh"].toInt())) );
 
     if ( not  db_.update(sqlStm, binds) ) {
-      err_.append("El Vehiculo seleccionado No Existe");
+      err_.append("The selected Vehicle, doesn't exists.");
       return false;
     }
 

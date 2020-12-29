@@ -6,8 +6,6 @@
 
 #include <lg-lib_global.h>
 
-#include <iostream>
-
 namespace lg {
 namespace controllers {
 
@@ -29,15 +27,15 @@ private:
     const unsigned int id = qsid.toInt();
 
     if ( checkIfIsBlocked(id) ) {
-      err.append("El chofer no puede ser eliminado, "
-                  "actualmente tiene viajes en proceso.");
+      err.append("The Driver can't be erased, because "
+                  "currently has Travels in progress.");
       return false;
     }
 
     QSqlDatabase::database().transaction();
 
     if ( not deleteById(id) ) {
-      err.append("El chofer no ha podido ser borrado");
+      err.append("The Driver couldn't be erased.");
 
       QSqlDatabase::database().rollback();
       return false;
