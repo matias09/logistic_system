@@ -6,8 +6,6 @@
 #include <QList>
 #include <QDateTime>
 
-#include <iostream>
-
 using namespace lg::framework;
 
 namespace lg {
@@ -29,7 +27,7 @@ public:
     , driverSearch(_driverSearch)
   {
      Command *createDriverFillCommand = new Command(
-       driCommandController, QChar( 0xf234 ), "Nuevo"
+       driCommandController, QChar( 0xf234 ), "New"
      );
      QObject::connect(
        createDriverFillCommand, &Command::executed,
@@ -37,7 +35,7 @@ public:
      );
 
      Command *createDriverSaveCommand = new Command(
-       driCommandController, QChar(  0xf0c7 ), "Guardar"
+       driCommandController, QChar(  0xf0c7 ), "Save"
      );
      QObject::connect(
        createDriverSaveCommand, &Command::executed,
@@ -46,7 +44,7 @@ public:
      createDriverVIewContextCommands.append( createDriverSaveCommand );
 
      Command *findDriverSearchCommand = new Command(
-      driCommandController, QChar(  0xf002 ), "Buscar"
+      driCommandController, QChar(  0xf002 ), "Search"
      );
      QObject::connect(
        findDriverSearchCommand, &Command::executed,
@@ -57,7 +55,7 @@ public:
 
 
      Command *editDriverSaveCommand = new Command(
-      driCommandController, QChar(  0xf0c7 ), "Editar"
+      driCommandController, QChar(  0xf0c7 ), "Edit"
      );
      QObject::connect(
        editDriverSaveCommand, &Command::executed,
@@ -67,32 +65,13 @@ public:
 
 
      Command *editDriverDeleteCommand = new Command(
-      driCommandController, QChar(  0xf235 ), "Borrar"
+      driCommandController, QChar(  0xf235 ), "Delete"
      );
      QObject::connect(
        editDriverDeleteCommand, &Command::executed,
        driCommandController, &DriCommandController::onEditDriverDeleteExecuted
      );
      editDriverViewContextCommands.append( editDriverDeleteCommand );
-  }
-
-  bool validateBusinessRules(QString &err, models::Driver &d) const
-  {
-    // TODO: [Revise] We thing this is not necessary, because the entity
-    //                should by modifiable without a date higher that today.
-    return true;
-
-    if (QDateTime::currentDateTime().toSecsSinceEpoch() + 1
-        >
-        QDateTime::fromString(d.lic_cad->value()
-                            , Qt::ISODate).toSecsSinceEpoch() 
-  ) {
-      err.append("La Fecha de la Licencia del Conductor debe ser mayor "
-                 "a la fecha actual.");
-      return false;
-    }
-
-    return true;
   }
 
   DriCommandController *driCommandController{nullptr};
@@ -141,31 +120,15 @@ DriCommandController::ui_createDriverViewContextCommands()
 
 void DriCommandController::onCreateDriverFillExecuted()
 {
-  std::cout << "You executed the Create New Driver Command!" << std::endl;
   implementation->navigationController->goCreateDriverView();
 }
 
 void DriCommandController::onCreateDriverSaveExecuted()
 {
-  std::cout << "You executed the Save Command!" << std::endl;
-
-  QString err = "";
-  bool r = implementation->validateBusinessRules(err
-                                                ,*(implementation->newDriver));
-  if (not r) {
-    std::cout << "Error Saving Driver: \n \t"
-              << "Desc: " << err.toStdString()
-              << std::endl;
-    implementation->newDriver->err->setValue(err);
-    return;
-  }
-
-  r = Insert::call(implementation->newDriver->toJson()
+  bool r = Insert::call(implementation->newDriver->toJson()
                      ,*(implementation->databaseController) );
 
   if (r) {
-    std::cout << "New Driver Saved!" << std::endl;
-
     implementation->driverSearch->searchText()
                   ->setValue( implementation->newDriver->name->value() );
     implementation->driverSearch->search();
@@ -185,7 +148,6 @@ DriCommandController::ui_findDriverViewContextCommands()
 
 void DriCommandController::onFindDriverViewContextCommands()
 {
-  std::cout << "You executed the Search Command!" << std::endl;
   implementation->driverSearch->search();
 }
 
@@ -200,35 +162,17 @@ DriCommandController::ui_editDriverViewContextCommands()
 
 void DriCommandController::onEditDriverSaveExecuted()
 {
-  std::cout << "You executed the Edit Command!" << std::endl;
-
-  QString err = "";
-  bool r = implementation->validateBusinessRules(err
-                                            ,*(implementation->selectedDriver));
-  if (not r) {
-    std::cout << "Error Saving Driver: \n \t"
-              << "Desc: " << err.toStdString()
-              << std::endl;
-    implementation->selectedDriver->err->setValue(err);
-    return;
-  }
-
-  r = UpdateById::call( implementation->selectedDriver->toJson()
+  bool r = UpdateById::call( implementation->selectedDriver->toJson()
                           ,  implementation->selectedDriver->id()
                           ,*(implementation->databaseController) );
 
   if ( r ) {
-    std::cout << "Driver Updated"     << std::endl;
-
     implementation->selectedDriver->reset();
 
     implementation->driverSearch->search();
     implementation->navigationController->goFindDriverView();
-  } else {
-    std::cout << "Driver NOT Updated" << std::endl;
   }
 }
-
 
 QQmlListProperty<Command>
 DriCommandController::ui_deleteDriverViewContextCommands()
@@ -240,21 +184,16 @@ DriCommandController::ui_deleteDriverViewContextCommands()
 
 void DriCommandController::onEditDriverDeleteExecuted()
 {
-  std::cout << "You executed the Delete Command!" << std::endl;
-
   QString err = "";
   bool r = DeleteById::call( err
                           ,  implementation->selectedDriver->id()
                           ,*(implementation->databaseController) );
   if ( r ) {
-    std::cout << "Driver deleted" << std::endl;
-
     implementation->selectedDriver = nullptr;
 
     implementation->driverSearch->search();
     implementation->navigationController->goDashboardView();
   } else {
-    std::cout << "Driver NOT Erased" << std::endl;
     implementation->selectedDriver->err->setValue(err);
   }
 }

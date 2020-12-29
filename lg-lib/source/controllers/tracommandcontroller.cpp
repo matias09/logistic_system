@@ -11,8 +11,6 @@
 #include <QList>
 #include <QDateTime>
 
-#include <iostream>
-
 using namespace lg::framework;
 
 namespace lg {
@@ -34,7 +32,7 @@ public:
     , travelSearch(_travelSearch)
   {
      Command *createTravelFillCommand = new Command(
-       traCommandController, QChar( 0xf234 ), "Nuevo"
+       traCommandController, QChar( 0xf234 ), "New"
      );
      QObject::connect(
        createTravelFillCommand, &Command::executed,
@@ -42,7 +40,7 @@ public:
      );
 
      Command *createTravelSaveCommand = new Command(
-       traCommandController, QChar(  0xf0c7 ), "Guardar"
+       traCommandController, QChar(  0xf0c7 ), "Save"
      );
      QObject::connect(
        createTravelSaveCommand, &Command::executed,
@@ -51,7 +49,7 @@ public:
      createTravelVIewContextCommands.append( createTravelSaveCommand );
 
      Command *findTravelSearchCommand = new Command(
-      traCommandController, QChar(  0xf002 ), "Buscar"
+      traCommandController, QChar(  0xf002 ), "Search"
      );
      QObject::connect(
        findTravelSearchCommand, &Command::executed,
@@ -62,7 +60,7 @@ public:
 
 
      Command *editTravelSaveCommand = new Command(
-      traCommandController, QChar(  0xf0c7 ), "Editar"
+      traCommandController, QChar(  0xf0c7 ), "Edit"
      );
      QObject::connect(
        editTravelSaveCommand, &Command::executed,
@@ -72,7 +70,7 @@ public:
 
 
      Command *editTravelDeleteCommand = new Command(
-      traCommandController, QChar(  0xf235 ), "Anular"
+      traCommandController, QChar(  0xf235 ), "Abort"
      );
      QObject::connect(
        editTravelDeleteCommand, &Command::executed,
@@ -110,17 +108,17 @@ public:
   bool validateBusinessRules(QString &err, models::Travel &t) const
   {
     if (t.id_cli->value() == 0) {
-      err.append("El Cliente no puede ser vacio");
+      err.append("The Client can't be empty");
       return false;
     }
 
     if (t.destiny->id_dri->value() == 0) {
-      err.append("El Conductor no puede ser vacio");
+      err.append("The Driver can't be empty");
       return false;
     }
 
     if (t.destiny->id_veh->value() == 0) {
-      err.append("El Vehiculo no puede ser vacio");
+      err.append("The Vehicle can't be empty");
       return false;
     }
 
@@ -130,7 +128,7 @@ public:
         QDateTime::fromString(t.destiny->arr_date->value()
                             , Qt::ISODate).toSecsSinceEpoch()
    ) {
-      err.append("La Fecha de inicio debe ser anterior a la fecha de llegada");
+      err.append("The start Date must be lower than the arrival Date");
       return false;
     }
 
@@ -141,8 +139,8 @@ public:
           QDateTime::fromString(t.fin_date->value()
                               , Qt::ISODate).toSecsSinceEpoch()
      ) {
-        err.append("La Fecha del ultimo destino debe ser igual o anterior "
-                   "a la fecha de finalizacion del viaje");
+        err.append("The last arrival Date must be equal or lower "
+                   "than the end Date.");
         return false;
       }
     }
@@ -201,23 +199,15 @@ TraCommandController::ui_createTravelViewContextCommands()
 
 void TraCommandController::onCreateTravelFillExecuted()
 {
-  std::cout << "You executed the Create New Travel Command!" << std::endl;
-
-
   implementation->navigationController->goCreateTravelView();
 }
 
 void TraCommandController::onCreateTravelSaveExecuted()
 {
-  std::cout << "You executed the Save Command!" << std::endl;
-
   QString err = "";
   bool r = implementation->validateBusinessRules(err
                                                 ,*(implementation->newTravel));
   if (not r) {
-    std::cout << "Error Saving Travel: \n \t"
-              << "Desc: " << err.toStdString()
-              << std::endl;
     implementation->newTravel->destiny->err->setValue(err);
     return;
   }
@@ -227,12 +217,6 @@ void TraCommandController::onCreateTravelSaveExecuted()
                  ,*(implementation->databaseController) );
 
   if (r) {
-    std::cout << "New Travel Saved!" << std::endl;
-
-    std::cout << "Value to search : "
-              << implementation->newTravel->cli->value().toStdString()
-              << std::endl;
-
     implementation->travelSearch->searchText()
                   ->setValue( implementation->newTravel->cli->value() );
 
@@ -241,9 +225,6 @@ void TraCommandController::onCreateTravelSaveExecuted()
     implementation->travelSearch->search();
     implementation->navigationController->goFindTravelView();
   } else {
-    std::cout << "Error Saving Travel: \n \t"
-              << "Desc: " << err.toStdString()
-              << std::endl;
     implementation->newTravel->destiny->err->setValue(err);
   }
 }
@@ -277,7 +258,6 @@ TraCommandController::ui_findTravelViewContextCommands()
 
 void TraCommandController::onFindTravelViewContextCommands()
 {
-  std::cout << "You executed the Search Command!" << std::endl;
   implementation->travelSearch->search();
 }
 
@@ -297,15 +277,10 @@ TraCommandController::ui_editTravelViewContextCommands()
 
 void TraCommandController::onEditTravelSaveExecuted()
 {
-  std::cout << "You executed the Edit Command!" << std::endl;
-
   QString err = "";
   bool r = implementation->validateBusinessRules(err
                                           ,*(implementation->selectedTravel));
   if (not r) {
-    std::cout << "Error Saving Travel: \n \t"
-              << "Desc: " << err.toStdString()
-              << std::endl;
     implementation->selectedTravel->destiny->err->setValue(err);
     return;
   }
@@ -315,7 +290,6 @@ void TraCommandController::onEditTravelSaveExecuted()
                       ,*(implementation->databaseController) );
 
   if ( r ) {
-    std::cout << "Travel Updated"     << std::endl;
     implementation->travelSearch->searchText()
                   ->setValue( implementation->selectedTravel->cli->value() );
 
@@ -324,9 +298,6 @@ void TraCommandController::onEditTravelSaveExecuted()
     implementation->travelSearch->search();
     implementation->navigationController->goFindTravelView();
   } else {
-    std::cout << "Error Updating Travel: \n \t"
-              << "Desc: " << err.toStdString()
-              << std::endl;
     implementation->selectedTravel->destiny->err->setValue(err);
   }
 }
@@ -342,15 +313,11 @@ TraCommandController::ui_deleteTravelViewContextCommands()
 
 void TraCommandController::onEditTravelDeleteExecuted()
 {
-  std::cout << "You executed the Delete Command!" << std::endl;
-
   DeleteById::call(  implementation->selectedTravel->toJson()
                    , implementation->selectedTravel->id()
                    ,*(implementation->databaseController) );
 
   implementation->selectedTravel = nullptr;
-
-  std::cout << "Travel deleted" << std::endl;
 
   implementation->travelSearch->search();
   implementation->navigationController->goDashboardView();

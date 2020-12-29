@@ -5,8 +5,6 @@
 
 #include <QList>
 
-#include <iostream>
-
 using namespace lg::framework;
 
 namespace lg {
@@ -28,7 +26,7 @@ public:
     , clientSearch(_clientSearch)
   {
      Command *createClientFillCommand = new Command(
-       cliCommandController, QChar( 0xf234 ), "Nuevo"
+       cliCommandController, QChar( 0xf234 ), "New"
      );
      QObject::connect(
        createClientFillCommand, &Command::executed,
@@ -36,7 +34,7 @@ public:
      );
 
      Command *createClientSaveCommand = new Command(
-       cliCommandController, QChar(  0xf0c7 ), "Guardar"
+       cliCommandController, QChar(  0xf0c7 ), "Save"
      );
      QObject::connect(
        createClientSaveCommand, &Command::executed,
@@ -45,7 +43,7 @@ public:
      createClientVIewContextCommands.append( createClientSaveCommand );
 
      Command *findClientSearchCommand = new Command(
-      cliCommandController, QChar(  0xf002 ), "Buscar"
+      cliCommandController, QChar(  0xf002 ), "Search"
      );
      QObject::connect(
        findClientSearchCommand, &Command::executed,
@@ -56,7 +54,7 @@ public:
 
 
      Command *editClientSaveCommand = new Command(
-      cliCommandController, QChar(  0xf0c7 ), "Editar"
+      cliCommandController, QChar(  0xf0c7 ), "Edit"
      );
      QObject::connect(
        editClientSaveCommand, &Command::executed,
@@ -66,7 +64,7 @@ public:
 
 
      Command *editClientDeleteCommand = new Command(
-      cliCommandController, QChar(  0xf235 ), "Borrar"
+      cliCommandController, QChar(  0xf235 ), "Delete"
      );
      QObject::connect(
        editClientDeleteCommand, &Command::executed,
@@ -121,20 +119,15 @@ CliCommandController::ui_createClientViewContextCommands()
 
 void CliCommandController::onCreateClientFillExecuted()
 {
-  std::cout << "You executed the Create New Client Command!" << std::endl;
   implementation->navigationController->goCreateClientView();
 }
 
 void CliCommandController::onCreateClientSaveExecuted()
 {
-  std::cout << "You executed the Save Command!" << std::endl;
-
   bool r = Insert::call(implementation->newClient->toJson()
                      ,*(implementation->databaseController) );
 
   if (r) {
-    std::cout << "New Client Saved!" << std::endl;
-
     implementation->clientSearch->searchText()
                   ->setValue( implementation->newClient->name->value() );
     implementation->clientSearch->search();
@@ -154,7 +147,6 @@ CliCommandController::ui_findClientViewContextCommands()
 
 void CliCommandController::onFindClientViewContextCommands()
 {
-  std::cout << "You executed the Search Command!" << std::endl;
   implementation->clientSearch->search();
 }
 
@@ -169,14 +161,11 @@ CliCommandController::ui_editClientViewContextCommands()
 
 void CliCommandController::onEditClientSaveExecuted()
 {
-  std::cout << "You executed the Edit Command!" << std::endl;
-
   bool r = UpdateById::call( implementation->selectedClient->toJson()
                           ,  implementation->selectedClient->id()
                           ,*(implementation->databaseController) );
 
   if ( r ) {
-    std::cout << "Client Updated"     << std::endl;
     implementation->clientSearch->searchText()
                   ->setValue( implementation->selectedClient->name->value() );
 
@@ -184,11 +173,8 @@ void CliCommandController::onEditClientSaveExecuted()
 
     implementation->clientSearch->search();
     implementation->navigationController->goFindClientView();
-  } else {
-    std::cout << "Client NOT Updated" << std::endl;
-  }
+  } 
 }
-
 
 QQmlListProperty<Command>
 CliCommandController::ui_deleteClientViewContextCommands()
@@ -200,21 +186,16 @@ CliCommandController::ui_deleteClientViewContextCommands()
 
 void CliCommandController::onEditClientDeleteExecuted()
 {
-  std::cout << "You executed the Delete Command!" << std::endl;
-
   QString err = "";
   bool r = DeleteById::call( err
                           ,  implementation->selectedClient->id()
                           ,*(implementation->databaseController) );
   if ( r ) {
-    std::cout << "Client deleted" << std::endl;
-
     implementation->selectedClient = nullptr;
 
     implementation->clientSearch->search();
     implementation->navigationController->goDashboardView();
   } else {
-    std::cout << "Client NOT Erased" << std::endl;
     implementation->selectedClient->err->setValue(err);
   }
 }

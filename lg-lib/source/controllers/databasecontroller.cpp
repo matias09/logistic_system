@@ -8,7 +8,6 @@
 
 #include <QDebug>
 
-// C++
 #include <iostream>
 
 const QString DATABASE_SCHEMA_FILE = "db_schema.sql";

@@ -12,8 +12,6 @@
 #include <QList>
 #include <QDateTime>
 
-#include <iostream>
-
 using namespace lg::framework;
 
 namespace lg {
@@ -35,7 +33,7 @@ public:
     , vehicleSearch(_vehicleSearch)
   {
      Command *createVehicleFillCommand = new Command(
-       vehCommandController, QChar( 0xf234 ), "Nuevo"
+       vehCommandController, QChar( 0xf234 ), "New"
      );
      QObject::connect(
        createVehicleFillCommand, &Command::executed,
@@ -43,7 +41,7 @@ public:
      );
 
      Command *createVehicleSaveCommand = new Command(
-       vehCommandController, QChar(  0xf0c7 ), "Guardar"
+       vehCommandController, QChar(  0xf0c7 ), "Save"
      );
      QObject::connect(
        createVehicleSaveCommand, &Command::executed,
@@ -52,7 +50,7 @@ public:
      createVehicleVIewContextCommands.append( createVehicleSaveCommand );
 
      Command *findVehicleSearchCommand = new Command(
-      vehCommandController, QChar(  0xf002 ), "Buscar"
+      vehCommandController, QChar(  0xf002 ), "Search"
      );
      QObject::connect(
        findVehicleSearchCommand, &Command::executed,
@@ -63,7 +61,7 @@ public:
 
 
      Command *editVehicleSaveCommand = new Command(
-      vehCommandController, QChar(  0xf0c7 ), "Editar"
+      vehCommandController, QChar(  0xf0c7 ), "Edit"
      );
      QObject::connect(
        editVehicleSaveCommand, &Command::executed,
@@ -73,7 +71,7 @@ public:
 
 
      Command *editVehicleDeleteCommand = new Command(
-      vehCommandController, QChar(  0xf235 ), "Borrar"
+      vehCommandController, QChar(  0xf235 ), "Delete"
      );
      QObject::connect(
        editVehicleDeleteCommand, &Command::executed,
@@ -106,25 +104,6 @@ public:
     models = GetOptModelByBrandId::call( idbrand
                                       ,*(vehCommandController)
                                       ,*(databaseController) );
-  }
-
-  bool validateBusinessRules(QString &err, models::Vehicle &v) const
-  {
-    // TODO: [Revise] We thing this is not necessary, because the entity
-    //                should by modifiable without a date higher that today.
-    return true;
-
-    if (QDateTime::currentDateTime().toSecsSinceEpoch() + 1
-        >
-        QDateTime::fromString(v.vin_cad->value()
-                            , Qt::ISODate).toSecsSinceEpoch() )
-    {
-      err.append("La Caducidad de la Matricula debe ser mayor "
-                 "a la fecha actual.");
-      return false;
-    }
-
-    return true;
   }
 
   VehCommandController *vehCommandController{nullptr};
@@ -195,31 +174,15 @@ VehCommandController::ui_createVehicleViewContextCommands()
 
 void VehCommandController::onCreateVehicleFillExecuted()
 {
-  std::cout << "You executed the Create New Vehicle Command!" << std::endl;
   implementation->navigationController->goCreateVehicleView();
 }
 
 void VehCommandController::onCreateVehicleSaveExecuted()
 {
-  std::cout << "You executed the Save Command!" << std::endl;
-
-  QString err = "";
-  bool r = implementation->validateBusinessRules(err
-                                                ,*(implementation->newVehicle));
-  if (not r) {
-    std::cout << "Error Saving Vehicle: \n \t"
-              << "Desc: " << err.toStdString()
-              << std::endl;
-    implementation->newVehicle->err->setValue(err);
-    return;
-  }
-
-  r = Insert::call(implementation->newVehicle->toJson()
+  bool r = Insert::call(implementation->newVehicle->toJson()
                      ,*(implementation->databaseController) );
 
   if (r) {
-    std::cout << "New Vehicle Saved!" << std::endl;
-
     implementation->vehicleSearch->searchText()
                   ->setValue( implementation->newVehicle->name->value() );
     implementation->vehicleSearch->search();
@@ -239,18 +202,14 @@ VehCommandController::ui_findVehicleViewContextCommands()
 
 void VehCommandController::onFindVehicleViewContextCommands()
 {
-  std::cout << "You executed the Search Command!" << std::endl;
   implementation->vehicleSearch->search();
 }
 
 void VehCommandController::onBrandsChanged(const int bid)
 {
-  std::cout << "You executed the Brands Changed!" << std::endl;
-
   implementation->updateModels(bid);
   models();
 }
-
 
 QQmlListProperty<Command>
 VehCommandController::ui_editVehicleViewContextCommands()
@@ -262,35 +221,17 @@ VehCommandController::ui_editVehicleViewContextCommands()
 
 void VehCommandController::onEditVehicleSaveExecuted()
 {
-  std::cout << "You executed the Edit Command!" << std::endl;
-
-  QString err = "";
-  bool r = implementation->validateBusinessRules(err
-                                          ,*(implementation->selectedVehicle));
-  if (not r) {
-    std::cout << "Error Saving Vehicle: \n \t"
-              << "Desc: " << err.toStdString()
-              << std::endl;
-    implementation->selectedVehicle->err->setValue(err);
-    return;
-  }
-
-  r = UpdateById::call( implementation->selectedVehicle->toJson()
+  bool r = UpdateById::call( implementation->selectedVehicle->toJson()
                      ,  implementation->selectedVehicle->id()
                      ,*(implementation->databaseController) );
 
   if ( r ) {
-    std::cout << "Vehicle Updated"     << std::endl;
-
     implementation->selectedVehicle->reset();
 
     implementation->vehicleSearch->search();
     implementation->navigationController->goFindVehicleView();
-  } else {
-    std::cout << "Vehicle NOT Updated" << std::endl;
   }
 }
-
 
 QQmlListProperty<Command>
 VehCommandController::ui_deleteVehicleViewContextCommands()
@@ -302,24 +243,18 @@ VehCommandController::ui_deleteVehicleViewContextCommands()
 
 void VehCommandController::onEditVehicleDeleteExecuted()
 {
-  std::cout << "You executed the Delete Command!" << std::endl;
-
   QString err = "";
   bool r = DeleteById::call( err
                           ,  implementation->selectedVehicle->id()
                           ,*(implementation->databaseController) );
   if ( r ) {
-    std::cout << "Vehicle deleted" << std::endl;
-
     implementation->selectedVehicle = nullptr;
 
     implementation->vehicleSearch->search();
     implementation->navigationController->goDashboardView();
   } else {
-    std::cout << "Vehicle NOT Erased" << std::endl;
     implementation->selectedVehicle->err->setValue(err);
   }
-
 }
 
 // Signals

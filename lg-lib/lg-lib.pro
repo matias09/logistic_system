@@ -30,7 +30,6 @@ SOURCES += \
         source/controllers/databasecontroller.cpp                           \
         source/controllers/mastercontroller.cpp                             \
         source/data/datadecorator.cpp                                       \
-        source/data/datetimedecorator.cpp                                   \
         source/data/entity.cpp                                              \
         source/data/intdecorator.cpp                                        \
         source/data/stringdecorator.cpp                                     \
@@ -78,7 +77,6 @@ HEADERS += \
         source/controllers/tracommandcontroller.h                           \
         source/controllers/databasecontroller.h                             \
         source/data/datadecorator.h                                         \
-        source/data/datetimedecorator.h                                     \
         source/data/entity.h                                                \
         source/data/entitycollection.h                                      \
         source/data/intdecorator.h                                          \
