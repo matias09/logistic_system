@@ -29,7 +29,7 @@ Item {
       ScrollBar.vertical.policy: ScrollBar.AlwaysOn
 
       Panel {
-        headerText: "Detalles del Viaje"
+        headerText: "Travel Details"
         contentComponent:
         Column {
           spacing: Style.sizeControlSpacing
@@ -145,7 +145,7 @@ Item {
                   margins: Style.heightDataControls / 4
                 }
                 text: selectedTravel.ui_destiny.ui_id_dri.ui_label
-                + "   - ( Actual :  "
+                + "   - ( Current :  "
                 + selectedTravel.ui_destiny.ui_dri.ui_value
                 + " )"
                 color: Style.colourDataControlsFont
@@ -214,7 +214,7 @@ Item {
                   margins: Style.heightDataControls / 4
                 }
                 text: selectedTravel.ui_destiny.ui_id_veh.ui_label
-                + "   - ( Actual :  "
+                + "   - ( Current :  "
                 + selectedTravel.ui_destiny.ui_veh.ui_value
                 + " )"
                 color: Style.colourDataControlsFont
@@ -532,7 +532,7 @@ Item {
 
     AddressEditor {
       address: selectedTravel.ui_destiny.ui_address
-      headerText: "Direccion de Destino"
+      headerText: "Destination Address"
       enabled:  ( !selectedTravel.ui_canceled.ui_value
                && !selectedTravel.ui_ended.ui_value ) ? true : false
     }

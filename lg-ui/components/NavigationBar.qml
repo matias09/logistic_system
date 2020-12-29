@@ -29,14 +29,14 @@ Item {
 
       NavigationButton {
         iconCharacter: "\uf015"
-        description: "Inicio"
+        description: "Home"
         hoverColour: "#dc8a00"
         onNavigationButtonClicked: masterController.ui_navigationController.goDashboardView();
       }
 
       NavigationButton {
         iconCharacter: "\uf007"
-        description: "Clientes"
+        description: "Clients"
         hoverColour: "#8aef63"
         onNavigationButtonClicked:
             masterController.ui_navigationController.goFindClientView();
@@ -44,7 +44,7 @@ Item {
 
       NavigationButton {
         iconCharacter: "\uf2bb"
-        description: "Choferes"
+        description: "Drivers"
         hoverColour: "#f55a63"
         onNavigationButtonClicked:
             masterController.ui_navigationController.goFindDriverView();
@@ -52,7 +52,7 @@ Item {
 
       NavigationButton {
         iconCharacter: "\uf1b9"
-        description: "Vehiculos"
+        description: "Vehicles"
         hoverColour: "#77ccaa"
         onNavigationButtonClicked:
             masterController.ui_navigationController.goFindVehicleView();
@@ -60,7 +60,7 @@ Item {
 
       NavigationButton {
         iconCharacter: "\uf48B"
-        description: "Viajes"
+        description: "Travels"
         hoverColour: "#7ac0f8"
         onNavigationButtonClicked:
             masterController.ui_navigationController.goFindTravelView();

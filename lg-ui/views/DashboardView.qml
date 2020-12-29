@@ -4,12 +4,11 @@ import assets 1.0
 Item {
     Rectangle {
       anchors.fill: parent
-      // color: Style.colourBackground
-      color: "#111111"
+      color: Style.colourBackground
       Text {
         id: recText
         color: "#dddddd"
-        text: qsTr("Inicio")
+        text: qsTr("Home")
       }
     }
 }

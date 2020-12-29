@@ -27,7 +27,7 @@ Item {
       ScrollBar.vertical.policy: ScrollBar.AlwaysOn
 
       Panel {
-        headerText: "Detalles del Vehiculo"
+        headerText: "Vehicle Details"
         contentComponent:
         Column {
           spacing: Style.sizeControlSpacing
@@ -93,9 +93,6 @@ Item {
               }
             }
           }
-
-
-
 
           Flow {
             Rectangle {

@@ -25,7 +25,7 @@ Item {
       ScrollBar.vertical.policy: ScrollBar.AlwaysOn
 
       Panel {
-        headerText: "Detalles del Viaje"
+        headerText: "Travel Details"
         contentComponent:
           Column {
             spacing: Style.sizeControlSpacing
@@ -350,7 +350,7 @@ Item {
 
       AddressEditor {
         address: newTravel.ui_destiny.ui_address
-        headerText: "Direccion de Destino"
+        headerText: "Destination Address"
       }
 
       Rectangle {

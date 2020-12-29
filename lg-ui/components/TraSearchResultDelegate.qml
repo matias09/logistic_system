@@ -104,7 +104,7 @@ Item {
 
             rightMargin: Style.heightDataControls / 4
           }
-          text: "Direccion completa: "
+          text: "Full Address : "
                 + travel.ui_destiny.ui_address.ui_fullAddress
           font.pixelSize: Style.pixelSizeDataControls
           color: Style.colourPanelFont

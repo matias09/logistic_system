@@ -24,7 +24,7 @@ Item {
       ScrollBar.vertical.policy: ScrollBar.AlwaysOn
 
       Panel {
-        headerText: "Detalles del Cliente"
+        headerText: "Client Details"
         contentComponent:
         Column {
           spacing: Style.sizeControlSpacing
@@ -67,7 +67,7 @@ Item {
 
     AddressEditor {
       address: newClient.ui_clientAddress
-      headerText: "Datos de Direccion"
+      headerText: "Address Data"
     }
 
   }

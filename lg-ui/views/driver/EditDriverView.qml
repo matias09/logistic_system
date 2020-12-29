@@ -27,7 +27,7 @@ Item {
       ScrollBar.vertical.policy: ScrollBar.AlwaysOn
 
       Panel {
-        headerText: "Detalles del Chofer"
+        headerText: "Driver Details"
         contentComponent:
         Column {
           spacing: Style.sizeControlSpacing
@@ -172,7 +172,7 @@ Item {
 
     AddressEditor {
       address: selectedDriver.ui_driverAddress
-      headerText: "Datos de Direccion"
+      headerText: "Address Data"
     }
 
     Rectangle {

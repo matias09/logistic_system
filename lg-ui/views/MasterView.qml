@@ -1,7 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
-
 import assets 1.0
 import components 1.0
 
@@ -10,7 +9,7 @@ Window {
     visible: true
     width:  1024
     height: 768
-    title: qsTr("Sistema de Logistica")
+    title: qsTr("Qt Toy Project - Logistic System")
 
     Connections {
       target: masterController.ui_navigationController
