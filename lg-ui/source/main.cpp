@@ -11,7 +11,6 @@
 
 #include <framework/command.h>
 
-#include <data/datetimedecorator.h>
 #include <data/intdecorator.h>
 #include <data/stringdecorator.h>
 #include <data/combooption.h>
@@ -42,7 +41,6 @@ int main(int argc, char *argv[])
 
   qmlRegisterType<lg::framework::Command>("LG", 1,  0,  "Command");
 
-  qmlRegisterType<lg::data::DateTimeDecorator>("LG" , 1, 0, "DateTimeDecorator");
   qmlRegisterType<lg::data::IntDecorator>("LG" , 1, 0, "IntDecorator");
   qmlRegisterType<lg::data::StringDecorator>("LG" , 1, 0, "StringDecorator");
   qmlRegisterType<lg::data::ComboOption>("LG", 1, 0, "ComboOption");
